@@ -117,4 +117,44 @@
 - When I'm on any page with a song or an album:
   - I can view “like” symbol that is enabled on a song.
   - I can view “like” symbol that is not enabled on a song.
-  - I can view
+  - I can view the number of likes next to the “like” symbol.
+
+## Unlike a Song
+- As a logged in user, I want to be able to unlike/disable a “like”.
+- When I'm on any page with a song or an album:
+  - I can “unlike” by clicking “like” button associated with the song anywhere that song appears to permanently delete a like I have posted.
+
+# Playlists
+## Create A Playlist
+- As a logged in user, I want to be able to create a playlist.
+- When I'm on the /new-playlist page:
+  - I can create a new playlist.
+  - Playlist need to include the following:
+    - Name
+  - The information that will be provided by the system is:
+    - createdAt
+    - Created by
+    - updatedAt
+  - If the information is invalid, there should be an error message.
+  - If I am not a logged in user:
+    - I should be redirected to the /signup page.
+
+## Viewing Playlists
+- As a logged in or logged out user, I want to be able to view a selection of the most recent playlists.
+- When I'm on the /playlists page:
+  - I can view all the playlists.
+- As a logged in or logged out user, I want to be able to view a specific playlist.
+- When I'm on the /playlists/:id page:
+  - I can view the content of the playlist, as well as the associated Likes.
+
+## Updating Playlist
+- As a logged in user, I want to be able to edit my playlists by clicking an Edit button associated with the playlist anywhere that playlist appears.
+- When I'm on the /playlists/:id, or /users/:id/playlists pages:
+  - I can click "Edit" to make permanent changes to playlists I have posted.
+  - So that I can fix any errors I make in my playlists.
+  - So I can add songs or remove songs.
+
+## Deleting Playlists
+- As a logged in user, I want to be able to delete my playlists by clicking a Delete button associated with the playlist anywhere that playlist appears.
+- When I'm on the /playlists/:id, or /users/:id/playlists pages:
+  - I can click "Delete" to permanently delete a playlist I have posted.
