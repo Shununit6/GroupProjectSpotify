@@ -45,5 +45,76 @@
     - updatedAt
   - If the information is invalid, there should be an error message.
   - If I am not a logged in user:
-    -
+    - I should be redirected to the /signup page.
 
+## Viewing Songs
+- As a logged in or logged out user, I want to be able to view a selection of the most recent songs.
+- When I'm on the /all-songs page:
+  - I can view all the songs.
+- As a logged in or logged out user, I want to be able to view a specific song and its associated Likes.
+- When I'm on the /songs/:id page:
+  - I can view the content of the song, as well as the associated Likes.
+
+## Updating Songs
+- As a logged in user, I want to be able to edit my songs by clicking an Edit button associated with the song anywhere that song appears.
+- When I'm on the /songs, /songs/:id, or /users/:id/songs pages:
+  - I can click "Edit" to make permanent changes to songs I have posted.
+  - So that I can fix any errors I make in my songs.
+  - So I can add songs or edit songs’ name, artist, path_or_url.
+
+## Deleting Songs
+- As a logged in user, I want to be able to delete my songs by clicking a Delete button associated with the song anywhere that song appears.
+- When I'm on the /songs/:id, or /users/:id/songs pages:
+  - I can click "Delete" to permanently delete a song I have posted.
+
+# Albums
+## Create Albums
+- As a logged in user, I want to be able to post new albums.
+- When I'm on the /new-album page:
+  - I can upload an album to the website.
+  - Albums need to include the following:
+    - Album name
+    - Album picture(album_art)
+  - The information that will be provided by the system is:
+    - Created by (access user_name through user_id)
+    - createdAt
+    - updatedAt
+  - If the information is invalid, there should be an error message.
+  - If I am not a logged in user:
+    - I should be redirected to the /signup page.
+
+## Viewing Albums
+- As a logged in or logged out user, I want to be able to view a selection of the most recent albums.
+- When I'm on the /all-albums page:
+  - I can view all the albums created by me and other people.
+- When I'm on the /:users/:id/albums page:
+  - I can view all the albums created by me.
+- As a logged in or logged out user, I want to be able to view a specific album and its associated Likes and songs.
+- When I'm on the /album/:id page:
+  - I can view the content of the album, as well as the associated Likes and songs.
+
+## Updating Album
+- As a logged in user, I want to be able to edit my albums by clicking an Edit button associated with the album anywhere that album appears.
+- When I'm on the /albums, /albums/:id, or /users/:id/albums pages:
+  - I can click "Edit" to make permanent changes to albums I have posted.
+  - So that I can fix any errors I make in my albums.
+  - So I can add songs to the albums.
+  - So I can remove songs from the albums.
+
+## Deleting Album
+- As a logged in user, I want to be able to delete my albums by clicking a Delete button associated with the album anywhere that album appears.
+- When I'm on the /album/:id, or /users/:id/albums pages:
+  - I can click "Delete" to permanently delete an album I have posted.
+
+# Likes
+## Liking a Song
+- As a logged in user, I want to be able to like a song.
+- When I'm on any page with a song or an album:
+  - I can click “like” to like the song.
+
+## Viewing Likes on a Song
+- As a logged in or logged out user, I want to be able to view the number of likes of a song.
+- When I'm on any page with a song or an album:
+  - I can view “like” symbol that is enabled on a song.
+  - I can view “like” symbol that is not enabled on a song.
+  - I can view
