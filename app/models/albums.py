@@ -1,5 +1,6 @@
 from .db import db, environment, SCHEMA
 from datetime import datetime
+from .album_songs import album_songs
 
 
 class Album(db.Model):
@@ -20,3 +21,9 @@ class Album(db.Model):
 
 
     user = db.relationship('User', back_populates='albums')
+
+    songs = db.relationship(
+    "Song",
+    secondary=album_songs,
+    back_populates = 'albums'
+  )

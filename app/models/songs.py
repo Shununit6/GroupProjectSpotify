@@ -1,5 +1,7 @@
 from .db import db, environment, SCHEMA
 from sqlalchemy import func
+from .album_songs import album_songs
+from .playlist_songs import playlist_songs
 
 class Song(db.Model):
   __tablename__ = 'songs'
@@ -23,17 +25,14 @@ class Song(db.Model):
   artist = db.relationship('Artist', back_populates='songs')
   likes = db.relationship('Like', back_populates = 'songs')
 
+  albums = db.relationship(
+    "Album",
+    secondary=album_songs,
+    back_populates = 'songs'
+  )
 
-  # def to_dict(self):
-  #   return {
-  #     'id': self.id,
-  #     'user_id': self.user_id,
-  #     # 'artist_id': self.artist_id,
-  #     'title': self.title,
-  #     'lyrics': self.lyrics,
-  #     'url': self.url,
-  #     'duration': self.duration,
-  #     'likes': self.likes,
-  #     'created_at': self.created_at,
-  #     'updated_at': self.updated_at
-  #   }
+  playlists = db.relationship(
+    "Playlist",
+    secondary=playlist_songs,
+    back_populates = 'songs'
+  )

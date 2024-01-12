@@ -1,5 +1,6 @@
 from .db import db, environment, SCHEMA
 from datetime import datetime
+from .playlist_songs import playlist_songs
 
 class Playlist(db.Model):
     __tablename__ = 'playlists'
@@ -16,3 +17,9 @@ class Playlist(db.Model):
     updated_at = db.Column(db.DateTime, default=datetime.now, onupdate=datetime.now)
 
     user = db.relationship('User', back_populates='playlists')
+
+    songs = db.relationship(
+    "Song",
+    secondary=playlist_songs,
+    back_populates = 'playlists'
+    )
