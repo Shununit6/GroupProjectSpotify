@@ -1,7 +1,7 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
-
+from datetime import datetime
 
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
@@ -10,9 +10,19 @@ class User(db.Model, UserMixin):
         __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
+    firstname = db.Column(db.String(40), nullable=False)
+    lastname = db.Column(db.String(40), nullable=False)
+    url = db.Column(db.String(255), nullable=False, default="https://fontawesome.com/icons/user?f=classic&s=solid")
     username = db.Column(db.String(40), nullable=False, unique=True)
     email = db.Column(db.String(255), nullable=False, unique=True)
     hashed_password = db.Column(db.String(255), nullable=False)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    updated_at = db.Column(db.DateTime, onupdate=datetime.utcnow)
+
+    songs = db.relationship('Song', back_populates = 'user')
+    playlists = db.relationship('Playlist', back_populates='user')
+    likes = db.relationship('Like', back_populates='user')
+    albums = db.relationship('Album', back_populates='user')
 
     @property
     def password(self):
@@ -28,6 +38,11 @@ class User(db.Model, UserMixin):
     def to_dict(self):
         return {
             'id': self.id,
+            'firstname': self.firstname,
+            'lastname': self.lastname,
+            'url': self.url,
             'username': self.username,
-            'email': self.email
+            'email': self.email,
+            'created_at': self.created_at,
+            'updated_at': self.updated_at
         }
