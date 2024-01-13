@@ -16,14 +16,13 @@ class Song(db.Model):
   lyrics = db.Column(db.String(2000), nullable=False)
   url = db.Column(db.String(255), nullable=False)
   duration = db.Column(db.Integer, nullable=False)
-  likes = db.Column(db.Integer, nullable=True)
-  release_date = db.Column(db.Date(),nullable=False)
+  release_date = db.Column(db.String(255),nullable=False)
   created_at = db.Column(db.DateTime, default=func.now())
   updated_at = db.Column(db.DateTime, default=func.now(), onupdate=func.now())
 
   user = db.relationship('User', back_populates='songs')
   artist = db.relationship('Artist', back_populates='songs')
-  likes = db.relationship('Like', back_populates = 'songs')
+  like = db.relationship('Like', back_populates = 'songs')
 
   albums = db.relationship(
     "Album",

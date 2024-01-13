@@ -26,8 +26,6 @@ def upgrade():
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
-    with op.batch_alter_table('songs', schema=None) as batch_op:
-        batch_op.drop_column('likes')
 
     # ### end Alembic commands ###
 
