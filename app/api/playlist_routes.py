@@ -24,8 +24,8 @@ def get_playlists_current_user():
   return render_template('playlists.html', playlists = playlists)
 
 #Add a song to one of the current user's playlists
-@playlist_routes.route('/playlists/<int:playlist_id>/songs', methods = ['POST'])
+@playlist_routes.route('/playlists/<int:song_id>/<int:playlist_id>', methods = ['POST'])
 @login_required
 def add_song_to_playlist();
 
-  playlists = playlists = Playlist.query.filter_by(Playlist.id = playlistId)
+  song = Song.query.get(song_id)
