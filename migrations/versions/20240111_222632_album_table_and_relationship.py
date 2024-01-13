@@ -22,7 +22,7 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=False),
     sa.Column('title', sa.String(length=50), nullable=False),
-    sa.Column('release_date', sa.DateTime(), nullable=False),
+    sa.Column('release_date', sa.String(length=255) , nullable=False),
     sa.Column('url', sa.String(), nullable=True),
     sa.Column('copyright', sa.String(), nullable=True),
     sa.Column('created_at', sa.DateTime(), nullable=True),
