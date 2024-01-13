@@ -5,40 +5,35 @@ from flask_login import login_required, current_user
 from ..models import db, Song, Like
 from flask_migrate import Migrate
 
-app = Flask(__name__)
-app.config.from_object(Config)
-db.init_app(app)
-migrate = Migrate(app, db)
-
-bp = Blueprint("songs", __name__, url_prefix='/api/songs')
+song_routes = Blueprint("songs", __name__)
 
 # Get all Songs - GET /api/songs
-@bp.route("/", methods=["GET"])
+@song_routes.route("/", methods=["GET"])
 def get_all_songs():
     songs = Song.query.all()
     return {'songs': [song.to_dict() for song in songs]}
 
 # Get MY Songs - GET /api/songs/current
-@bp.route("/current", methods=["GET"])
+@song_routes.route("/current", methods=["GET"])
 @login_required
 def get_my_songs():
     songs = Song.query.filter_by(user_id=current_user.id).all()
     return {'songs': [song.to_dict() for song in songs]}
 
 # Get Song Details - GET /api/songs/:songId
-@bp.route("/<int:songId>", methods=["GET"])
+@song_routes.route("/<int:songId>", methods=["GET"])
 def get_song_details(songId):
     song = Song.query.filter_by(id=songId).one()
     return song.to_dict()
 
-# @bp.route("/new", methods=["GET"])
+# @song_routes.route("/new", methods=["GET"])
 # @login_required
 # def get_create_song_form():
 #     form = CreateEditSongForm()
 #     return render_template('create_edit_song_form.html', form=form)
 
 # Create a Song - POST /api/songs
-@bp.route("/new", methods=["POST"])
+@song_routes.route("/new", methods=["POST"])
 @login_required
 def create_song():
     form = CreateEditSongForm()
@@ -48,7 +43,7 @@ def create_song():
                         artist_id=data['artist_id'],
                         title=data['title'],
                         lyrics=data['lyrics'],
-                        url=type=data['url'],
+                        url=data['url'],
                         duration=data['duration'],
                         release_date=data['release_date'])
         db.session.add(new_song)
@@ -58,7 +53,7 @@ def create_song():
         return form.errors
 
 # Edit a Song - PUT /api/songs/:songId
-@bp.route("/<int:songId>", methods=["PUT"])
+@song_routes.route("/<int:songId>", methods=["PUT"])
 @login_required
 def edit_song(songId):
     song = Song.query.filter_by(id=songId).one()
@@ -71,7 +66,7 @@ def edit_song(songId):
                         artist_id=data['artist_id'],
                         title=data['title'],
                         lyrics=data['lyrics'],
-                        url=type=data['url'],
+                        url=data['url'],
                         duration=data['duration'],
                         release_date=data['release_date'])
         db.session.add(new_song)
@@ -81,7 +76,7 @@ def edit_song(songId):
         return form.errors
 
 # Delete a Song - DELETE /api/songs/:songId
-@bp.route("/<int:songId>", methods=["DELETE"])
+@song_routes.route("/<int:songId>", methods=["DELETE"])
 @login_required
 def delete_song(songId):
     song = Song.query.filter_by(id=songId).one()
