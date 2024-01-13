@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, redirect, url_for
 from ..config import Config
 from flask_login import login_required, current_user
-# from ..forms import CreateEditSongForm -- NEED TO CREATE 'create_edit_song_form'
+from ..forms import CreateEditSongForm
 from ..models import db, Song, Like
 from flask_migrate import Migrate
 
