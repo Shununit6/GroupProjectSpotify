@@ -1,4 +1,4 @@
-from .db import db, environment, SCHEMA
+from .db import db, environment, SCHEMA, add_prefix_for_prod
 from sqlalchemy import func
 from .album_songs import album_songs
 from .playlist_songs import playlist_songs
@@ -10,8 +10,8 @@ class Song(db.Model):
     __table_args__ = {'schema': SCHEMA}
 
   id = db.Column(db.Integer, primary_key=True)
-  user_id = db.Column(db.Integer,db.ForeignKey('users.id'),nullable=False )
-  artist_id = db.Column(db.Integer, db.ForeignKey('artists.id'), nullable=False)
+  user_id = db.Column(db.Integer,db.ForeignKey(add_prefix_for_prod('users.id')),nullable=False )
+  artist_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('artists.id')), nullable=False)
   title = db.Column(db.String(255), nullable=False)
   lyrics = db.Column(db.String(2000), nullable=False)
   url = db.Column(db.String(255), nullable=False)
