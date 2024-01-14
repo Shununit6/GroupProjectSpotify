@@ -27,3 +27,13 @@ class Album(db.Model):
     secondary=album_songs,
     back_populates = 'albums'
   )
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'title': self.title,
+            'release_date': self.release_date,
+            'url': self.url,
+            'copyright': self.copyright,
+            'created_at': self.created_at,
+            'updated_at': self.updated_at
+        }
