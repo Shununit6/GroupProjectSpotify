@@ -15,7 +15,6 @@ def get_albums():
     albums = Album.query.all()
 
     return jsonify({'albums': [album.to_dict() for album in albums]})
-# jsonify([spell.to_dict() for spell in spells])
 
 ### Get all Albums created by the Current User
 ###  Require Authentication: true
