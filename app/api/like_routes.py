@@ -32,15 +32,12 @@ def post_like(id):
     likebycurrent = Like.query.filter(Like.song_id==id).filter(Like.user_id==current_user.get_id())
     print(likebycurrent)
     if likebycurrent.count() == 0 and (request.method == 'POST' or request.method == 'DELETE'):
-        # return "POST"
         new_like = Like(user_id=current_user.id,song_id=id)
         db.session.add(new_like)
         db.session.commit()
         return jsonify(new_like.to_dict())
     elif likebycurrent.count() == 1 and (request.method == 'DELETE' or request.method == 'POST'):
-        # print([like.to_dict() for like in likebycurrent])
-        # return "DELETE"
-        db.session.delete(likebycurrent)
+        db.session.delete(likebycurrent.one())
         db.session.commit()
         return {'message': 'Delete successful.'}
     else:
