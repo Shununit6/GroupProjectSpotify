@@ -45,7 +45,7 @@ def add_song_to_playlist(song_id, playlist_id):
     if song in playlist.songs:
       return jsonify({'message': 'Song is already in the playlist'})
 
-    playlist.song.append(song)
+    playlist.songs.append(song)
     db.session.commit()
 
     return jsonify({'message': 'Song added to playlist successfully'})
@@ -54,7 +54,7 @@ def add_song_to_playlist(song_id, playlist_id):
 
 
 #Delete a song from one of the current users playlists
-@playlist_routes.route('/<int:playlist_id>/songs//<int:song_id>', methods=['DELETE'])
+@playlist_routes.route('/<int:playlist_id>/songs/<int:song_id>', methods=['DELETE'])
 @login_required
 def remove_song_from_playlist(playlist_id, song_id):
     playlist = Playlist.query.get(playlist_id)
@@ -79,6 +79,7 @@ def remove_playlist(playlist_id):
 
     if playlist:
       # Check if the song is in the playlist
+      if current_user.id == playlist.user_id:
         playlist.remove()
         db.session.commit()
         return jsonify({'message': 'Playlist Deleted successfully'})
