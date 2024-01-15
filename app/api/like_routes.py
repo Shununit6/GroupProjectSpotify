@@ -12,7 +12,7 @@ def get_likes(id):
     """
     Query for all the likes of a song by song_id.
     """
-    likes = Like.query.filter(Like.song_id==id)
+    likes = Like.query.filter(Like.song_id==id).all()
 
     #return number of likes of a sond by id
     # numoflikes = likes.count()
