@@ -30,7 +30,6 @@ def post_like(id):
     Creates and returns a new like.
     """
     likebycurrent = Like.query.filter(Like.song_id==id).filter(Like.user_id==current_user.get_id())
-    print(likebycurrent)
     if likebycurrent.count() == 0 and (request.method == 'POST' or request.method == 'DELETE'):
         new_like = Like(user_id=current_user.id,song_id=id)
         db.session.add(new_like)
