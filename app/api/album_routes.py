@@ -132,6 +132,8 @@ def delete_album_song(songId, albumId):
       return {'error':f"Album {albumId} is not found"}, 404
 
   album = Album.query.filter(Album.user_id==current_user.get_id()).filter(Album.id==albumId).first()
+  if not album:
+      return {'message': f"Song {songId} is not in album {albumId}"}, 404
 
   if song and album:
     if song in album.songs:
