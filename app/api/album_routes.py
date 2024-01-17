@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify
 from flask_login import login_required, current_user
-from app.models import db, Album
+from app.models import db, Album, Song
 
 album_routes = Blueprint('albums', __name__)
 
@@ -55,6 +55,28 @@ def post_album():
     db.session.commit()
     return jsonify(new_album.to_dict())
 
+#Add a song to one of the current user's albums
+@album_routes.route('/<int:albumId>/songs/<int:songId>', methods = ['POST'])
+@login_required
+def add_song_to_album(songId, albumId):
+
+  song = Song.query.get(songId)
+  if not song:
+      return {'error':f"Song {songId} is not found"}, 404
+
+  album = Album.query.filter(Album.id==albumId).first()
+  if not album:
+      return {'error':f"Album {albumId} is not found"}, 404
+
+  album = Album.query.filter(Album.user_id==current_user.get_id()).filter(Album.id==albumId).first()
+
+  if song and album:
+    if song in album.songs:
+      return {'message': f"Song {songId} is already in the album {albumId}"}
+    album.songs.append(song)
+    db.session.commit()
+    return jsonify(album.to_dict())
+
 # Edit an Album
 # Updates and returns an existing album.
 # Require Authentication: true
@@ -95,3 +117,24 @@ def delete_album(albumId):
     db.session.delete(albumbyid)
     db.session.commit()
     return {'message': 'Delete successful.'}
+
+#Delete a song from one of the current users albums
+@album_routes.route('/<int:albumId>/songs/<int:songId>', methods = ['DELETE'])
+@login_required
+def delete_album_song(songId, albumId):
+
+  song = Song.query.get(songId)
+  if not song:
+      return {'error':f"Song {songId} is not found"}, 404
+
+  album = Album.query.filter(Album.id==albumId).first()
+  if not album:
+      return {'error':f"Album {albumId} is not found"}, 404
+
+  album = Album.query.filter(Album.user_id==current_user.get_id()).filter(Album.id==albumId).first()
+
+  if song and album:
+    if song in album.songs:
+        album.songs.remove(song)
+        db.session.commit()
+        return {'message': f"Song {songId} removed from album {albumId} successfully"}
