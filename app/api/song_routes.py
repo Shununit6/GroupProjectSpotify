@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, redirect, url_for, jsonify
+from flask import Blueprint, render_template, redirect, url_for, jsonify, request
 from ..config import Config
 from flask_login import login_required, current_user
 from ..forms import CreateEditSongForm
@@ -37,15 +37,17 @@ def get_song_details(songId):
 @login_required
 def create_song():
     form = CreateEditSongForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
         data = form.data
-        artist = Artist.query.filter_by(name=data['artist_name']).one()
+        # check and add artist
+        artist = Artist.query.filter_by(name=data['artist_name']).first()
         if not artist:
             new_artist = Artist(name=data['artist_name'])
             db.session.add(new_artist)
             db.session.commit()
         artist = Artist.query.filter_by(name=data['artist_name']).one()
-        new_song = Song(user_id=data['user_id'],
+        new_song = Song(user_id=current_user.id,
                         artist_id=artist.id,
                         title=data['title'],
                         lyrics=data['lyrics'],
@@ -66,18 +68,24 @@ def edit_song(songId):
     if current_user.id != song.user_id:
         return 'Forbidden'
     form = CreateEditSongForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
         data = form.data
-        new_song = Song(user_id=data['user_id'],
-                        artist_name=data['artist_name'],
-                        title=data['title'],
-                        lyrics=data['lyrics'],
-                        url=data['url'],
-                        duration=data['duration'],
-                        release_date=data['release_date'])
-        db.session.add(new_song)
+        # check and add artist
+        artist = Artist.query.filter_by(name=data['artist_name']).first()
+        if not artist:
+            new_artist = Artist(name=data['artist_name'])
+            db.session.add(new_artist)
+            db.session.commit()
+        artist = Artist.query.filter_by(name=data['artist_name']).one()
+        song.artist_id = artist.id
+        song.title = data['title']
+        song.lyrics = data['lyrics']
+        song.url = data['url']
+        song.duration = data['duration']
+        song.release_date = data['release_date']
         db.session.commit()
-        return jsonify(new_song.to_dict())
+        return jsonify(song.to_dict())
     if form.errors:
         return form.errors
 
