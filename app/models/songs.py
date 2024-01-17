@@ -46,7 +46,6 @@ class Song(db.Model):
         'url': self.url,
         'duration': self.duration,
         'release_date': self.release_date,
-        'created_at': self.created_at.strftime('%Y-%m-%d %H:%M:%S'),
-        'updated_at': self.updated_at.strftime('%Y-%m-%d %H:%M:%S'),
-        'user': self.user.to_dict(),
+        'created_at': self.created_at,
+        'updated_at': self.updated_at
     }
