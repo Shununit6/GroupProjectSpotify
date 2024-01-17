@@ -35,3 +35,18 @@ class Song(db.Model):
     secondary=playlist_songs,
     back_populates = 'songs'
   )
+
+  def to_dict(self):
+    return {
+        'id': self.id,
+        'user_id': self.user_id,
+        'artist_id': self.artist_id,
+        'title': self.title,
+        'lyrics': self.lyrics,
+        'url': self.url,
+        'duration': self.duration,
+        'release_date': self.release_date,
+        'created_at': self.created_at.strftime('%Y-%m-%d %H:%M:%S'),
+        'updated_at': self.updated_at.strftime('%Y-%m-%d %H:%M:%S'),
+        'user': self.user.to_dict(),
+    }
