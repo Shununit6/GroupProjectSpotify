@@ -27,7 +27,7 @@ export const receiveAlbum = (album) => ({
 
 export const editAlbum = (album) => ({
     type: UPDATE_ALBUM,
-    album
+    album,
 });
 
 export const removeAlbum = (album) => ({
@@ -40,9 +40,10 @@ export const receiveAlbumSong = (albumSong) => ({
     albumSong,
 });
 
-export const removeAlbumSong = (albumId) => ({
+export const removeAlbumSong = (albumId, songId) => ({
     type: REMOVE_ALBUM_SONG,
-    albumId
+    albumId,
+    songId,
 });
 
 // /** Thunk Action Creators: */
@@ -109,3 +110,60 @@ export const deleteAlbum = (albumId) => async (dispatch) => {
     }
     return res;
 };
+
+export const creatAlbumSong = (albumSong, albumId, songId) => async (dispatch) => {
+    const res = await fetch(`/api/albums/${albumId}/songs/${songId}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(albumSong),
+    });
+
+    if (res.ok) {
+        const data = await res.json();
+        dispatch(receiveAlbumSong(data));
+        return data;
+    }
+    return res;
+};
+
+export const deleteAlbumSong = (albumId) => async (dispatch) => {
+    const res = await fetch(`/api/albums/${albumId}/songs/${songId}`, {
+        method: "DELETE",
+    });
+
+    if (res.ok) {
+        const data = await res.json();
+        await dispatch(removeAlbumSong(albumId, songId));
+        return data;
+    }
+    return res;
+};
+
+const albumsReducer = (state = { }, action) => {
+    switch (action.type) {
+        case LOAD_ALBUMS:{
+            const albumsState = { ...state };
+            // console.log("actionalbums", action.albums);
+            action.albums.Albums.forEach((album) => {
+                if(!albumsState[album.id]) {albumsState[album.id] = album;}
+            });
+            return albumsState;
+        };
+        case LOAD_ALBUM_DETAILS: {
+            const albumState = { ...state };
+            // console.log("actionloadalbumdetails", action);
+            albumState[action.albums.id] = action.albums;
+            return albumState;
+        };
+        case RECEIVE_GROUP:
+            // console.log("RECEIVE_ALBUM",action);
+            // console.log("RECEIVE_ALBUM", action.album);
+            // console.log("statealbum", album);
+            return { ...state, [action.group.id]: action.group };
+
+        default:
+            return state;
+    }
+};
+
+export default albumsReducer;
