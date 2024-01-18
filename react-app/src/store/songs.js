@@ -1,4 +1,3 @@
-// import { csrfFetch } from "./csrf";
 export const LOAD_SONGS = 'songs/LOAD_SONGS';
 export const RECEIVE_SONG = 'songs/RECEIVE_SONG';
 export const UPDATE_SONG = 'songs/UPDATE_SONG';
@@ -22,7 +21,7 @@ export const loadSongs = (songs) => ({
   });
 
   export const getAllSongs = () => async (dispatch) => {
-    const res = await csrfFetch('/api/songs');
+    const res = await fetch('/api/songs');
     if (res.ok) {
       const data = await res.json();
       dispatch(loadSongs(data));
@@ -31,7 +30,7 @@ export const loadSongs = (songs) => ({
     return res;
   };
   export const getMySongs = () => async (dispatch) => {
-    const res = await csrfFetch('/api/songs/current');
+    const res = await fetch('/api/songs/current');
     if (res.ok) {
       const data = await res.json();
       dispatch(loadSongs(data));
@@ -40,7 +39,7 @@ export const loadSongs = (songs) => ({
     return res;
   };
   export const getSongDetails = (songId) => async (dispatch) => {
-    const res = await csrfFetch(`/api/songs/${songId}`);
+    const res = await fetch(`/api/songs/${songId}`);
     if (res.ok) {
       const data = await res.json();
       dispatch(receiveSong(data));
@@ -49,7 +48,7 @@ export const loadSongs = (songs) => ({
     return res;
   };
   export const createSong = (payload) => async (dispatch) => {
-    const res = await csrfFetch('/api/songs/new', {
+    const res = await fetch('/api/songs/new', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(payload)
@@ -62,7 +61,7 @@ export const loadSongs = (songs) => ({
     return res;
   };
   export const updateSong = (payload) => async (dispatch) => {
-    const res = await csrfFetch(`/api/songs/${payload.id}`, {
+    const res = await fetch(`/api/songs/${payload.id}`, {
       method: 'PUT',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(payload)
@@ -75,7 +74,7 @@ export const loadSongs = (songs) => ({
     return res;
   };
   export const deleteSong = (songId) => async (dispatch) => {
-    const res = await csrfFetch(`/api/songs/${songId}`, {
+    const res = await fetch(`/api/songs/${songId}`, {
       method: 'DELETE'
     });
     if (res.ok) {
