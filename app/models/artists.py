@@ -13,3 +13,12 @@ class Artist(db.Model):
   updated_at = db.Column(db.DateTime, default=func.now(), onupdate=func.now())
 
   songs = db.relationship('Song', back_populates='artist')
+
+  def to_dict(self):
+    return {
+        'id': self.id,
+        'name': self.name,
+        'created_at': self.created_at,
+        'updated_at': self.updated_at,
+        'songs':[song.to_dict() for song in self.songs]
+    }
