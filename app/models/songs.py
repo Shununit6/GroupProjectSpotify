@@ -1,4 +1,4 @@
-from .db import db, environment, SCHEMA
+from .db import db, environment, SCHEMA, add_prefix_for_prod
 from sqlalchemy import func
 from .album_songs import album_songs
 from .playlist_songs import playlist_songs
@@ -10,8 +10,8 @@ class Song(db.Model):
     __table_args__ = {'schema': SCHEMA}
 
   id = db.Column(db.Integer, primary_key=True)
-  user_id = db.Column(db.Integer,db.ForeignKey('users.id'),nullable=False )
-  artist_id = db.Column(db.Integer, db.ForeignKey('artists.id'), nullable=False)
+  user_id = db.Column(db.Integer,db.ForeignKey(add_prefix_for_prod('users.id')),nullable=False )
+  artist_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('artists.id')), nullable=False)
   title = db.Column(db.String(255), nullable=False)
   lyrics = db.Column(db.String(2000), nullable=False)
   url = db.Column(db.String(255), nullable=False)
@@ -22,7 +22,7 @@ class Song(db.Model):
 
   user = db.relationship('User', back_populates='songs')
   artist = db.relationship('Artist', back_populates='songs')
-  like = db.relationship('Like', back_populates = 'songs')
+  like = db.relationship('Like', cascade = "all,delete-orphan", back_populates = 'songs')
 
   albums = db.relationship(
     "Album",
@@ -46,6 +46,11 @@ class Song(db.Model):
         'url': self.url,
         'duration': self.duration,
         'release_date': self.release_date,
-        'created_at': self.created_at,
-        'updated_at': self.updated_at
+        'created_at': self.created_at.strftime('%Y-%m-%d %H:%M:%S'),
+        'updated_at': self.updated_at.strftime('%Y-%m-%d %H:%M:%S'),
+        'user': self.user.to_dict(),
+        # 'artist': self.artist.to_dict(),
+        # 'like': [like.to_dict() for like in self.like],
+        # 'albums': [album.to_dict() for album in self.albums],
+        # 'playlists': [playlist.to_dict() for playlist in self.playlists],
     }
