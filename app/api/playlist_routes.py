@@ -39,18 +39,21 @@ def add_song_to_playlist(song_id, playlist_id):
 
   song = Song.query.get(song_id)
   playlist = Playlist.query.get(playlist_id)
+  if playlist.user_id != current_user.id:
+    return jsonify({'message': 'You are not authorized'})
+  else:
+    if song and playlist:
 
-  if song and playlist:
+      if song in playlist.songs:
+        return jsonify({'message': 'Song is already in the playlist'})
 
-    if song in playlist.songs:
-      return jsonify({'message': 'Song is already in the playlist'})
+      playlist.songs.append(song)
+      db.session.commit()
 
-    playlist.songs.append(song)
-    db.session.commit()
-
-    return jsonify({'message': 'Song added to playlist successfully'})
+      return jsonify({'message': 'Song added to playlist successfully'})
 
   return jsonify({'error':'Song or playlist not found'}), 404
+
 
 
 #Delete a song from one of the current users playlists
@@ -59,6 +62,8 @@ def add_song_to_playlist(song_id, playlist_id):
 def remove_song_from_playlist(playlist_id, song_id):
     playlist = Playlist.query.get(playlist_id)
     song = Song.query.get(song_id)
+    if playlist.user_id != current_user.id:
+      return jsonify({'message': 'You are not authorized'})
 
     if song and playlist:
         # Check if the song is in the playlist
