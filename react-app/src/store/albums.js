@@ -75,10 +75,36 @@ export const createAlbum = (payload) => async (dispatch) => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
     });
-    // console.log("res", res);
     if (res.ok) {
         const data = await res.json();
         dispatch(receiveAlbum(data));
+        return data;
+    }
+    return res;
+};
+
+export const updateAlbum = (album) => async (dispatch) => {
+    const res = await fetch(`/api/albums/${album.id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(album),
+    });
+    if (res.ok) {
+        const data = await res.json();
+        dispatch(editAlbum(data));
+        return data;
+    }
+    return res;
+};
+
+export const deleteAlbum = (albumId) => async (dispatch) => {
+    const res = await fetch(`/api/albums/${albumId}`, {
+        method: "DELETE",
+    });
+
+    if (res.ok) {
+        const data = await res.json();
+        dispatch(removeAlbum(albumId));
         return data;
     }
     return res;
