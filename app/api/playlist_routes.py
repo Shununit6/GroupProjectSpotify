@@ -39,6 +39,8 @@ def add_song_to_playlist(song_id, playlist_id):
 
   song = Song.query.get(song_id)
   playlist = Playlist.query.get(playlist_id)
+  if playlist.user_id != current_user.id:
+    return jsonify({'message': 'You are not authorized'})
 
   if song and playlist:
 
@@ -59,6 +61,8 @@ def add_song_to_playlist(song_id, playlist_id):
 def remove_song_from_playlist(playlist_id, song_id):
     playlist = Playlist.query.get(playlist_id)
     song = Song.query.get(song_id)
+    if playlist.user_id != current_user.id:
+      return jsonify({'message': 'You are not authorized'})
 
     if song and playlist:
         # Check if the song is in the playlist
@@ -76,6 +80,8 @@ def remove_song_from_playlist(playlist_id, song_id):
 @login_required
 def remove_playlist(playlist_id):
     playlist = Playlist.query.get(playlist_id)
+    if playlist.user_id != current_user.id:
+      return jsonify({'message': 'You are not authorized'})
 
     if playlist:
       # Check if the song is in the playlist
