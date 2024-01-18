@@ -22,7 +22,7 @@ class Song(db.Model):
 
   user = db.relationship('User', back_populates='songs')
   artist = db.relationship('Artist', back_populates='songs')
-  like = db.relationship('Like', back_populates = 'songs')
+  like = db.relationship('Like', cascade = "all,delete-orphan", back_populates = 'songs')
 
   albums = db.relationship(
     "Album",

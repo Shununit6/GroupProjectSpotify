@@ -3,8 +3,8 @@ from wtforms import IntegerField, StringField, DateField, SubmitField
 from wtforms.validators import DataRequired
 
 class CreateEditSongForm(FlaskForm):
-    artist = StringField('Artist Name', validators=[DataRequired()])
-    title = StringField('Song Title', validators=[DataRequired()])
+    artist_name = StringField('Artist Name')
+    title = StringField('Song Title')
     lyrics = StringField('Lyrics')
     url = StringField('Song Image URL')
     duration = IntegerField('Song Duration')
