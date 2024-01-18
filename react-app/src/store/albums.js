@@ -126,7 +126,7 @@ export const creatAlbumSong = (albumSong, albumId, songId) => async (dispatch) =
     return res;
 };
 
-export const deleteAlbumSong = (albumId) => async (dispatch) => {
+export const deleteAlbumSong = (albumId,songId) => async (dispatch) => {
     const res = await fetch(`/api/albums/${albumId}/songs/${songId}`, {
         method: "DELETE",
     });
