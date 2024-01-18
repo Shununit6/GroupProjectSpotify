@@ -143,7 +143,6 @@ const albumsReducer = (state = { }, action) => {
     switch (action.type) {
         case LOAD_ALBUMS:{
             const albumsState = { ...state };
-            // console.log("actionalbums", action.albums);
             action.albums.Albums.forEach((album) => {
                 if(!albumsState[album.id]) {albumsState[album.id] = album;}
             });
@@ -151,16 +150,26 @@ const albumsReducer = (state = { }, action) => {
         };
         case LOAD_ALBUM_DETAILS: {
             const albumState = { ...state };
-            // console.log("actionloadalbumdetails", action);
             albumState[action.albums.id] = action.albums;
             return albumState;
         };
-        case RECEIVE_GROUP:
-            // console.log("RECEIVE_ALBUM",action);
-            // console.log("RECEIVE_ALBUM", action.album);
-            // console.log("statealbum", album);
+        case RECEIVE_ALBUM:
             return { ...state, [action.group.id]: action.group };
-
+        case UPDATE_ALBUM:
+            return {...state};
+        case REMOVE_ALBUM:{
+            const albumState = { ...state };
+            delete albumState[action.albums];
+            return albumState;
+        };
+        case RECEIVE_ALBUM_SONG: {
+            const albumState = { ...state };
+            return albumState;
+        };
+        case REMOVE_ALBUM_SONG:{
+            const albumState = { ...state };
+            return albumState;
+        };
         default:
             return state;
     }
