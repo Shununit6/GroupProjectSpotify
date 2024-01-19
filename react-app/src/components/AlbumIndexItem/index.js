@@ -1,15 +1,16 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { groupDetails, getGroupIdEvents } from '../../store/groups';
+import { albumDetails } from "../../store/albums";
 import { Link, Redirect } from 'react-router-dom';
-import "./GroupIndexItem.css";
+import "./AlbumIndexItem.css";
 const AlbumIndexItem = ({ album }) => {
     const dispatch = useDispatch();
     const [isLoaded, setIsLoaded] = useState(false);
-    const groupData = useSelector((state) => state.groups[group.id]);
+    const albumData = useSelector((state) => state.albums[album.id]);
     useEffect(() => {
-        dispatch(groupDetails(group.id)).then(()=>dispatch(getGroupIdEvents(group.id))).then(()=>setIsLoaded(true))
-    }, [dispatch, group.id])
+        // dispatch(albumDetails(album.id)).then(()=>dispatch(getGroupIdEvents(group.id))).then(()=>setIsLoaded(true))
+        dispatch(albumDetails(album.id)).then(()=>setIsLoaded(true))
+    }, [dispatch, album.id])
 
     // if(isLoaded && !groupData){
     //     return (<Redirect to="/groups"/>);
@@ -19,7 +20,7 @@ const AlbumIndexItem = ({ album }) => {
         return (<div>Loading...</div>);
     }
 
-    const {id, name, about, city, state} = groupData;
+    const {id, name, about, city, state} = albumData;
 
     const totalLaneCount = Math.ceil(about.length/59);
     let groupAboutArr=[];
