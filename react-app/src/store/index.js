@@ -12,7 +12,7 @@ const rootReducer = combineReducers({
   albumsReducer,
   likesReducer,
   playlistsReducer,
-  artistsReducer
+  artistsReducer,
   songsReducer
 });
 
