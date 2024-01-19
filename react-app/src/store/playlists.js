@@ -52,7 +52,7 @@ export const fetchPlaylistById = (playlistId) => async (dispatch) => {
 };
 
 export const addSongToPlaylistThunk = (playlistId, songId) => async (dispatch) => {
-  const response = await csrfFetch(`/api/playlists/${playlistId}/songs/${songId}`, {
+  const response = await fetch(`/api/playlists/${playlistId}/songs/${songId}`, {
     method: "POST",
   });
 
@@ -65,7 +65,7 @@ export const addSongToPlaylistThunk = (playlistId, songId) => async (dispatch) =
 };
 
 export const removeSongFromPlaylistThunk = (playlistId, songId) => async (dispatch) => {
-  const response = await csrfFetch(`/api/playlists/${playlistId}/songs/${songId}`, {
+  const response = await fetch(`/api/playlists/${playlistId}/songs/${songId}`, {
     method: "DELETE",
   });
 
@@ -78,7 +78,7 @@ export const removeSongFromPlaylistThunk = (playlistId, songId) => async (dispat
 };
 
 export const deletePlaylistThunk = (playlistId) => async (dispatch) => {
-  const response = await csrfFetch(`/api/playlists/${playlistId}`, {
+  const response = await fetch(`/api/playlists/${playlistId}`, {
     method: "DELETE",
   });
 
