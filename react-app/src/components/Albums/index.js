@@ -9,7 +9,6 @@ function Albums() {
     const dispatch = useDispatch();
     const [isLoaded, setIsLoaded] = useState(false);
     const albums = useSelector((state) => state.albums);
-    console.log(albums)
     useEffect(()=>{
       dispatch(getAllAlbums()).then(()=>setIsLoaded(true))
     }, [dispatch]);
@@ -17,10 +16,15 @@ function Albums() {
   if (!isLoaded) {
     return (<div>Loading...</div>);
   }
-  console.log(albums);
+
   if(isLoaded){
   return (
-    <div id="groupslistgrid">
+    <div id="albumslistgrid">
+      <div id="viewallalbums">
+            {Object.values(albums).map((album, index) => (
+                  <AlbumIndexItem album={album} key={index}/>
+            ))}
+      </div>
         {/* <h2><Link id="eventsIsNotActive" to="/events" > Events </Link>
         <Link id="groupsIsActive" to="/groups" > Groups </Link>
          </h2>
