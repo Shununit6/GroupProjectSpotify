@@ -7,8 +7,12 @@ from flask_login import LoginManager
 from .models import db, User
 from .api.user_routes import user_routes
 from .api.auth_routes import auth_routes
+from .api.album_routes import album_routes
+from .api.like_routes import like_routes
 from .api.playlist_routes import playlist_routes
 from .api.song_routes import song_routes
+from .api.album_routes import album_routes
+from .api.like_routes import like_routes
 from .seeds import seed_commands
 from .config import Config
 
