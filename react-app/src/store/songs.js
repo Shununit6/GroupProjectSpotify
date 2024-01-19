@@ -39,10 +39,17 @@ export const loadSongs = (songs) => ({
     return res;
   };
   export const getSongDetails = (songId) => async (dispatch) => {
+    console.log("were here 1!!!!")
     const res = await fetch(`/api/songs/${songId}`);
+    console.log("were here 2!!!!")
+    console.log("This is res:", res)
+    console.log("This is res.body:", res.body)
     if (res.ok) {
+      console.log("were here 3!!!!")
       const data = await res.json();
+      console.log("were here 4!!!!")
       dispatch(receiveSong(data));
+      console.log("were here 5!!!!")
       return data;
     }
     return res;
@@ -96,6 +103,7 @@ export const loadSongs = (songs) => ({
         });
         return {...songsState};
       case RECEIVE_SONG:
+        console.log("Received song:", action.song);
         return { ...state, [action.song.id]: action.song };
       case UPDATE_SONG:
         return { ...state, [action.song.id]: action.song };
@@ -104,6 +112,7 @@ export const loadSongs = (songs) => ({
         delete newState[action.songId];
         return newState;
       default:
+        console.log("State not modified. Action type:", action.type);
         return state;
     }
   };
