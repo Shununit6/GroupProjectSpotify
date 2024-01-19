@@ -9,6 +9,7 @@ function Albums() {
     const dispatch = useDispatch();
     const [isLoaded, setIsLoaded] = useState(false);
     const albums = useSelector((state) => state.albums);
+    console.log(albums)
     useEffect(()=>{
       dispatch(getAllAlbums()).then(()=>setIsLoaded(true))
     }, [dispatch]);
