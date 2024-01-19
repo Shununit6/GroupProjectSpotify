@@ -58,7 +58,7 @@ export const addSongToPlaylistThunk = (playlistId, songId) => async (dispatch) =
 
   if (response.ok) {
     const data = await response.json();
-    dispatch(addSongToPlaylist(data.message));
+    dispatch(addSongToPlaylist(data));
     return data;
   }
   return response;
@@ -71,7 +71,7 @@ export const removeSongFromPlaylistThunk = (playlistId, songId) => async (dispat
 
   if (response.ok) {
     const data = await response.json();
-    dispatch(removeSongFromPlaylist(data.message));
+    dispatch(removeSongFromPlaylist(data));
     return data;
   }
   return response;
@@ -84,25 +84,22 @@ export const deletePlaylistThunk = (playlistId) => async (dispatch) => {
 
   if (response.ok) {
     const data = await response.json();
-    dispatch(deletePlaylist(data.message));
+    dispatch(deletePlaylist(data));
     return data;
   }
   return response;
 };
 
-/** Reducer: */
-const initialState = {
-  playlists: [],
-  currentPlaylist: null,
-};
 
-const playlistsReducer = (state = initialState, action) => {
+
+const playlistsReducer = (state = {playlists:{}, currPlaylist: {}}, action) => {
   switch (action.type) {
     case GET_ALL_PLAYLISTS:
-      return {
-        ...state,
-        playlists: action.playlists,
-      };
+      const playlistsState = {};
+      action.playlists.forEach((playlist) => {
+        playlistsState[playlist.id] = playlist;
+      });
+      return {...state, playlists: playlistsState};
 
     case GET_PLAYLIST:
       return {
@@ -110,10 +107,21 @@ const playlistsReducer = (state = initialState, action) => {
         currentPlaylist: action.playlist,
       };
 
-    case ADD_SONG_TO_PLAYLIST:
-    case REMOVE_SONG_FROM_PLAYLIST:
+    case ADD_SONG_TO_PLAYLIST:{
+      const playlists = { ...state.playlists }
+      playlists[action.payload.id] = action.payload
+      return { ...state, playlists };
+    }
+    case REMOVE_SONG_FROM_PLAYLIST:{
+      const playlists = { ...state.playlists }
+      playlists[action.payload.id] = action.payload
+      return { ...state, playlists };
+    }
+
     case DELETE_PLAYLIST:
-      return state;
+      const newState = { ...state };
+      delete newState[action.playlistId];
+      return newState;
 
     default:
       return state;
