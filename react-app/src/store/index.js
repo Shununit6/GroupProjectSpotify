@@ -9,9 +9,9 @@ import artistsReducer from './artists';
 const rootReducer = combineReducers({
   session,
   albumsReducer,
-  likesReducer
-  playlists: playlistsReducer,
-  artists: artistsReducer
+  likesReducer,
+  playlistsReducer,
+  artistsReducer
 });
 
 
