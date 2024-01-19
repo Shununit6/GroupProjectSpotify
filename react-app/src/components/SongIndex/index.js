@@ -7,6 +7,7 @@ import SongIndexItem from '../SongIndexItem/index';
 const SongIndex = () => {
   const dispatch = useDispatch();
   const songs = useSelector(state => Object.values(state.songs));
+  console.log(songs);
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     dispatch(getAllSongs()).then(() => setIsLoading(false));
