@@ -10,12 +10,13 @@ const PlaylistDetails = () => {
   const { playlistId } = useParams();
   const sessionUser = useSelector(state => state.session.user);
   const playlist = useSelector(state => state.playlistsReducer.currentPlaylist);
+  console.log("this is currentplaylist:", playlist)
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     dispatch(fetchPlaylistById(playlistId)).then(() => setIsLoading(false));
   }, [dispatch, playlistId]);
   if (isLoading || !playlist) return (<>Loading...</>);
-  const {user_id, artist_id, title, lyrics, url, duration, release_date} = playlist;
+  const {user_id, artist_id, title, lyrics, url, duration, release_date, songs} = playlist;
   return (
     <div className='grid-container'>
       <p className='title'>{title}</p>
