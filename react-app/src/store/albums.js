@@ -48,7 +48,7 @@ export const removeAlbumSong = (albumId, songId) => ({
 
 // /** Thunk Action Creators: */
 export const getAllAlbums = () => async (dispatch) => {
-    const res = await fetch("/api/albums");
+    const res = await fetch(`/api/albums`);
 
     if (res.ok) {
         const data = await res.json();
@@ -143,7 +143,7 @@ const albumsReducer = (state = { }, action) => {
     switch (action.type) {
         case LOAD_ALBUMS:{
             const albumsState = { ...state };
-            action.albums.Albums.forEach((album) => {
+            action.albums.albums.forEach((album) => {
                 if(!albumsState[album.id]) {albumsState[album.id] = album;}
             });
             return albumsState;
