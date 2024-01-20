@@ -9,12 +9,12 @@ const SongDetails = () => {
   const dispatch = useDispatch();
   const { songId } = useParams();
   const sessionUser = useSelector(state => state.session.user);
-  const song = useSelector(state => state.songs[songId]);
+  const song = useSelector(state => state.songsReducer[songId]);
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     dispatch(getSongDetails(songId)).then(() => setIsLoading(false));
   }, [dispatch, songId]);
-  if (isLoading) return (<>Loading...</>);
+  if (isLoading || !song) return (<>Loading...</>);
   const {user_id, artist_id, title, lyrics, url, duration, release_date} = song;
   return (
     <div className='grid-container'>

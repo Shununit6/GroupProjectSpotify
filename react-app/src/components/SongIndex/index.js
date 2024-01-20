@@ -6,8 +6,7 @@ import SongIndexItem from '../SongIndexItem/index';
 
 const SongIndex = () => {
   const dispatch = useDispatch();
-  const songs = useSelector(state => Object.values(state.songs));
-  console.log(songs);
+  const songs = useSelector(state => state.songsReducer.songs);
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     dispatch(getAllSongs()).then(() => setIsLoading(false));
@@ -17,8 +16,8 @@ const SongIndex = () => {
     <div>
       <ul className='landingSongIndex'>
         {songs.map((song) => (
-          <li className='landingEachSong' key={song.id}>
-            <SongIndexItem song={song} key={song.id}/>
+          <li className='landingEachSong' key={String(song.id)}>
+            <SongIndexItem song={song}/>
           </li>
         ))}
       </ul>

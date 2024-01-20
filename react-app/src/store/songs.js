@@ -88,13 +88,7 @@ export const loadSongs = (songs) => ({
   const songsReducer = (state = {}, action) => {
     switch (action.type) {
       case LOAD_SONGS:
-        const songsState = {...state};
-        action.songs.Songs.forEach((song) => {
-           if (!songsState[song.id]) {
-            songsState[song.id] = song;
-          }
-        });
-        return {...songsState};
+        return {...state, ...action.songs};
       case RECEIVE_SONG:
         return { ...state, [action.song.id]: action.song };
       case UPDATE_SONG:
