@@ -8,7 +8,7 @@ import SongIndexItem from '../SongIndexItem/index';
 const ManageSongs = () => {
     const dispatch = useDispatch();
     const sessionUser = useSelector(state => state.session.user);
-    const songs = useSelector(state => Object.values(state.songs));
+    const songs = useSelector(state => Object.values(state.songsReducer));
     const [isLoading, setIsLoading] = useState(true);
     useEffect(() => {
         dispatch(getMySongs()).then(() => setIsLoading(false));
