@@ -149,9 +149,7 @@ const albumsReducer = (state = { }, action) => {
             return albumsState;
         };
         case LOAD_ALBUM_DETAILS: {
-            const albumState = { ...state };
-            albumState[action.albums.id] = action.albums;
-            return albumState;
+            return {...state, [action.album.id]:action};
         };
         case RECEIVE_ALBUM:
             return { ...state, [action.group.id]: action.group };
