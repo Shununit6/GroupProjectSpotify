@@ -11,6 +11,7 @@ import SongDetails from './components/SongDetails';
 import SongIndex from './components/SongIndex';
 import UpdateSong from './components/UpdateSong';
 import Albums from "./components/Albums";
+import AlbumDetails from "./components/AlbumDetails";
 
 function App() {
   const dispatch = useDispatch();
@@ -29,6 +30,9 @@ function App() {
         <Switch>
           <Route path="/albums" exact={true}>
             <Albums/>
+          </Route>
+          <Route path="/albums/:albumId(\d+)" exact={true}>
+            <AlbumDetails/>
           </Route>
           <Route exact path="/songs/current" component={ManageSongs}/>
           <Route exact path="/songs/new" component={CreateSong}/>

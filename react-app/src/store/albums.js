@@ -59,16 +59,19 @@ export const getAllAlbums = () => async (dispatch) => {
     return res;
 };
 
-export const albumDetails = (albumId) => async dispatch => {
-    const res = await fetch(`/api/albums/${albumId}`)
+export const getAlbumDetails = (albumId) => async dispatch => {
+    console.log("Fetching album details for albumId:", albumId);
+    const res = await fetch(`/api/albums/${albumId}`);
 
     if (res.ok) {
         const data = await res.json();
+        console.log("Received data:", data);
         dispatch(loadAlbumDetails(data));
         return data;
     }
+    console.log("Error fetching album details:", res.statusText);
     return res;
-}
+};
 
 export const createAlbum = (payload) => async (dispatch) => {
     const res = await fetch("/api/albums", {
@@ -149,7 +152,7 @@ const albumsReducer = (state = { }, action) => {
             return albumsState;
         };
         case LOAD_ALBUM_DETAILS: {
-            return {...state, [action.album.id]:action};
+            return {...state, [action.album.id]:action.album};
         };
         case RECEIVE_ALBUM:
             return { ...state, [action.group.id]: action.group };
