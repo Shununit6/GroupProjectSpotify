@@ -20,11 +20,11 @@ function Albums() {
   if(isLoaded){
   return (
     <div id="albumslistgrid">
-      <div id="viewallalbums">
+      {/* <div id="viewallalbums">
             {Object.values(albums).map((album, index) => (
                   <AlbumIndexItem album={album} key={index}/>
             ))}
-      </div>
+      </div> */}
         {/* <h2><Link id="eventsIsNotActive" to="/events" > Events </Link>
         <Link id="groupsIsActive" to="/groups" > Groups </Link>
          </h2>
