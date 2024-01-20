@@ -92,14 +92,10 @@ export const deletePlaylistThunk = (playlistId) => async (dispatch) => {
 
 
 
-const playlistsReducer = (state = {playlists:{}, currPlaylist: {}}, action) => {
+const playlistsReducer = (state = { playlists: {}, currPlaylist: {} }, action) => {
   switch (action.type) {
     case GET_ALL_PLAYLISTS:
-      const playlistsState = {};
-      action.playlists.forEach((playlist) => {
-        playlistsState[playlist.id] = playlist;
-      });
-      return {...state, playlists: playlistsState};
+      return {...state, playlists: action.playlists};
 
     case GET_PLAYLIST:
       return {
@@ -107,16 +103,18 @@ const playlistsReducer = (state = {playlists:{}, currPlaylist: {}}, action) => {
         currentPlaylist: action.playlist,
       };
 
-    case ADD_SONG_TO_PLAYLIST:{
-      const playlists = { ...state.playlists }
-      playlists[action.payload.id] = action.payload
+    case ADD_SONG_TO_PLAYLIST: {
+      const playlists = { ...state.playlists };
+      playlists[action.message.id] = action.message;
       return { ...state, playlists };
     }
-    case REMOVE_SONG_FROM_PLAYLIST:{
-      const playlists = { ...state.playlists }
-      playlists[action.payload.id] = action.payload
+
+    case REMOVE_SONG_FROM_PLAYLIST: {
+      const playlists = { ...state.playlists };
+      playlists[action.message.id] = action.message;
       return { ...state, playlists };
     }
+
 
     case DELETE_PLAYLIST:
       const newState = { ...state };
