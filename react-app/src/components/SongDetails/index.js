@@ -16,6 +16,7 @@ const SongDetails = () => {
     dispatch(getSongDetails(songId)).then(() => setIsLoading(false));
   }, [dispatch, songId]);
   if (isLoading || !song) return (<>Loading...</>);
+  if (isLoading || !song) return (<>Loading...</>);
   const {user_id, artist_id, title, lyrics, url, duration, release_date} = song;
   return (
     <div className='grid-container'>

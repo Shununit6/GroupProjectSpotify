@@ -12,6 +12,8 @@ import SongIndex from './components/SongIndex';
 import UpdateSong from './components/UpdateSong';
 import Albums from "./components/Albums";
 import AlbumDetails from "./components/AlbumDetails";
+import PlaylistIndex from './components/PlaylistIndex';
+import PlaylistDetails from './components/PlaylistDetails';
 
 function App() {
   const dispatch = useDispatch();
@@ -39,6 +41,8 @@ function App() {
           <Route exact path="/songs/:songId/edit" component={UpdateSong}/>
           <Route exact path="/songs/:songId(\d+)" component={SongDetails}/>
           <Route exact path="/songs" component={SongIndex}/>
+          <Route exact path="/playlists/:playlistId(\d+)" component={PlaylistDetails}/>
+          <Route exact path="/playlists" component={PlaylistIndex}/>
           <Route path="/login" ><LoginFormPage /></Route>
           <Route path="/signup"><SignupFormPage /></Route>
         </Switch>
