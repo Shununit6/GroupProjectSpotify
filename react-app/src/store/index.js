@@ -9,11 +9,11 @@ import artistsReducer from './artists';
 
 const rootReducer = combineReducers({
   session,
-  albumsReducer,
-  likesReducer,
-  playlistsReducer,
-  artistsReducer,
-  songsReducer
+  albums:albumsReducer,
+  likes:likesReducer,
+  playlists: playlistsReducer,
+  artists: artistsReducer,
+  songs: songsReducer
 });
 
 
