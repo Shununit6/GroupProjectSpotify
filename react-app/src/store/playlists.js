@@ -51,6 +51,17 @@ export const fetchPlaylistById = (playlistId) => async (dispatch) => {
   }
 };
 
+export const getMyPlaylists = () => async (dispatch) => {
+  const res = await fetch('/api/playlists/current');
+  if (res.ok) {
+      const data = await res.json();
+      dispatch(getAllPlaylists(data));
+      return data;
+  }
+  return res;
+};
+
+
 export const addSongToPlaylistThunk = (playlistId, songId) => async (dispatch) => {
   const response = await fetch(`/api/playlists/${playlistId}/songs/${songId}`, {
     method: "POST",

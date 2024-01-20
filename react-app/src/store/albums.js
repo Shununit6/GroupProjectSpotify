@@ -73,6 +73,17 @@ export const getAlbumDetails = (albumId) => async dispatch => {
     return res;
 };
 
+export const getMyAlbums = () => async (dispatch) => {
+    const res = await fetch('/api/albums/current');
+    if (res.ok) {
+        const data = await res.json();
+        dispatch(loadAlbums(data));
+        return data;
+    }
+    return res;
+};
+
+
 export const createAlbum = (payload) => async (dispatch) => {
     const res = await fetch("/api/albums", {
         method: "POST",
@@ -114,7 +125,7 @@ export const deleteAlbum = (albumId) => async (dispatch) => {
     return res;
 };
 
-export const creatAlbumSong = (albumSong, albumId, songId) => async (dispatch) => {
+export const createAlbumSong = (albumSong, albumId, songId) => async (dispatch) => {
     const res = await fetch(`/api/albums/${albumId}/songs/${songId}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -129,7 +140,7 @@ export const creatAlbumSong = (albumSong, albumId, songId) => async (dispatch) =
     return res;
 };
 
-export const deleteAlbumSong = (albumId,songId) => async (dispatch) => {
+export const deleteAlbumSong = (albumId, songId) => async (dispatch) => {
     const res = await fetch(`/api/albums/${albumId}/songs/${songId}`, {
         method: "DELETE",
     });
@@ -142,23 +153,23 @@ export const deleteAlbumSong = (albumId,songId) => async (dispatch) => {
     return res;
 };
 
-const albumsReducer = (state = { }, action) => {
+const albumsReducer = (state = {}, action) => {
     switch (action.type) {
-        case LOAD_ALBUMS:{
+        case LOAD_ALBUMS: {
             const albumsState = { ...state };
             action.albums.albums.forEach((album) => {
-                if(!albumsState[album.id]) {albumsState[album.id] = album;}
+                if (!albumsState[album.id]) { albumsState[album.id] = album; }
             });
             return albumsState;
         };
         case LOAD_ALBUM_DETAILS: {
-            return {...state, [action.album.id]:action.album};
+            return { ...state, [action.album.id]: action.album };
         };
         case RECEIVE_ALBUM:
             return { ...state, [action.group.id]: action.group };
         case UPDATE_ALBUM:
-            return {...state};
-        case REMOVE_ALBUM:{
+            return { ...state };
+        case REMOVE_ALBUM: {
             const albumState = { ...state };
             delete albumState[action.albums];
             return albumState;
@@ -167,7 +178,7 @@ const albumsReducer = (state = { }, action) => {
             const albumState = { ...state };
             return albumState;
         };
-        case REMOVE_ALBUM_SONG:{
+        case REMOVE_ALBUM_SONG: {
             const albumState = { ...state };
             return albumState;
         };

@@ -31,6 +31,7 @@ export const getAllSongs = () => async (dispatch) => {
   }
   return res;
 };
+
 export const getMySongs = () => async (dispatch) => {
   const res = await fetch('/api/songs/current');
   if (res.ok) {
@@ -40,6 +41,7 @@ export const getMySongs = () => async (dispatch) => {
   }
   return res;
 };
+
 export const getSongDetails = (songId) => async (dispatch) => {
   console.log("were here 1!!!!")
   const res = await fetch(`/api/songs/${songId}`);
