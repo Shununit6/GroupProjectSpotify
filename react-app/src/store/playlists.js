@@ -51,8 +51,19 @@ export const fetchPlaylistById = (playlistId) => async (dispatch) => {
   }
 };
 
+export const getMyPlaylists = () => async (dispatch) => {
+  const res = await fetch('/api/playlists/current');
+  if (res.ok) {
+      const data = await res.json();
+      dispatch(getAllPlaylists(data));
+      return data;
+  }
+  return res;
+};
+
+
 export const addSongToPlaylistThunk = (playlistId, songId) => async (dispatch) => {
-  const response = await csrfFetch(`/api/playlists/${playlistId}/songs/${songId}`, {
+  const response = await fetch(`/api/playlists/${playlistId}/songs/${songId}`, {
     method: "POST",
   });
 
@@ -65,7 +76,7 @@ export const addSongToPlaylistThunk = (playlistId, songId) => async (dispatch) =
 };
 
 export const removeSongFromPlaylistThunk = (playlistId, songId) => async (dispatch) => {
-  const response = await csrfFetch(`/api/playlists/${playlistId}/songs/${songId}`, {
+  const response = await fetch(`/api/playlists/${playlistId}/songs/${songId}`, {
     method: "DELETE",
   });
 
@@ -78,7 +89,7 @@ export const removeSongFromPlaylistThunk = (playlistId, songId) => async (dispat
 };
 
 export const deletePlaylistThunk = (playlistId) => async (dispatch) => {
-  const response = await csrfFetch(`/api/playlists/${playlistId}`, {
+  const response = await fetch(`/api/playlists/${playlistId}`, {
     method: "DELETE",
   });
 
@@ -92,14 +103,10 @@ export const deletePlaylistThunk = (playlistId) => async (dispatch) => {
 
 
 
-const playlistsReducer = (state = {playlists:{}, currPlaylist: {}}, action) => {
+const playlistsReducer = (state = { playlists: {}, currPlaylist: {} }, action) => {
   switch (action.type) {
     case GET_ALL_PLAYLISTS:
-      const playlistsState = {};
-      action.playlists.forEach((playlist) => {
-        playlistsState[playlist.id] = playlist;
-      });
-      return {...state, playlists: playlistsState};
+      return {...state, playlists: action.playlists};
 
     case GET_PLAYLIST:
       return {
@@ -107,16 +114,18 @@ const playlistsReducer = (state = {playlists:{}, currPlaylist: {}}, action) => {
         currentPlaylist: action.playlist,
       };
 
-    case ADD_SONG_TO_PLAYLIST:{
-      const playlists = { ...state.playlists }
-      playlists[action.payload.id] = action.payload
+    case ADD_SONG_TO_PLAYLIST: {
+      const playlists = { ...state.playlists };
+      playlists[action.message.id] = action.message;
       return { ...state, playlists };
     }
-    case REMOVE_SONG_FROM_PLAYLIST:{
-      const playlists = { ...state.playlists }
-      playlists[action.payload.id] = action.payload
+
+    case REMOVE_SONG_FROM_PLAYLIST: {
+      const playlists = { ...state.playlists };
+      playlists[action.message.id] = action.message;
       return { ...state, playlists };
     }
+
 
     case DELETE_PLAYLIST:
       const newState = { ...state };

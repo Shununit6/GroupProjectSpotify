@@ -7,7 +7,7 @@ import { getSongDetails } from '../../store/songs';
 const UpdateSong = () => {
   const dispatch = useDispatch();
   const { songId } = useParams();
-  const song = useSelector(state => state.songs[songId]);
+  const song = useSelector(state => state.songsReducer[songId]);
   useEffect(() => {
     dispatch(getSongDetails(songId));
   }, [dispatch, songId]);

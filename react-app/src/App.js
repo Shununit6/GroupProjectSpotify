@@ -10,6 +10,10 @@ import ManageSongs from './components/ManageSongs';
 import SongDetails from './components/SongDetails';
 import SongIndex from './components/SongIndex';
 import UpdateSong from './components/UpdateSong';
+import Albums from "./components/Albums";
+import AlbumDetails from "./components/AlbumDetails";
+import PlaylistIndex from './components/PlaylistIndex';
+import PlaylistDetails from './components/PlaylistDetails';
 
 function App() {
   const dispatch = useDispatch();
@@ -17,17 +21,28 @@ function App() {
   useEffect(() => {
     dispatch(authenticate()).then(() => setIsLoaded(true));
   }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
+  // }, [dispatch]);
 
   return (
     <>
       <Navigation isLoaded={isLoaded} />
       {isLoaded && (
         <Switch>
+          <Route path="/albums" exact={true}>
+            <Albums/>
+          </Route>
+          <Route path="/albums/:albumId(\d+)" exact={true}>
+            <AlbumDetails/>
+          </Route>
           <Route exact path="/songs/current" component={ManageSongs}/>
           <Route exact path="/songs/new" component={CreateSong}/>
           <Route exact path="/songs/:songId/edit" component={UpdateSong}/>
           <Route exact path="/songs/:songId(\d+)" component={SongDetails}/>
           <Route exact path="/songs" component={SongIndex}/>
+          <Route exact path="/playlists/:playlistId(\d+)" component={PlaylistDetails}/>
+          <Route exact path="/playlists" component={PlaylistIndex}/>
           <Route path="/login" ><LoginFormPage /></Route>
           <Route path="/signup"><SignupFormPage /></Route>
         </Switch>

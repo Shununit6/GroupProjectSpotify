@@ -48,7 +48,7 @@ export const removeAlbumSong = (albumId, songId) => ({
 
 // /** Thunk Action Creators: */
 export const getAllAlbums = () => async (dispatch) => {
-    const res = await fetch("/api/albums");
+    const res = await fetch(`/api/albums`);
 
     if (res.ok) {
         const data = await res.json();
@@ -59,16 +59,30 @@ export const getAllAlbums = () => async (dispatch) => {
     return res;
 };
 
-export const albumDetails = (albumId) => async dispatch => {
-    const res = await fetch(`/api/albums/${albumId}`)
+export const getAlbumDetails = (albumId) => async dispatch => {
+    console.log("Fetching album details for albumId:", albumId);
+    const res = await fetch(`/api/albums/${albumId}`);
 
     if (res.ok) {
         const data = await res.json();
+        console.log("Received data:", data);
         dispatch(loadAlbumDetails(data));
         return data;
     }
+    console.log("Error fetching album details:", res.statusText);
     return res;
-}
+};
+
+export const getMyAlbums = () => async (dispatch) => {
+    const res = await fetch('/api/albums/current');
+    if (res.ok) {
+        const data = await res.json();
+        dispatch(loadAlbums(data));
+        return data;
+    }
+    return res;
+};
+
 
 export const createAlbum = (payload) => async (dispatch) => {
     const res = await fetch("/api/albums", {
@@ -111,7 +125,7 @@ export const deleteAlbum = (albumId) => async (dispatch) => {
     return res;
 };
 
-export const creatAlbumSong = (albumSong, albumId, songId) => async (dispatch) => {
+export const createAlbumSong = (albumSong, albumId, songId) => async (dispatch) => {
     const res = await fetch(`/api/albums/${albumId}/songs/${songId}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -126,7 +140,7 @@ export const creatAlbumSong = (albumSong, albumId, songId) => async (dispatch) =
     return res;
 };
 
-export const deleteAlbumSong = (albumId,songId) => async (dispatch) => {
+export const deleteAlbumSong = (albumId, songId) => async (dispatch) => {
     const res = await fetch(`/api/albums/${albumId}/songs/${songId}`, {
         method: "DELETE",
     });
@@ -139,25 +153,23 @@ export const deleteAlbumSong = (albumId,songId) => async (dispatch) => {
     return res;
 };
 
-const albumsReducer = (state = { }, action) => {
+const albumsReducer = (state = {}, action) => {
     switch (action.type) {
-        case LOAD_ALBUMS:{
+        case LOAD_ALBUMS: {
             const albumsState = { ...state };
-            action.albums.Albums.forEach((album) => {
-                if(!albumsState[album.id]) {albumsState[album.id] = album;}
+            action.albums.albums.forEach((album) => {
+                if (!albumsState[album.id]) { albumsState[album.id] = album; }
             });
             return albumsState;
         };
         case LOAD_ALBUM_DETAILS: {
-            const albumState = { ...state };
-            albumState[action.albums.id] = action.albums;
-            return albumState;
+            return { ...state, [action.album.id]: action.album };
         };
         case RECEIVE_ALBUM:
             return { ...state, [action.group.id]: action.group };
         case UPDATE_ALBUM:
-            return {...state};
-        case REMOVE_ALBUM:{
+            return { ...state };
+        case REMOVE_ALBUM: {
             const albumState = { ...state };
             delete albumState[action.albums];
             return albumState;
@@ -166,7 +178,7 @@ const albumsReducer = (state = { }, action) => {
             const albumState = { ...state };
             return albumState;
         };
-        case REMOVE_ALBUM_SONG:{
+        case REMOVE_ALBUM_SONG: {
             const albumState = { ...state };
             return albumState;
         };

@@ -5,6 +5,9 @@ import OpenModalMenuItem from '../Navigation/OpenModalMenuItem';
 import DeleteSongModal from '../DeleteSongModal/index';
 
 const SongItem = ({ song }) => {
+  console.log("Song in SongIndexItem:", song);
+  console.log("Title:", song.title);
+  console.log("User ID:", song.user_id);
   const dispatch = useDispatch();
   const sessionUser = useSelector(state => state.session.user);
   const {title, user_id} = song;

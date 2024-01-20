@@ -1,23 +1,23 @@
-import './SongDetails.css';
+import './AlbumDetails.css';
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getSongDetails } from '../../store/songs';
+import { getAlbumDetails} from '../../store/albums';
 
 
-const SongDetails = () => {
+const AlbumDetails = () => {
   const dispatch = useDispatch();
-  const { songId } = useParams();
+  const { albumId } = useParams();
+  console.log("This is albumId:", albumId)
   const sessionUser = useSelector(state => state.session.user);
-  const song = useSelector(state => state.songsReducer[songId]);
-  console.log("this is song:" ,song)
+  const album = useSelector(state => state.albumsReducer[albumId]);
+  console.log("this is album:" ,album)
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
-    dispatch(getSongDetails(songId)).then(() => setIsLoading(false));
-  }, [dispatch, songId]);
-  if (isLoading || !song) return (<>Loading...</>);
-  if (isLoading || !song) return (<>Loading...</>);
-  const {user_id, artist_id, title, lyrics, url, duration, release_date} = song;
+    dispatch(getAlbumDetails(albumId)).then(() => setIsLoading(false));
+  }, [dispatch, albumId]);
+  if (isLoading || !album) return (<>Loading...</>);
+  const {user_id, artist_id, title, lyrics, url, duration, release_date} = album;
   return (
     <div className='grid-container'>
       <p className='title'>{title}</p>
@@ -28,4 +28,4 @@ const SongDetails = () => {
   )
 };
 
-export default SongDetails;
+export default AlbumDetails;
