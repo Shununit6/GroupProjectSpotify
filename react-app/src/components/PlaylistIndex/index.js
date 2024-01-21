@@ -7,7 +7,6 @@ import PlaylistIndexItem from '../PlaylistIndexItem/index';
 const PlaylistIndex = () => {
   const dispatch = useDispatch();
   const playlists = useSelector(state => state.playlistsReducer.playlists);
-  console.log(playlists);
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     dispatch(fetchAllPlaylists()).then(() => setIsLoading(false));
