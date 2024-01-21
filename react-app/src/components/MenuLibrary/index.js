@@ -19,12 +19,15 @@ function MenuLibrary({ isLoaded }){
 		// </ul>
         <nav class="leftmenu">
         <div class="leftmenufirst">
+			<i class="fa-brands fa-spotify fa-2x"></i>
             <div>
                 <p>Spotify</p>
             </div>
+			<i class="fa-solid fa-house"></i>
             <div>
                 <NavLink exact to="/">Home</NavLink>
             </div>
+			<i class="fa-solid fa-magnifying-glass"></i>
             <div>
                 <p>Search</p>
             </div>
