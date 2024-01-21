@@ -41,15 +41,20 @@ function MenuLibrary({ isLoaded }){
 			</div>
 			<div class="leftmenulibrarycreate">
 				<div class="leftmenulibrarycreate-1">
-					<NavLink exact to="/"><button>View all the playlist</button></NavLink>
+					<div id="leftmenulibrarytext1">Let's dive into music</div>
+					<NavLink exact to="/"><button>View all the songs</button></NavLink>
+					<NavLink exact to="/"><button>View all the playlists</button></NavLink>
+					<NavLink exact to="/"><button>View all the albums</button></NavLink>
 				</div>
 				{/* {sessionUser && */}
 				<div class="leftmenulibrarycreate-2">
+					<div id="leftmenulibrarytext2">Create a new album here. It's easy, we'll help you</div>
 					<NavLink exact to="/"><button>Create Album</button></NavLink>
 				</div>
 				{/* }
 				{sessionUser && */}
 				<div class="leftmenulibrarycreate-3">
+					<div id="leftmenulibrarytext3">Create a new song here. It's easy, we'll help you</div>
 					<NavLink exact to="/"><button>Create Song</button></NavLink>
 				</div>
 				{/* } */}

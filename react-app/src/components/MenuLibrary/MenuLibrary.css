@@ -33,17 +33,17 @@ button{
     color:white;
     margin-left: 27px;
     margin-top: 3vh;
-    font-size: 23px;
 }
 .fa-solid{
     margin-right: 15px;
 }
 
-/* .leftmenulibrarycreate{
-    background-color: #212121;
-} */
 .leftmenulibrarycreate-1,.leftmenulibrarycreate-2,.leftmenulibrarycreate-3{
     background-color: #212121;
     border-radius: 6px;
-    margin-top: 3vh;
+    margin-top: 1vh;
+}
+
+.leftmenulibrarytext1,.leftmenulibrarytext2,leftmenulibrarytext3{
+    margin-left: 27px;
 }
