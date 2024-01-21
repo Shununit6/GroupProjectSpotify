@@ -1,0 +1,13 @@
+.leftmenu{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.leftmenufirst{
+    display:flex-start;
+}
+
+.leftmenulibrary{
+    display:flex-end;
+}

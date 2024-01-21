@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
 import './Navigation.css';
+import MenuLibrary from '../MenuLibrary';
 
 function Navigation({ isLoaded }){
 	const sessionUser = useSelector(state => state.session.user);
@@ -22,6 +23,9 @@ function Navigation({ isLoaded }){
 			{/* <NavLink exact to="/" src="../../../public/images/navlogo.png">
 			<img id="logoImage" src={navlogo} alt="logoimage"/>
 			</NavLink> */}
+			<div id="LibraryMenu">
+					<MenuLibrary />
+			</div>
 			<div id="navusergroup">
 				{/* {sessionUser &&
 					<Link to="/groups/new" id="greennavstartnew"> Start a new group </Link>

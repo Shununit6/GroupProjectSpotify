@@ -1,0 +1,14 @@
+#profileNavButtonMenuItem {
+    position:relative;
+    display: flex-end;
+    float: inline-end;
+}
+
+#menuitemlogin{
+    margin-right: 1em;
+}
+
+#menuitemsignup{
+    margin-left: 1em;
+    margin-right: 1.5em;
+}
