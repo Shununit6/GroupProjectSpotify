@@ -2,12 +2,42 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    color:white;
 }
 
 .leftmenufirst{
-    display:flex-start;
+    border-radius: 6px;
+    width:270px;
+    height:24vh;
+    background-color: #151515;
 }
 
 .leftmenulibrary{
-    display:flex-end;
+    border-radius: 6px;
+    color:white;
+    width:270px;
+    height:76vh;
+    background-color: #151515;
+    margin-top: 10px;
+}
+
+button{
+    color:black;
+    background-color: white;
+    border-radius: 60px;
+    margin-left: 27px;
+}
+
+.fa-solid,.fa-brands, #homemenulibrary{
+    color:white;
+    margin-left: 27px;
+    margin-top: 3vh;
+}
+
+h1{
+    margin-left: 27px;
+}
+
+.leftmenulibrarycreate{
+    background-color: #212121;
 }
