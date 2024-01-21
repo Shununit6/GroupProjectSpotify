@@ -17,9 +17,7 @@ const SongIndex = () => {
     <div>
       <ul className='landingSongIndex'>
         {songs.map((song) => (
-          <li className='landingEachSong' key={String(song.id)}>
-            <SongIndexItem song={song} />
-          </li>
+            <SongIndexItem className='songSongIndex' song={song} />
         ))}
       </ul>
     </div>

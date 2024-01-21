@@ -1,0 +1,49 @@
+.leftmenu{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    color:white;
+}
+
+.leftmenufirst{
+    border-radius: 6px;
+    width:270px;
+    height:24vh;
+    background-color: #151515;
+}
+
+.leftmenulibrary{
+    border-radius: 6px;
+    color:white;
+    width:270px;
+    height:76vh;
+    background-color: #151515;
+    margin-top: 10px;
+}
+
+button{
+    color:black;
+    background-color: white;
+    border-radius: 60px;
+    margin-left: 27px;
+    margin-top: 3vh;
+}
+
+.fa-solid,.fa-brands, #homemenulibrary{
+    color:white;
+    margin-left: 27px;
+    margin-top: 3vh;
+}
+.fa-solid{
+    margin-right: 15px;
+}
+
+.leftmenulibrarycreate-1,.leftmenulibrarycreate-2,.leftmenulibrarycreate-3{
+    background-color: #212121;
+    border-radius: 6px;
+    margin-top: 1vh;
+}
+
+.leftmenulibrarytext1,.leftmenulibrarytext2,leftmenulibrarytext3{
+    margin-left: 27px;
+}

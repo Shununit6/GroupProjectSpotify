@@ -1,0 +1,36 @@
+#songlinkwithtext {
+    text-decoration:none;
+    color:black;
+}
+
+#songImage{
+    height:200px;
+    width:200px;
+}
+
+h1{
+    font-size: 20px;
+}
+
+#songgrid1{
+    display: grid;
+    grid-template-areas:
+      "item1"
+      "item2";
+    grid-template-rows:  200px 1fr;
+    grid-template-columns: 220px 1fr;
+    /* background-color: #ffff64; */
+}
+
+
+#songitem1{
+    grid-area: item1;
+    /* margin-right: 0.5em; */
+    /* background-color: #8ca0ff; */
+}
+
+#songitem2 {
+    grid-area: item2;
+    width:400px;
+    /* background-color: #ffa08c; */
+}
