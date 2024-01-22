@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchAllPlaylists } from '../../store/playlists';
 import PlaylistIndexItem from '../PlaylistIndexItem/index';
 
-const PlaylistIndex = () => {
+const PlaylistIndex = ({num}) => {
   const dispatch = useDispatch();
   const playlists = useSelector(state => state.playlistsReducer.playlists);
   const [isLoading, setIsLoading] = useState(true);
@@ -15,11 +15,13 @@ const PlaylistIndex = () => {
   return (
     <div>
       <ul className='landingPlaylistIndex'>
-        {playlists.map((playlist) => (
-          <li className='landingEachPlaylist' key={String(playlist.id)}>
-            <PlaylistIndexItem playlist={playlist} />
-          </li>
+        {num !== 4 && playlists.map((playlist) => (
+          <PlaylistIndexItem className='landingEachPlaylist' playlist={playlist} />
         ))}
+        {num === 4 && playlists.slice(0,4).map((playlist) => (
+          <PlaylistIndexItem className='landingEachPlaylist' playlist={playlist} />
+        ))}
+
       </ul>
     </div>
   );

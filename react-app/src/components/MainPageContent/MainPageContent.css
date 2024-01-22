@@ -6,6 +6,6 @@
     color:white;
 }
 
-.MainPageFiveSong{
+.MainPageFourSong, .MainPageFourAlbum, .MainPageFourPlaylist{
     margin-bottom: 5vh;
 }

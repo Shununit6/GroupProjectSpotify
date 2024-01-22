@@ -17,10 +17,10 @@ const SongIndex = ({num}) => {
   return (
     <div>
       <ul className='landingSongIndex'>
-        {num !== 5 &&songs.map((song) => (
+        {num !== 4 &&songs.map((song) => (
             <SongIndexItem className='songSongIndex' song={song} />
         ))}
-        {num === 5 &&songs.slice(0,5).map((song) => (
+        {num === 4 &&songs.slice(0,4).map((song) => (
             <SongIndexItem className='songSongIndex' song={song} />
         ))}
       </ul>
