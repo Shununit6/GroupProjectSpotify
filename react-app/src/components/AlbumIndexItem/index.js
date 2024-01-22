@@ -11,7 +11,6 @@ const AlbumIndexItem = ({ album }) => {
 
     return (
         <Link id="albumlinkwithtext" to={`/albums/${id}`} key={`${id}`}>
-            <hr />
             <div id="albumgrid1">
                 <div id="albumitem1">
                     <img id="albumImage" src={url} alt="album" />

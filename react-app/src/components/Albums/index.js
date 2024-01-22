@@ -19,12 +19,12 @@ function Albums() {
 
   if(isLoaded){
   return (
-    <div id="albumslistgrid">
-      {<div id="viewallalbums">
+    <div class="albumslistgrid">
+      <ul class="viewalbums">
             {Object.values(albums).map((album, index) => (
-                  <AlbumIndexItem album={album} key={index}/>
+                  <AlbumIndexItem class="albumAlbumIndex" album={album} key={index}/>
             ))}
-      </div> }
+      </ul>
     </div>
   );}
 }
