@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify, render_template
+from flask import Blueprint, jsonify, render_template, request
 from flask_login import login_required, current_user
 from app.models import User, Playlist, Song, db
 
@@ -31,6 +31,34 @@ def get_playlist_details(playlist_id):
       return jsonify(playlist.to_dict())
   else:
       return jsonify({'error': 'Playlist not found'}), 404
+
+# Create a Playlist
+@playlist_routes.route('/', methods=['POST'])
+@login_required
+def create_playlist():
+
+    payload = request.get_json()
+    new_playlist = Playlist(user_id=current_user.id, title = payload['title'], url = payload['url'], description = payload['description'])
+    db.session.add(new_playlist)
+    db.session.commit()
+
+    return jsonify({'message': 'Playlist created successfully', 'playlist': new_playlist.to_dict()})
+
+@playlist_routes.route('/<int:playlistId>', methods=['PUT'])
+@login_required
+def edit_playlist(playlistId):
+    playlist = Playlist.query.get(playlistId)
+    if not playlist:
+        return {'errors': f"Playlist {playlistId} does not exist."}, 400
+    # checks if playlist is created by the current user
+    if playlist.user_id != current_user.id:
+        return {'errors': f"Playlist {playlistId} must be created by the current user."}, 401
+    payload= request.get_json()
+    playlist.title=payload['title']
+    playlist.url=payload['url']
+    playlist.description=payload['description']
+    db.session.commit()
+    return jsonify(playlist.to_dict())
 
 #Add a song to one of the current user's playlists
 @playlist_routes.route('/<int:playlist_id>/songs/<int:song_id>', methods = ['POST'])
