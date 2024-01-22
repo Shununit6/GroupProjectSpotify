@@ -12,7 +12,6 @@ function MainPageContent(){
                 <ul className='MainPageFiveSong'>
                         <SongIndex num={num}/>
                 </ul>
-                <p>Spotify Albums</p>
                 <ul className='MainPageFiveAlbum'>
                         <Albums />
                 </ul>
