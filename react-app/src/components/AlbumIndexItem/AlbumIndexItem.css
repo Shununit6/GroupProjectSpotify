@@ -6,10 +6,7 @@
 #albumImage{
     height:200px;
     width:200px;
-}
-
-h1{
-    font-size: 20px;
+    border-radius: 6px;
 }
 
 #albumgrid1{
@@ -31,6 +28,6 @@ h1{
 
 #albumitem2 {
     grid-area: item2;
-    width:400px;
+    /* width:200px; */
     /* background-color: #ffa08c; */
 }

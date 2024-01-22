@@ -22,7 +22,7 @@ const SongItem = ({ song }) => {
                 <img id ="songImage" src={url} alt="song"/>
             </div>
             <div id="songitem2">
-                <h1>{title}</h1>
+                {title}
             </div>
         </div>
       </Link>

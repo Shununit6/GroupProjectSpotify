@@ -8,13 +8,18 @@ function MainPageContent(){
 	return (
         <nav>
             <div id="MainPageContentCss">
+                <div>
                 <p>Spotify Songs</p>
                 <ul className='MainPageFiveSong'>
                         <SongIndex num={num}/>
                 </ul>
-                <ul className='MainPageFiveAlbum'>
-                        <Albums />
-                </ul>
+                </div>
+                <div>
+                    <p>Spotify Albums</p>
+                    <ul className='MainPageFiveAlbum'>
+                            <Albums num={num}/>
+                    </ul>
+                </div>
             </div>
         </nav>
 	);

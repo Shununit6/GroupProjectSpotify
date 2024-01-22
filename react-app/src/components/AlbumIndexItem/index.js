@@ -16,7 +16,7 @@ const AlbumIndexItem = ({ album }) => {
                     <img id="albumImage" src={url} alt="album" />
                 </div>
                 <div id="albumitem2">
-                    <h1>{title}</h1>
+                    {title}
                 </div>
             </div>
         </Link>

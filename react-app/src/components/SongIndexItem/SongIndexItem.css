@@ -6,10 +6,7 @@
 #songImage{
     height:200px;
     width:200px;
-}
-
-h1{
-    font-size: 20px;
+    border-radius: 6px;
 }
 
 #songgrid1{
@@ -19,6 +16,10 @@ h1{
       "item2";
     grid-template-rows:  200px 1fr;
     grid-template-columns: 220px 1fr;
+    /* background-color: #ffff64; */
+    border-radius: 6px;
+    /* border-radius: 6px;
+    background-color: aqua; */
     /* background-color: #ffff64; */
 }
 
@@ -31,6 +32,6 @@ h1{
 
 #songitem2 {
     grid-area: item2;
-    width:400px;
+    /* width:150px; */
     /* background-color: #ffa08c; */
 }
