@@ -1,5 +1,7 @@
 #MainPageContentCss{
-    background-color: aliceblue;
+    /* background-color: aliceblue; */
     width:100%;
     height:100vh;
+    color:#121212;
+    color:white;
 }

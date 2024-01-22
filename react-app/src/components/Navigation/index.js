@@ -18,9 +18,10 @@ function Navigation({ isLoaded }){
 				{isLoaded && (
 					<ProfileButton user={sessionUser} />
 				)}
+				{isLoaded && (
 				<div id="viewallthree">
 					<MainPageContent />
-				</div>
+				</div>)}
 			</div>
 		</nav>
 	);

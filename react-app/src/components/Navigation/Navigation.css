@@ -8,7 +8,7 @@ nav {
 #LibraryMenu {
   position: relative;
   float:inline-start;
-  background-color: blue;
+  /* background-color: blue; */
   flex: 1 fr;
   width:270px;
 }

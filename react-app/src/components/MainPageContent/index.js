@@ -1,15 +1,16 @@
-import React from 'react';
-import { NavLink, Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { React } from 'react';
 import './MainPageContent.css';
+import SongIndex from '../../components/SongIndex';
 
-function MainPageContent({ isLoaded }){
-	const sessionUser = useSelector(state => state.session.user);
-
+function MainPageContent(){
+    const num = 5;
 	return (
         <nav>
             <div id="MainPageContentCss">
-                <p>Spotify playlists</p>
+                <p>Spotify songs</p>
+                <ul className='landingSongIndex'>
+                        <SongIndex num={num}/>
+                </ul>
             </div>
         </nav>
 	);
