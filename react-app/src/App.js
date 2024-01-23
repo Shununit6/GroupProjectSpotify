@@ -14,6 +14,7 @@ import Albums from "./components/Albums";
 import AlbumDetails from "./components/AlbumDetails";
 import PlaylistIndex from './components/PlaylistIndex';
 import PlaylistDetails from './components/PlaylistDetails';
+import Home from './components/Home';
 
 function App() {
   const dispatch = useDispatch();
@@ -21,15 +22,16 @@ function App() {
   useEffect(() => {
     dispatch(authenticate()).then(() => setIsLoaded(true));
   }, [dispatch]);
-  // useEffect(() => {
-  //   dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
-  // }, [dispatch]);
 
   return (
     <>
       <Navigation isLoaded={isLoaded} />
       {isLoaded && (
         <Switch>
+          <Route exact={true} path="/">
+            <Home />
+          </Route>
+
           <Route path="/albums" exact={true}>
             <Albums/>
           </Route>
@@ -43,8 +45,8 @@ function App() {
           <Route exact path="/songs" component={SongIndex}/>
           <Route exact path="/playlists/:playlistId(\d+)" component={PlaylistDetails}/>
           <Route exact path="/playlists" component={PlaylistIndex}/>
-          <Route path="/login" ><LoginFormPage /></Route>
-          <Route path="/signup"><SignupFormPage /></Route>
+          {/* <Route path="/login" ><LoginFormPage /></Route>
+          <Route path="/signup"><SignupFormPage /></Route> */}
         </Switch>
       )}
     </>
