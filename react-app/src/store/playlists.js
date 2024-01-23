@@ -4,7 +4,6 @@ const ADD_SONG_TO_PLAYLIST = 'playlists/ADD_SONG_TO_PLAYLIST'
 const REMOVE_SONG_FROM_PLAYLIST = 'playlists/REMOVE_SONG_FROM_PLAYLIST'
 const DELETE_PLAYLIST = 'playlists/DELETE_PLAYLIST'
 
-
 /**Action Creators: */
 
 const getAllPlaylists = (playlists) => ({
@@ -61,7 +60,6 @@ export const getMyPlaylists = () => async (dispatch) => {
   return res;
 };
 
-
 export const addSongToPlaylistThunk = (playlistId, songId) => async (dispatch) => {
   const response = await fetch(`/api/playlists/${playlistId}/songs/${songId}`, {
     method: "POST",
@@ -101,8 +99,6 @@ export const deletePlaylistThunk = (playlistId) => async (dispatch) => {
   return response;
 };
 
-
-
 const playlistsReducer = (state = { playlists: {}, currPlaylist: {} }, action) => {
   switch (action.type) {
     case GET_ALL_PLAYLISTS:
@@ -125,7 +121,6 @@ const playlistsReducer = (state = { playlists: {}, currPlaylist: {} }, action) =
       playlists[action.message.id] = action.message;
       return { ...state, playlists };
     }
-
 
     case DELETE_PLAYLIST:
       const newState = { ...state };
