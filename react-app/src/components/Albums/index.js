@@ -4,7 +4,7 @@ import { getAllAlbums } from '../../store/albums';
 import AlbumIndexItem from '../AlbumIndexItem';
 import "./albums.css";
 
-function Albums() {
+function Albums({num}) {
     const dispatch = useDispatch();
     const [isLoaded, setIsLoaded] = useState(false);
     const albums = useSelector((state) => state.albumsReducer);
@@ -19,12 +19,15 @@ function Albums() {
 
   if(isLoaded){
   return (
-    <div id="albumslistgrid">
-      {<div id="viewallalbums">
-            {Object.values(albums).map((album, index) => (
-                  <AlbumIndexItem album={album} key={index}/>
+    <div class="albumslistgrid">
+      <ul class="viewalbums">
+            { num !== 5 && Object.values(albums).map((album, index) => (
+                  <AlbumIndexItem class="albumAlbumIndex" album={album} key={index}/>
             ))}
-      </div> }
+            { num === 5 && Object.values(albums).slice(0,5).map((album, index) => (
+              <AlbumIndexItem class="albumAlbumIndex" album={album} key={index}/>
+            ))}
+      </ul>
     </div>
   );}
 }

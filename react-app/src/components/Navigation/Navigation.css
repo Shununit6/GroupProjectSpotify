@@ -1,20 +1,22 @@
-.profile-dropdown {
-  position: absolute;
-}
-
-.hidden {
-  display: none;
-}
-
 nav {
   font-family: Georgia, serif, cursive;
   color:black;
   display:flex;
-  justify-content: space-between;
-  /* align-items: center; */
+  flex-flow: row wrap;
 }
 
 #LibraryMenu {
   position: relative;
   float:inline-start;
+  /* background-color: blue; */
+  flex: 1 fr;
+  width:270px;
+}
+
+#navusergroup{
+  /* background-color: white; */
+  position: relative;
+  flex: 1;
+  width:auto;
+  margin-left: 15px;
 }

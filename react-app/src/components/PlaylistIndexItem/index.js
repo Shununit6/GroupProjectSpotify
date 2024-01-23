@@ -7,15 +7,28 @@ import DeletePlaylistModal from '../DeletePlaylistModal/index';
 const PlaylistItem = ({ playlist }) => {
   const dispatch = useDispatch();
   const sessionUser = useSelector(state => state.session.user);
-  const {title, user_id, url} = playlist;
+  const {id, title, user_id, url} = playlist;
   const sessionUserId = sessionUser ? sessionUser.id : null;
   const checkUserVSOwner = sessionUserId === user_id ? true : false;
   return (
+    // <div className='playlistTile'>
+    //   <span className='tooltip'>{title}</span>
+    //   <Link to={`/playlists/${playlist.id}`}><p className='title'>{title}</p></Link>
+    //   {checkUserVSOwner && <OpenModalMenuItem itemText='Delete' modalComponent={<DeletePlaylistModal playlist={playlist}/>}/>}
+    // </div>
     <div className='playlistTile'>
-      <span className='tooltip'>{title}</span>
-      <Link to={`/playlists/${playlist.id}`}><p className='title'>{title}</p></Link>
-      {checkUserVSOwner && <OpenModalMenuItem itemText='Delete' modalComponent={<DeletePlaylistModal playlist={playlist}/>}/>}
-    </div>
+    <Link id="playlistlinkwithtext" to={`/playlists/${playlist.id}`}  key={`${id}`}>
+      {/* <hr /> */}
+      <div id="playlistgrid1">
+          <div id="playlistitem1">
+              <img id ="playlistImage" src={url} alt="playlist"/>
+          </div>
+          <div id="playlistitem2">
+              {title}
+          </div>
+      </div>
+    </Link>
+  </div>
   );
 };
 

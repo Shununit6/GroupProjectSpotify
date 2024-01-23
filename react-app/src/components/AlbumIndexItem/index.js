@@ -11,13 +11,12 @@ const AlbumIndexItem = ({ album }) => {
 
     return (
         <Link id="albumlinkwithtext" to={`/albums/${id}`} key={`${id}`}>
-            <hr />
             <div id="albumgrid1">
                 <div id="albumitem1">
                     <img id="albumImage" src={url} alt="album" />
                 </div>
                 <div id="albumitem2">
-                    <h1>{title}</h1>
+                    {title}
                 </div>
             </div>
         </Link>
