@@ -11,17 +11,17 @@ function Navigation({ isLoaded }){
 
 	return (
 		<nav>
-			<div id="LibraryMenu">
+			{/* <div id="LibraryMenu">
 					<MenuLibrary />
-			</div>
-			<div id="navusergroup">
+			</div> */}
+			<div id="loginsignupnavbar">
 				{isLoaded && (
 					<ProfileButton user={sessionUser} />
 				)}
-				{isLoaded && (
+				{/* {isLoaded && (
 				<div id="viewallthree">
 					<MainPageContent />
-				</div>)}
+				</div>)} */}
 			</div>
 		</nav>
 	);
