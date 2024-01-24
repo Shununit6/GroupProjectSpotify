@@ -3,17 +3,19 @@ import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { createSong, updateSong } from '../../store/songs';
-import { fetchAllArtists } from '../../store/artists';
+import { fetchAllArtists, createArtist, updateArtist } from '../../store/artists';
 
 const SongForm = ({ song, formType }) => {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
   const artists = useSelector((state) => state.artistsReducer);
+  const currentUser = useSelector((state) => state.session);
   useEffect(()=>{
     dispatch(fetchAllArtists()).then(()=>setIsLoaded(true))
-  }, [dispatch]);
+  }, [dispatch, formType]);
   const history = useHistory();
-  const [artistId, setArtistId] = useState(song?.artist_id);
+  const [userId, setUserId] = useState(song?.user_id);
+  let [artistId, setArtistId] = useState(song?.artist_id);
   const [title, setTitle] = useState(song?.title);
   const [lyrics, setLyrics] = useState(song?.lyrics);
   const [url, setUrl] = useState(song?.url);
@@ -24,16 +26,40 @@ const SongForm = ({ song, formType }) => {
   const [errors, setErrors] = useState({});
   const formTitle = formType === 'Create Song' ? 'Create a New Song' : 'Update Your Song';
 
-  console.log("this is artists", artists)
+  // if(artistId)
+  // const artist = Object.values(artists).filter((curr, index)=> (curr.name == 'Charlie Puth'))
+  let songArtist;
+  if(artistId){
+    songArtist = Object.values(artists)[0][artistId]
+  }
+  const [artistName, setArtistName] = useState(songArtist?.name);
+  console.log("this is artistName", artistName)
+  // console.log("this is artists", artists)
+  // console.log("this is artists index", Object.values(artists)[0])
+  // console.log("this is artists index", Object.values(artists)[0][1])
+  // console.log("this is artists index", Object.values(artists)[0][1].name)
   if (!isLoaded) {
     return (<div>Loading...</div>);
   }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrors({});
     // song = {...song, artistName, title, lyrics, url, duration, releaseDate};
+
+    if(artistId){
+      dispatch(updateArtist({name:{artistName}}))
+    }
+
+    if(!artistId){
+      dispatch(createArtist({name:{artistName}}))
+      artistId = Object.values(artists).filter((curr)=> (curr.name == artistName)).id
+    }
+  // const artist = Object.values(artists).filter((curr, index)=> (curr.name == 'Charlie Puth'))
+    console.log("artist_id", artistId)
     const formData = new FormData();
     formData.append("songFile", songFile);
+    formData.append("user_id", userId);
     formData.append("artist_id", artistId);
     formData.append("title", title);
     formData.append("lyrics", lyrics);
@@ -69,6 +95,7 @@ const SongForm = ({ song, formType }) => {
   const urlError = errors.url ? 'URL: ' + errors.url : null;
   const durationError = errors.duration ? 'Duration: ' + errors.duration : null;
   const releaseDateError = errors.releaseDate ? 'Release Date: ' + errors.releaseDate : null;
+
   if(isLoaded){
   return (
     <div className='body'>
@@ -85,10 +112,10 @@ const SongForm = ({ song, formType }) => {
       <p className='formSubheading'>Want to share your song?</p>
       <p className='nomal'>Some details about your song.</p>
       <div className='formNormal'>
-      {/* <label>
+      <label>
         Artist Name<br/>
-        <input type="text" value={artistId} placeholder="Artist Name" onChange={(e) => setArtistId(e.target.value)}/><br/>
-      </label> */}
+        <input type="text" value={artistName} placeholder="Artist Name" onChange={(e) => setArtistName(e.target.value)}/><br/>
+      </label>
       <label>
         Song Title<br/>
         <input type="text" value={title} placeholder="Song Title" onChange={(e) => setTitle(e.target.value)}/><br/>
@@ -119,6 +146,8 @@ const SongForm = ({ song, formType }) => {
     </form>
     </div>
   );
-};}
+};
+
+}
 
 export default SongForm;
