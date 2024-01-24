@@ -82,11 +82,15 @@ export const getMyAlbums = () => async (dispatch) => {
 };
 
 export const createAlbum = (payload) => async (dispatch) => {
-    const res = await fetch("/api/albums", {
+    console.log("We are here")
+    console.log("this is the payload:", payload)
+    const res = await fetch("/api/albums/", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
     });
+    console.log("We are here 2")
+    console.log("This is the res", res)
     if (res.ok) {
         const data = await res.json();
         dispatch(receiveAlbum(data));
@@ -163,7 +167,7 @@ const albumsReducer = (state = {}, action) => {
             return { ...state, [action.album.id]: action.album };
         };
         case RECEIVE_ALBUM:
-            return { ...state, [action.group.id]: action.group };
+            return { ...state, [action.album.id]: action.album };
         case UPDATE_ALBUM:
             return { ...state };
         case REMOVE_ALBUM: {

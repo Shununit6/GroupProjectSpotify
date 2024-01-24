@@ -9,7 +9,7 @@ const AlbumForm = ({ album, formType }) => {
   const history = useHistory();
   const [title, setTitle] = useState(album?.title);
   const [url, setUrl] = useState(album?.url);
-  const [releaseDate, setReleaseDate] = useState(album?.release_date);
+  const [release_date, setReleaseDate] = useState(album?.release_date);
   const [copyright, setCopyright] = useState(album?.copyright || '');
   const [errors, setErrors] = useState({});
 
@@ -19,7 +19,7 @@ const AlbumForm = ({ album, formType }) => {
     e.preventDefault();
     setErrors({});
 
-    album = { ...album, title, releaseDate, url, copyright };
+    album = { ...album, title, release_date, url, copyright };
 
     if (formType === 'Update Album') {
       dispatch(updateAlbum(album))
@@ -31,6 +31,7 @@ const AlbumForm = ({ album, formType }) => {
           }
         });
     } else if (formType === 'Create Album') {
+      console.log("This is the album:", album)
       dispatch(createAlbum(album))
         .then((newAlbum) => history.push(`/albums/${newAlbum.id}`))
         .catch(async (res) => {
@@ -71,11 +72,11 @@ const AlbumForm = ({ album, formType }) => {
           </label>
           <label>
             Release Date<br />
-            <input type="text" value={releaseDate} placeholder="Release Date" onChange={(e) => setReleaseDate(e.target.value)} /><br />
+            <input type="text" value={release_date} placeholder="Release Date" onChange={(e) => setReleaseDate(e.target.value)} /><br />
           </label>
           <label>
             Copyright<br />
-            <input type="text" value={copyright} placeholder="Copyright" onChange={(e) => setCopyright(e.target.value)} /><br /> {/* Add if needed */}
+            <input type="text" value={copyright} placeholder="Copyright" onChange={(e) => setCopyright(e.target.value)} /><br />
           </label>
         </div>
         <button className='submitFormButton' type="submit">{formType}</button>
