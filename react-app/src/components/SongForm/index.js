@@ -1,13 +1,19 @@
 import './SongForm.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { createSong, updateSong } from '../../store/songs';
+import { fetchAllArtists } from '../../store/artists';
 
 const SongForm = ({ song, formType }) => {
   const dispatch = useDispatch();
+  const [isLoaded, setIsLoaded] = useState(false);
+  const artists = useSelector((state) => state.artistsReducer);
+  useEffect(()=>{
+    dispatch(fetchAllArtists()).then(()=>setIsLoaded(true))
+  }, [dispatch]);
   const history = useHistory();
-  // const [artistId, setArtistId] = useState(song?.artist_id);
+  const [artistId, setArtistId] = useState(song?.artist_id);
   const [title, setTitle] = useState(song?.title);
   const [lyrics, setLyrics] = useState(song?.lyrics);
   const [url, setUrl] = useState(song?.url);
@@ -18,10 +24,10 @@ const SongForm = ({ song, formType }) => {
   const [errors, setErrors] = useState({});
   const formTitle = formType === 'Create Song' ? 'Create a New Song' : 'Update Your Song';
 
-  useEffect(() => {
-    dispatch(fetchPlaylistById(playlistId)).then(() => setIsLoading(false));
-  }, [dispatch, playlistId]);
-
+  console.log("this is artists", artists)
+  if (!isLoaded) {
+    return (<div>Loading...</div>);
+  }
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrors({});
@@ -63,6 +69,7 @@ const SongForm = ({ song, formType }) => {
   const urlError = errors.url ? 'URL: ' + errors.url : null;
   const durationError = errors.duration ? 'Duration: ' + errors.duration : null;
   const releaseDateError = errors.releaseDate ? 'Release Date: ' + errors.releaseDate : null;
+  if(isLoaded){
   return (
     <div className='body'>
     <form className='form' onSubmit={handleSubmit} encType="multipart/form-data">
@@ -112,6 +119,6 @@ const SongForm = ({ song, formType }) => {
     </form>
     </div>
   );
-};
+};}
 
 export default SongForm;
