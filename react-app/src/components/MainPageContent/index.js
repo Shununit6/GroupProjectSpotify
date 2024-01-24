@@ -1,5 +1,6 @@
 import { React } from 'react';
 import './MainPageContent.css';
+import { Link } from 'react-router-dom';
 import SongIndex from '../../components/SongIndex';
 import Albums from '../Albums';
 import PlaylistIndex from '../PlaylistIndex';
@@ -11,6 +12,7 @@ function MainPageContent(){
             <div id="MainPageContentCss">
                 <div>
                 <p>Spotify Songs</p>
+                <Link exact to="/songs"><button>View all</button></Link>
                 <ul className='MainPageFourSong'>
                         <SongIndex num={num}/>
                 </ul>
