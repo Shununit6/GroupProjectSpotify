@@ -4,6 +4,10 @@ import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getSongDetails } from '../../store/songs';
 import DeleteSongModal from '../DeleteSongModal';
+import AddSongToAlbumModal from '../AddSongToAlbumModal';
+import AddSongToPlaylistModal from '../AddSongToPlaylistModal';
+import RemoveSongFromAlbumModal from '../RemoveSongFromAlbumModal';
+import RemoveSongFromPlaylistModal from '../RemoveSongFromPlaylistModal';
 import OpenModalMenuItem from '../Navigation/OpenModalMenuItem';
 
 const SongDetails = () => {
@@ -20,8 +24,11 @@ const SongDetails = () => {
     dispatch(getSongDetails(songId)).then(() => setIsLoading(false));
   }, [dispatch, songId]);
   if (isLoading || !song) return (<>Loading...</>);
-  if (isLoading || !song) return (<>Loading...</>);
   const { user_id, artist_id, title, lyrics, url, duration, release_date } = song;
+
+  const sessionUserId = sessionUser ? sessionUser.id : null;
+  //check Delete Song auth
+  const checkUserVSOwner = sessionUserId === user_id ? true : false;
 
   const closeMenu = (e) => {
     if (!ulRef.current?.contains(e.target)) {
@@ -36,13 +43,17 @@ const SongDetails = () => {
         <p className='duration'>{duration}</p>
         <p className='release_date'>{release_date}</p>
       </div>
-      <button>
+      {checkUserVSOwner && <button>
         <OpenModalMenuItem
-          itemText="Delete"
+          itemText="Delete Song"
           onItemClick={closeMenu}
-          modalComponent={<DeleteSongModal song = {song}/>}
+          modalComponent={<DeleteSongModal song={song}/>}
         />
-      </button>
+      </button>}
+      {sessionUserId && <button> <OpenModalMenuItem itemText="Add Song to Album" onItemClick={closeMenu} modalComponent={<AddSongToAlbumModal song = {song}/>}/> </button>}
+      {sessionUserId && <button> <OpenModalMenuItem itemText="Add Song to Playlist" onItemClick={closeMenu} modalComponent={<AddSongToPlaylistModal song = {song}/>}/> </button>}
+      {sessionUserId && <button> <OpenModalMenuItem itemText="Remove Song from Album" onItemClick={closeMenu} modalComponent={<RemoveSongFromAlbumModal song = {song}/>}/> </button>}
+      {sessionUserId && <button> <OpenModalMenuItem itemText="Remove Song from Playlist" onItemClick={closeMenu} modalComponent={<RemoveSongFromPlaylistModal song = {song}/>}/> </button>}
     </>
   )
 };
