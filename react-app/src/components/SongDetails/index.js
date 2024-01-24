@@ -28,6 +28,7 @@ const SongDetails = () => {
       setShowMenu(false);
     }
   };
+
   return (
     <>
       <div className='grid-container'>
@@ -36,11 +37,11 @@ const SongDetails = () => {
         <p className='duration'>{duration}</p>
         <p className='release_date'>{release_date}</p>
       </div>
-      <button>
+      <button onClick={closeMenu}>
         <OpenModalMenuItem
           itemText="Delete"
           onItemClick={closeMenu}
-          modalComponent={<DeleteSongModal song = {song}/>}
+          modalComponent={<DeleteSongModal song={song} />}
         />
       </button>
     </>

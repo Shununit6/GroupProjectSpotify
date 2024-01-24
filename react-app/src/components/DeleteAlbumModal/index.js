@@ -3,22 +3,33 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { deleteAlbum } from '../../store/albums';
+import { useHistory } from 'react-router-dom';
 
 const DeleteAlbumModal = ({album}) => {
     const albumId = album.id;
     const dispatch = useDispatch();
     const [errors, setErrors] = useState({});
     const {closeModal} = useModal();
+    const history = useHistory();
+
     const handleDelete = async (e) => {
         e.preventDefault();
-        dispatch(deleteAlbum(albumId))
-        .then(closeModal)
-        .catch(async (res) => {
-            const data = await res.json();
-            if (data && data.errors) {
-              setErrors(data.errors);
+        try {
+            await dispatch(deleteAlbum(albumId));
+            closeModal();
+            history.push('/albums');
+        } catch (error) {
+            console.error('Error deleting album:', error);
+
+            try {
+                const data = await error.json();
+                if (data && data.errors) {
+                    setErrors(data.errors);
+                }
+            } catch (jsonError) {
+                console.error('Error parsing JSON:', jsonError);
             }
-        });
+        }
     };
     return (
         <div>
