@@ -1,9 +1,12 @@
-from flask import Blueprint, render_template, redirect, url_for, jsonify, request
+from flask import Blueprint, redirect, jsonify, request
 from ..config import Config
 from flask_login import login_required, current_user
 from ..forms import CreateEditSongForm
 from ..models import db, Song, Like, Artist
 from flask_migrate import Migrate
+
+from ..forms.song_submission_form import SongForm
+from .aws_helpers import get_unique_filename, upload_file_to_s3, remove_file_from_s3
 
 song_routes = Blueprint("songs", __name__)
 
@@ -37,9 +40,20 @@ def get_song_details(song_id):
 @song_routes.route("/new", methods=["POST"])
 @login_required
 def create_song():
-    form = CreateEditSongForm()
+    form = SongForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
+        song = form.data["song"]
+        song.filename = get_unique_filename(song.filename)
+        upload = upload_file_to_s3(song)
+        print(upload)
+
+        if "url" not in upload:
+        # if the dictionary doesn't have a url key
+        # it means that there was an error when we tried to upload
+        # so we send back that error message (and we printed it above)
+            return jsonify({"error": "url upload failed"}), 500
+        song_url = upload['url']
         data = form.data
         # check and add artist
         artist = Artist.query.filter_by(name=data['artist_name']).first()
@@ -54,7 +68,7 @@ def create_song():
                         lyrics=data['lyrics'],
                         url=data['url'],
                         duration=data['duration'],
-                        release_date=data['release_date'])
+                        release_date=data['release_date']),
         db.session.add(new_song)
         db.session.commit()
         return jsonify(new_song.to_dict())
