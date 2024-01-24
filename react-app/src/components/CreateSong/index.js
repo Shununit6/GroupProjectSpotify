@@ -2,8 +2,7 @@ import SongForm from '../SongForm/index';
 
 const CreateSong = () => {
   const song = {
-    user_id:'',
-    artist_id: '',
+    artist_name:'',
     title: '',
     lyrics: '',
     url: '',

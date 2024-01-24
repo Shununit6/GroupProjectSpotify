@@ -3,19 +3,18 @@ import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { createSong, updateSong } from '../../store/songs';
-import { fetchAllArtists, createArtist, updateArtist } from '../../store/artists';
+import { fetchAllArtists } from '../../store/artists';
 
 const SongForm = ({ song, formType }) => {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
-  const artists = useSelector((state) => state.artistsReducer);
+  // const artists = useSelector((state) => state.artistsReducer);
   const currentUser = useSelector((state) => state.session);
-  useEffect(()=>{
-    dispatch(fetchAllArtists()).then(()=>setIsLoaded(true))
-  }, [dispatch, formType]);
+  // useEffect(()=>{
+  //   dispatch(fetchAllArtists()).then(()=>setIsLoaded(true))
+  // }, [dispatch, formType]);
   const history = useHistory();
-  const [userId, setUserId] = useState(song?.user_id);
-  let [artistId, setArtistId] = useState(song?.artist_id);
+  const [artistName, setArtistName] = useState(song?.artist_name);
   const [title, setTitle] = useState(song?.title);
   const [lyrics, setLyrics] = useState(song?.lyrics);
   const [url, setUrl] = useState(song?.url);
@@ -28,12 +27,12 @@ const SongForm = ({ song, formType }) => {
 
   // if(artistId)
   // const artist = Object.values(artists).filter((curr, index)=> (curr.name == 'Charlie Puth'))
-  let songArtist;
-  if(artistId){
-    songArtist = Object.values(artists)[0][artistId]
-  }
-  const [artistName, setArtistName] = useState(songArtist?.name);
-  console.log("this is artistName", artistName)
+  // let songArtist;
+  // if(artistId){
+  //   songArtist = Object.values(artists)[0][artistId]
+  // }
+  // const [artistName, setArtistName] = useState(songArtist?.name);
+  // console.log("this is artistName", artistName)
   // console.log("this is artists", artists)
   // console.log("this is artists index", Object.values(artists)[0])
   // console.log("this is artists index", Object.values(artists)[0][1])
@@ -47,20 +46,21 @@ const SongForm = ({ song, formType }) => {
     setErrors({});
     // song = {...song, artistName, title, lyrics, url, duration, releaseDate};
 
-    if(artistId){
-      dispatch(updateArtist({name:{artistName}}))
-    }
+    // console.log("this is artistName", artistName)
+    // if(artistId && artistName){
+    //   dispatch(updateArtist({name:{artistName}}))
+    // }
 
-    if(!artistId){
-      dispatch(createArtist({name:{artistName}}))
-      artistId = Object.values(artists).filter((curr)=> (curr.name == artistName)).id
-    }
+    // if(!artistId && artistName){
+    //   dispatch(createArtist({name:{artistName}}))
+    //   artistId = Object.values(artists).filter((curr)=> (curr.name == artistName)).id
+    // }
+    // console.log("this is artists", artists)
   // const artist = Object.values(artists).filter((curr, index)=> (curr.name == 'Charlie Puth'))
-    console.log("artist_id", artistId)
+    // console.log("artist_id", artistId)
     const formData = new FormData();
     formData.append("songFile", songFile);
-    formData.append("user_id", userId);
-    formData.append("artist_id", artistId);
+    formData.append("artist_name", artistName);
     formData.append("title", title);
     formData.append("lyrics", lyrics);
     formData.append("url", url);
@@ -89,7 +89,7 @@ const SongForm = ({ song, formType }) => {
       });
     }
   };
-  // const artistNameError = errors.artistName ? 'Artist Name: ' + errors.artistName : null;
+  const artistNameError = errors.artistName ? 'Artist Name: ' + errors.artistName : null;
   const titleError = errors.title ? 'Title: ' + errors.title : null;
   const lyricsError = errors.lyrics ? 'Lyrics: ' + errors.lyrics : null;
   const urlError = errors.url ? 'URL: ' + errors.url : null;
@@ -102,7 +102,7 @@ const SongForm = ({ song, formType }) => {
     <form className='form' onSubmit={handleSubmit} encType="multipart/form-data">
       <p className='formHeading'>{formTitle}</p>
       <div className='errors'>
-        {/* <ul >{artistNameError}</ul> */}
+        <ul >{artistNameError}</ul>
         <ul>{titleError}</ul>
         <ul>{lyricsError}</ul>
         <ul>{urlError}</ul>
