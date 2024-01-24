@@ -96,7 +96,7 @@ def edit_song(songId):
 def delete_song(songId):
     song = Song.query.filter_by(id=songId).one()
     if current_user.id != song.user_id:
-        return 'Forbidden'
+        return jsonify({"error": "Forbidden"}), 403
     db.session.delete(song)
     db.session.commit()
-    return 'Song deleted'
+    return jsonify({"message": "Song deleted"})
