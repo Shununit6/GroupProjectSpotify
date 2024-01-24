@@ -5,12 +5,3 @@
     position: relative;
     width: auto;
   }
-
-.songSongIndex {
-    /* background: blue none repeat scroll 0 0; */
-    flex: 1 1 18%;
-    height: auto;
-    margin: 4px;
-    padding: 20px 0;
-    width: 20%;
-  }

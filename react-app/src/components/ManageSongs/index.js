@@ -14,7 +14,7 @@ const ManageSongs = () => {
     }, [dispatch]);
     const sessionUser = useSelector(state => state.session.user);
     if (isLoading) return (<>Loading...</>);
-    const songsByUser = songs? songs.filter(song => song.user_id === sessionUser.id) : [];
+    const songsByUser = songs ? songs.filter(song => song.user_id === sessionUser.id) : [];
     const hasSongs = songsByUser.length > 0;
     return (
         <div>

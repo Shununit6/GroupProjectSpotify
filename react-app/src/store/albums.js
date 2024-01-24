@@ -4,10 +4,8 @@ export const LOAD_ALBUM_DETAILS = "albums/LOAD_ALBUM_DETAILS";
 export const RECEIVE_ALBUM = "albums/RECEIVE_ALBUM";
 export const UPDATE_ALBUM = "albums/UPDATE_ALBUM";
 export const REMOVE_ALBUM = "albums/REMOVE_ALBUM";
-
 export const RECEIVE_ALBUM_SONG = "albums/RECEIVE_ALBUM_SONG";
 export const REMOVE_ALBUM_SONG = "albums/REMOVE_ALBUM_SONG";
-
 
 // /**  Action Creators: */
 export const loadAlbums = (albums) => ({
@@ -82,7 +80,6 @@ export const getMyAlbums = () => async (dispatch) => {
     }
     return res;
 };
-
 
 export const createAlbum = (payload) => async (dispatch) => {
     const res = await fetch("/api/albums", {

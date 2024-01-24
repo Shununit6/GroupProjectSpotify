@@ -1,18 +1,20 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch } from 'react-redux';
 import { logout } from "../../store/session";
-import { Link } from "react-router-dom";
-import OpenModalButton from "../OpenModalButton";
+import { Link } from 'react-router-dom';
+import * as sessionActions from '../../store/session';
 import OpenModalMenuItem from './OpenModalMenuItem';
-import LoginFormModal from "../LoginFormModal";
-import SignupFormModal from "../SignupFormModal";
+import LoginFormModal from '../LoginFormModal';
+import SignupFormModal from '../SignupFormModal';
+import "./ProfileButton.css";
 
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
   const [showMenu, setShowMenu] = useState(false);
   const ulRef = useRef();
 
-  const openMenu = () => {
+  const openMenu = (e) => {
+    e.stopPropagation();
     if (showMenu) return;
     setShowMenu(true);
   };
@@ -26,18 +28,20 @@ function ProfileButton({ user }) {
       }
     };
 
-    document.addEventListener("click", closeMenu);
+    document.addEventListener('click', closeMenu);
 
     return () => document.removeEventListener("click", closeMenu);
   }, [showMenu]);
 
-  const handleLogout = (e) => {
+  const closeMenu = () => setShowMenu(false);
+
+  const logout = (e) => {
     e.preventDefault();
-    dispatch(logout());
+    dispatch(sessionActions.logout());
+    closeMenu();
   };
 
   const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
-  const closeMenu = () => setShowMenu(false);
 
   return (
     <div id="profileNavButtonMenuItem">
@@ -75,12 +79,9 @@ function ProfileButton({ user }) {
           <div id="menuwithlogout">
             <div>Hello, {user.firstName}</div>
             <div>{user.email}</div>
-            {/* <div>
-                 <Link id="menuviewsongs"to="/songs" > View songs </Link>
-            </div> */}
             <div>
               <hr/>
-              <div onClick={handleLogout}><Link id="menulogout" to="/" >Log Out</Link></div>
+              <div onClick={logout}><Link id="menulogout" to="/" >Log Out</Link></div>
             </div>
           </div>
         ) : null}
@@ -89,39 +90,5 @@ function ProfileButton({ user }) {
     </div>
   );
 }
-
-//   return (
-//     <>
-//       <button onClick={openMenu}>
-//         <i className="fas fa-user-circle" />
-//       </button>
-//       <ul className={ulClassName} ref={ulRef}>
-//         {user ? (
-//           <>
-//             <li>{user.username}</li>
-//             <li>{user.email}</li>
-//             <li>
-//               <button onClick={handleLogout}>Log Out</button>
-//             </li>
-//           </>
-//         ) : (
-//           <>
-//             <OpenModalButton
-//               buttonText="Log In"
-//               onItemClick={closeMenu}
-//               modalComponent={<LoginFormModal />}
-//             />
-
-//             <OpenModalButton
-//               buttonText="Sign Up"
-//               onItemClick={closeMenu}
-//               modalComponent={<SignupFormModal />}
-//             />
-//           </>
-//         )}
-//       </ul>
-//     </>
-//   );
-// }
 
 export default ProfileButton;

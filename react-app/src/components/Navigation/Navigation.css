@@ -1,20 +1,5 @@
-.profile-dropdown {
-  position: absolute;
-}
-
-.hidden {
-  display: none;
-}
-
-nav {
-  font-family: Georgia, serif, cursive;
-  color:black;
-  display:flex;
-  justify-content: space-between;
-  /* align-items: center; */
-}
-
-#LibraryMenu {
-  position: relative;
-  float:inline-start;
+#loginsignupnavbar{
+    right:0;
+    position:fixed;
+    z-index:1;
 }
