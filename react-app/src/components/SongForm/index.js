@@ -7,7 +7,7 @@ import { fetchAllArtists } from '../../store/artists';
 
 const SongForm = ({ song, formType }) => {
   const dispatch = useDispatch();
-  const [isLoaded, setIsLoaded] = useState(false);
+  // const [isLoaded, setIsLoaded] = useState(false);
   // const artists = useSelector((state) => state.artistsReducer);
   const currentUser = useSelector((state) => state.session);
   // useEffect(()=>{
@@ -37,9 +37,9 @@ const SongForm = ({ song, formType }) => {
   // console.log("this is artists index", Object.values(artists)[0])
   // console.log("this is artists index", Object.values(artists)[0][1])
   // console.log("this is artists index", Object.values(artists)[0][1].name)
-  if (!isLoaded) {
-    return (<div>Loading...</div>);
-  }
+  // if (!isLoaded) {
+  //   return (<div>Loading...</div>);
+  // }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -73,7 +73,7 @@ const SongForm = ({ song, formType }) => {
       dispatch(updateSong(formData))
       .then(history.push(`/songs`))
       .catch(async (res) => {
-        const data = await res.json();
+        const data = await res;
         if (data && data.errors) {
           setErrors(data.errors);
         }
@@ -82,11 +82,17 @@ const SongForm = ({ song, formType }) => {
       dispatch(createSong(formData))
       .then(history.push(`/songs`))
       .catch(async (res) => {
-        const data = await res.json();
+        const data = await res;
         if (data && data.errors) {
           setErrors(data.errors);
         }
       });
+      // .catch(async (res) => {
+      //   const data = await res.json();
+      //   if (data && data.errors) {
+      //     setErrors(data.errors);
+      //   }
+      // });
     }
   };
   const artistNameError = errors.artistName ? 'Artist Name: ' + errors.artistName : null;
@@ -96,7 +102,7 @@ const SongForm = ({ song, formType }) => {
   const durationError = errors.duration ? 'Duration: ' + errors.duration : null;
   const releaseDateError = errors.releaseDate ? 'Release Date: ' + errors.releaseDate : null;
 
-  if(isLoaded){
+  // if(isLoaded){
   return (
     <div className='body'>
     <form className='form' onSubmit={handleSubmit} encType="multipart/form-data">
@@ -148,6 +154,6 @@ const SongForm = ({ song, formType }) => {
   );
 };
 
-}
+// }
 
 export default SongForm;
