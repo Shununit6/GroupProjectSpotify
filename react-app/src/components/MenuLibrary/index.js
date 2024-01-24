@@ -45,7 +45,7 @@ function MenuLibrary({ isLoaded }){
 				{sessionUser &&
 				<div class="leftmenulibrarycreate-3">
 					<div id="leftmenulibrarytext3">Create a new song here. It's easy, we'll help you</div>
-					<NavLink exact to="/"><button>Create Song</button></NavLink>
+					<NavLink exact to="/songs/new"><button>Create Song</button></NavLink>
 				</div>
 				}
 			</div>

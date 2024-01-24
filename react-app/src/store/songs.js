@@ -61,27 +61,31 @@ export const getSongDetails = (songId) => async (dispatch) => {
 export const createSong = (payload) => async (dispatch) => {
   const res = await fetch('/api/songs/new', {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(payload)
+    // headers: { 'Content-Type': 'application/json' },
+    // body: JSON.stringify(payload)
+    body: payload
   });
   if (res.ok) {
-    const data = await res.json();
+    const { data } = await res.json();
     dispatch(receiveSong(data));
     return data;
   }
+  console.log("There was an error making your post song!")
   return res;
 };
 export const updateSong = (payload) => async (dispatch) => {
   const res = await fetch(`/api/songs/${payload.id}`, {
     method: 'PUT',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(payload)
+    // headers: { 'Content-Type': 'application/json' },
+    // body: JSON.stringify(payload)
+    body: payload
   });
   if (res.ok) {
-    const data = await res.json();
+    const { data } = await res.json();
     dispatch(editSong(data));
     return data;
   }
+  console.log("There was an error making your put song!")
   return res;
 };
 export const deleteSong = (songId) => async (dispatch) => {
