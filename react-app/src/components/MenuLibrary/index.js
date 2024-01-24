@@ -9,20 +9,20 @@ function MenuLibrary({ isLoaded }){
 	return (
         <nav class="leftmenu">
         <div class="leftmenufirst">
-            <div>
+            {/* <div>
 				<i class="fa-brands fa-spotify"></i>
 				{" "} Spotify
-            </div>
+            </div> */}
             <div>
                 <Link exact to="/">
 					<i id="fa-house" class="fa-solid fa-house"></i>
 					{" "} Home
 				</Link>
             </div>
-            <div>
+            {/* <div>
 				<i class="fa-solid fa-magnifying-glass"></i>
 				{" "} Search
-            </div>
+            </div> */}
 		</div>
 		<div class="leftmenulibrary">
 			<div>
