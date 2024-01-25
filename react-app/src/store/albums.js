@@ -163,7 +163,7 @@ const albumsReducer = (state = {}, action) => {
             return { ...state, [action.album.id]: action.album };
         };
         case RECEIVE_ALBUM:
-            return { ...state, [action.group.id]: action.group };
+            return { ...state, [action.album.id]: action.album };
         case UPDATE_ALBUM:
             return { ...state };
         case REMOVE_ALBUM: {

@@ -68,7 +68,8 @@ def create_song():
                         lyrics=data['lyrics'],
                         url=data['url'],
                         duration=data['duration'],
-                        release_date=data['release_date']),
+                        release_date=data['release_date'],
+                        song_file=song_url),
         db.session.add(new_song)
         db.session.commit()
         return jsonify(new_song.to_dict())
