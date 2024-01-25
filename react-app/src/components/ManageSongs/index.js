@@ -23,7 +23,7 @@ const ManageSongs = () => {
             {hasSongs && <ul className='manageSongIndex'>
                 {songsByUser.map((song) => (
                     <li className='manageEachSong' key={String(song.id)}>
-                        <SongIndexItem song={song}/>
+                        <SongIndexItem/>
                     </li>
                 ))}
              </ul>}
