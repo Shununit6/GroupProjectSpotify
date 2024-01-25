@@ -1,7 +1,7 @@
 from flask import Blueprint, redirect, jsonify, request
 from ..config import Config
 from flask_login import login_required, current_user
-from ..forms import CreateEditSongForm
+from ..forms.create_edit_song_form import CreateEditSongForm
 from ..models import db, Song, Like, Artist
 from flask_migrate import Migrate
 

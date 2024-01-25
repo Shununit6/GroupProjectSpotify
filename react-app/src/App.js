@@ -15,6 +15,7 @@ import SongDetails from './components/SongDetails';
 import Albums from "./components/Albums";
 import AlbumDetails from "./components/AlbumDetails";
 import UpdateAlbum from "./components/UpdateAlbum"
+import CreateAlbum from "./components/CreateAlbum";
 import PlaylistIndex from './components/PlaylistIndex';
 import PlaylistDetails from './components/PlaylistDetails';
 import Home from './components/Home';
@@ -44,6 +45,7 @@ function App() {
           <Route path="/albums/:albumId/edit" exact={true}>
             <UpdateAlbum/>
           </Route>
+          <Route exact path="/albums/new" component={CreateAlbum}/>
           <Route exact path="/songs/current" component={ManageSongs}/>
           <Route exact path="/songs/new" component={CreateSong}/>
           <Route exact path="/songs/:songId/edit" component={UpdateSong}/>

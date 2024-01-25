@@ -1,6 +1,8 @@
 from flask import Blueprint, request, jsonify
 from flask_login import login_required, current_user
 from app.models import db, Album, Song
+from ..forms.create_edit_album_form import CreateEditAlbumForm
+import logging
 
 album_routes = Blueprint('albums', __name__)
 
@@ -49,11 +51,35 @@ def post_album():
     """
     Creates and returns a new album.
     """
-    payload = request.get_json()
-    new_album = Album(user_id=current_user.id,title = payload['title'], release_date = payload['release_date'], url = payload['url'], copyright = payload['copyright'])
-    db.session.add(new_album)
-    db.session.commit()
-    return jsonify(new_album.to_dict())
+    try:
+        form = CreateEditAlbumForm()
+        form['csrf_token'].data = request.cookies['csrf_token']
+
+        if form.validate_on_submit():
+            new_album = Album(
+                user_id=current_user.id,
+                title=form.data['title'],
+                release_date=form.data['release_date'],
+                url=form.data['url'],
+                copyright=form.data['copyright']
+            )
+
+            db.session.add(new_album)
+            db.session.commit()
+
+            return jsonify(new_album.to_dict()), 201  # HTTP status code for Created
+        else:
+            # If form validation fails, return error messages
+            errors = {field: form.errors[field][0] for field in form.errors}
+            print(form.errors)
+            return jsonify({"errors": errors}), 400  # HTTP status code for Bad Request
+
+    except Exception as e:
+        # Log the error for debugging purposes using the logging module
+        logging.error(f"Error creating album: {e}")
+
+        # Return a generic error message to the client
+        return jsonify({"error": "Internal Server Error"}), 500  # HTTP status code for Internal Server Error
 
 #Add a song to one of the current user's albums
 @album_routes.route('/<int:albumId>/songs/<int:songId>', methods = ['POST'])
