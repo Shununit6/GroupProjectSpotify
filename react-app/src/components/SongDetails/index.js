@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getSongDetails } from '../../store/songs';
 import DeleteSongModal from '../DeleteSongModal';
 import OpenModalMenuItem from '../Navigation/OpenModalMenuItem';
-import { getAllLikes, createLike, deleteLike } from '../../store/likes';
+import { getAllLikes } from '../../store/likes';
 import LikeSong from '../LikeSong';
 
 const SongDetails = () => {

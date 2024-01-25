@@ -47,14 +47,14 @@ export const createLike = (payload, songId) => async (dispatch) => {
     return res;
 };
 
-export const deleteLike = (songId) => async (dispatch) => {
+export const deleteLike = (likeId, songId) => async (dispatch) => {
     const res = await fetch(`/api/songs/${songId}/likes`, {
         method: "DELETE",
     });
 
     if (res.ok) {
         const data = await res.json();
-        dispatch(removeLike(songId));
+        dispatch(removeLike(likeId));
         return data;
     }
     return res;
@@ -72,10 +72,13 @@ const likesReducer = (state = { }, action) => {
             // });
             // return {...likesState};
         case RECEIVE_LIKE:
-            return { ...state, [action.like.id]: action.like };
+            console.log("actionhereisthe", action)
+            console.log("actionhereisthe", action.likes)
+            return { ...state, [action.likes.id]: action.likes };
         case REMOVE_LIKE:{
+            console.log("deleteaction", action)
             const likeState = { ...state };
-            delete likeState[action.songId];
+            delete likeState[action.likeId];
             return likeState;
         }
         default:

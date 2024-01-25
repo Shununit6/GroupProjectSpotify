@@ -1,35 +1,47 @@
-// import './LikeSong.css';
+import './LikeSong.css';
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllLikes, createLike, deleteLike } from '../../store/likes';
-// import {AiFillLike, AiFillDislike} from 'react-icons/ai'
+import { getSongDetails } from '../../store/songs';
 
 function LikeSong({songId, userId}) {
     const dispatch = useDispatch();
     const [isLoading, setIsLoading] = useState(true);
-    console.log(parseInt(songId))
+    console.log("parseInt(songId)", parseInt(songId))
     songId = parseInt(songId);
-    // const like = useSelector(state => state.likesReducer.likes);
-    // // console.log(Object.values(like)[0].user_id);
-    // console.log(like);
+    const likes = useSelector(state => state.likesReducer.likes);
+    console.log("Object.values(likes)[0].user_id", Object.values(likes)[0].user_id);
+    const currLike = Object.values(likes).filter((curr, index)=> (curr.user_id == userId && curr.song_id == songId))
+    console.log("currLike", currLike);
+    console.log("currLike[0].id", currLike[0].id);
+    console.log("currLike.length", currLike.length);
+    const likeId = currLike[0].id;
+    const[isliked, setIsLiked] = useState(currLike.length==true);
     useEffect(() => {
-        (dispatch(getAllLikes(songId))).then(() => setIsLoading(false));
-      }, [dispatch, userId]);
+      dispatch(getSongDetails(songId)).then(()=>dispatch(getAllLikes(songId))).then(() => setIsLoading(false));
+    }, [dispatch, songId, currLike.length]);
 
-  const[isliked, setIsLiked] = useState(false);
   if (isLoading) return (<>Loading...</>);
   const handleClick = () => {
+    if(isliked == 1 ){
+      console.log("deleteLikesongId", songId)
+      dispatch(deleteLike(likeId, songId))
+      console.log("like", currLike)
+    }
+    if(isliked == 0)
+  {
+    console.log("createLikesongId", songId, userId)
+    const addlike = {"user_id" : userId,
+      "song_id" : songId };
+    dispatch(createLike(addlike, songId))
+    console.log("like", currLike)
+    }
     setIsLiked(!isliked);
   };
-  console.log(isliked)
+  console.log("isliked", isliked)
 
-  if(isliked)
-  {
-    dispatch(deleteLike(songId))
-    }else{
-    dispatch(createLike(songId))}
+  if(!isliked)
 
-  if(isliked)
     return (<button
     onClick={handleClick}>like</button>
       )
@@ -38,44 +50,3 @@ function LikeSong({songId, userId}) {
 }
 
 export default LikeSong
-
-// const LikeSong = ({songId, userId}) => {
-//   const dispatch = useDispatch();
-// //   const like = useSelector(state => state.likesReducer.likes);
-// //   console.log("this is like:", like)
-//   let LikeState = false;
-//   useEffect(() => {
-//             dispatch(createLike(songId));
-//           }, [dispatch, songId, userId]);
-// LikeState = true;
-
-//  dispatch(createLike(songId));
-
-//   const checklike = async (LikeState) =>{
-//   if(!LikeState){
-//     useEffect(() => {
-//         dispatch(createLike(songId)).then(() => setIsLoading());
-//       }, [dispatch, songId, userId]);
-//     LikeState = true;
-//   }else{
-//     useEffect(() => {
-//         dispatch(deleteLike(songId)).then(() => setIsLoading());
-//       }, [dispatch, songId, userId]);
-//     LikeState = false;
-//   }}
-
-//   const closeMenu = (e) => {
-//     if (!ulRef.current?.contains(e.target)) {
-//       setShowMenu(false);
-//     }
-//   };
-
-//   return (
-//     <>
-//       <button onClick={LikeSong}>like</button>
-//       {LikeState}
-//     </>
-//   )
-// };
-
-// export default LikeSong;
