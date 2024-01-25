@@ -26,7 +26,7 @@ def get_my_songs():
 # Get Song Details - GET /api/songs/:songId
 @song_routes.route("/<int:song_id>", methods=["GET"])
 def get_song_details(song_id):
-    song = Song.query.filter_by(id=song_id).one()
+    song = Song.query.filter_by(id=song_id).first()
     print("this is song:", song)
     return jsonify(song.to_dict())
 

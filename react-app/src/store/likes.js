@@ -1,6 +1,5 @@
 // /** Action Type Constants: */
 export const LOAD_LIKES = "likes/LOAD_LIKES";
-export const LOAD_LIKE_DETAILS = "likes/LOAD_LIKE_DETAILS";
 export const RECEIVE_LIKE = "likes/RECEIVE_LIKE";
 export const REMOVE_LIKE = "likes/REMOVE_LIKE";
 
@@ -8,11 +7,6 @@ export const REMOVE_LIKE = "likes/REMOVE_LIKE";
 export const loadLikes = (likes) => ({
     type: LOAD_LIKES,
     likes,
-});
-
-export const loadLikeDetails = (like) => ({
-    type: LOAD_LIKE_DETAILS,
-    like,
 });
 
 export const receiveLike = (like) => ({
@@ -26,31 +20,21 @@ export const removeLike = (like) => ({
 });
 
 // /** Thunk Action Creators: */
-export const getAllLikes = () => async (dispatch) => {
-    const res = await fetch("/api/likes");
+export const getAllLikes = (songId) => async (dispatch) => {
+    const res = await fetch(`/api/songs/${songId}/likes`);
 
     if (res.ok) {
         const data = await res.json();
-        // console.log("data", data);
+        console.log("likedata", data);
         dispatch(loadLikes(data));
         return data;
     }
     return res;
 };
 
-export const likeDetails = (likeId) => async dispatch => {
-    const res = await fetch(`/api/likes/${likeId}`)
 
-    if (res.ok) {
-        const data = await res.json();
-        dispatch(loadLikeDetails(data));
-        return data;
-    }
-    return res;
-}
-
-export const createLike = (payload) => async (dispatch) => {
-    const res = await fetch("/api/likes", {
+export const createLike = (payload, songId) => async (dispatch) => {
+    const res = await fetch(`/api/songs/${songId}/likes`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
@@ -63,14 +47,14 @@ export const createLike = (payload) => async (dispatch) => {
     return res;
 };
 
-export const deleteLike = (likeId) => async (dispatch) => {
-    const res = await fetch(`/api/likes/${likeId}`, {
+export const deleteLike = (songId) => async (dispatch) => {
+    const res = await fetch(`/api/songs/${songId}/likes`, {
         method: "DELETE",
     });
 
     if (res.ok) {
         const data = await res.json();
-        dispatch(removeLike(likeId));
+        dispatch(removeLike(songId));
         return data;
     }
     return res;
@@ -79,23 +63,19 @@ export const deleteLike = (likeId) => async (dispatch) => {
 const likesReducer = (state = { }, action) => {
     switch (action.type) {
         case LOAD_LIKES:
-            const likesState = {...state};
-            action.likes.Likes.forEach((like) => {
-                if(!likesState[like.id]) {likesState[like.id] = like;}
-            });
-            return {...likesState};
-        case LOAD_LIKE_DETAILS: {
-            const likeState = {...state};
-            if(action.likes){
-                likeState[action.likes.id] = action.likes;
-            }
-            return likeState;
-        }
+            console.log(action)
+            return {...state, ...action.likes}
+            // const likesState = {...state};
+            // console.log(action)
+            // action.likes.forEach((like) => {
+            //     if(!likesState[like.id]) {likesState[like.id] = like;}
+            // });
+            // return {...likesState};
         case RECEIVE_LIKE:
             return { ...state, [action.like.id]: action.like };
         case REMOVE_LIKE:{
             const likeState = { ...state };
-            delete likeState[action.likes];
+            delete likeState[action.songId];
             return likeState;
         }
         default:
