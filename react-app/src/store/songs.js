@@ -58,12 +58,12 @@ export const getSongDetails = (songId) => async (dispatch) => {
   }
   return res;
 };
-export const createSong = (payload) => async (dispatch) => {
+export const createSong = (post) => async (dispatch) => {
   const res = await fetch('/api/songs/new', {
     method: 'POST',
     // headers: { 'Content-Type': 'application/json' },
     // body: JSON.stringify(payload)
-    body: payload
+    body: post,
   });
   if (res.ok) {
     const { data } = await res.json();
@@ -104,9 +104,14 @@ const songsReducer = (state = {}, action) => {
   switch (action.type) {
     case LOAD_SONGS:
       return {...state, ...action.songs}
+      // const songsState = { ...state };
+      // action.songs.forEach((song) => {
+      //   if (!songsState[song.id]) { songsState[song.id] = song; }
+      // });
+      // return songsState;
       // return state; // Handle the case when action.songs or action.songs.Songs is undefined
     case RECEIVE_SONG:
-      console.log("Received song:", action.song);
+      console.log("Received song:", action);
       return { ...state, [action.song.id]: action.song };
     case UPDATE_SONG:
       return { ...state, [action.song.id]: action.song };
