@@ -7,7 +7,8 @@ const CreateSong = () => {
     lyrics: '',
     url: '',
     duration: '',
-    release_date: ''
+    release_date: '',
+    song_file:'',
   };
   return (
     <SongForm song={song} formType="Create Song"/>
