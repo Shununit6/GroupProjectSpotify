@@ -10,7 +10,7 @@ function LikeSong({songId, userId}) {
     console.log("parseInt(songId)", parseInt(songId))
     songId = parseInt(songId);
     const likes = useSelector(state => state.likesReducer.likes);
-    console.log("Object.values(likes)[0].user_id", Object.values(likes)[0].user_id);
+    // console.log("Object.values(likes)[0].user_id", Object.values(likes)[0].user_id);
     const currLike = Object.values(likes).filter((curr, index)=> (curr.user_id == userId && curr.song_id == songId))
     // console.log("currLike", currLike);
     // console.log("currLike[0].id", currLike[0].id);
