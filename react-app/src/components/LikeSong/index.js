@@ -23,7 +23,11 @@ function LikeSong({songId, userId}) {
   if (isLoading) return (<>Loading...</>);
   const handleClick = () => {
       if(isliked == 1 ){
-      const likeId = currLike[0].id;
+      let likeId;
+      if(currLike.length){
+        likeId = currLike[0].id;
+      }
+      // const likeId = currLike[0].id;
       console.log("deleteLikesongId", songId, likeId)
       dispatch(deleteLike(likeId, songId))
       console.log("like", currLike)
