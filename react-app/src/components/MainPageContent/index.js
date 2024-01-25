@@ -9,7 +9,7 @@ function MainPageContent(){
 	return (
         <nav>
             <div id="MainPageContentCss">
-                {/* <div>
+                <div>
                 <p>Spotify Songs</p>
                 <ul className='MainPageFourSong'>
                         <SongIndex num={num}/>
@@ -26,7 +26,7 @@ function MainPageContent(){
                     <ul className='MainPageFourPlaylist'>
                             <PlaylistIndex num={num}/>
                     </ul>
-                </div> */}
+                </div>
             </div>
         </nav>
 	);
