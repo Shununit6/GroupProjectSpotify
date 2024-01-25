@@ -9,7 +9,7 @@ import AddSongToPlaylistModal from '../AddSongToPlaylistModal';
 import RemoveSongFromAlbumModal from '../RemoveSongFromAlbumModal';
 import RemoveSongFromPlaylistModal from '../RemoveSongFromPlaylistModal';
 import OpenModalMenuItem from '../Navigation/OpenModalMenuItem';
-import { getAllLikes } from '../../store/likes';
+import { getSongLikes, getAllLikes } from '../../store/likes';
 import LikeSong from '../LikeSong';
 
 const SongDetails = () => {
@@ -25,7 +25,7 @@ const SongDetails = () => {
   const ulRef = useRef();
 
   useEffect(() => {
-    dispatch(getSongDetails(songId)).then(()=>dispatch(getAllLikes(songId))).then(() => setIsLoading(false));
+    dispatch(getSongDetails(songId)).then(()=>dispatch(getAllLikes())).then(()=>dispatch(getSongLikes(songId))).then(() => setIsLoading(false));
   }, [dispatch, songId]);
   if (isLoading || !song) return (<>Loading...</>);
   const { user_id, artist_id, title, lyrics, url, duration, release_date } = song;

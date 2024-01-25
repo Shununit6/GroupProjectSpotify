@@ -4,7 +4,17 @@ from app.models import db, Like
 
 like_routes = Blueprint('likes', __name__)
 
-# Get all Likes
+# Get all the Likes
+@like_routes.route('/likes')
+def get_all_likes():
+    """
+    Query for all likes
+    """
+    likes = Like.query.all()
+
+    return jsonify({'likes': [like.to_dict() for like in likes]})
+
+# Get all Likes of a song
 # Require Authentication: false
 # GET /api/songs/:id/likes
 @like_routes.route('/<int:id>/likes')
