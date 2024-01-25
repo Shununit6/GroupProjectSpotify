@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getSongDetails } from '../../store/songs';
 import DeleteSongModal from '../DeleteSongModal';
 import OpenModalMenuItem from '../Navigation/OpenModalMenuItem';
-import { getAllLikes } from '../../store/likes';
+import { getSongLikes, getAllLikes } from '../../store/likes';
 import LikeSong from '../LikeSong';
 
 const SongDetails = () => {
@@ -21,7 +21,7 @@ const SongDetails = () => {
   const ulRef = useRef();
 
   useEffect(() => {
-    dispatch(getSongDetails(songId)).then(()=>dispatch(getAllLikes(songId))).then(() => setIsLoading(false));
+    dispatch(getSongDetails(songId)).then(()=>dispatch(getAllLikes())).then(()=>dispatch(getSongLikes(songId))).then(() => setIsLoading(false));
   }, [dispatch, songId]);
   if (isLoading || !song) return (<>Loading...</>);
   if (isLoading || !song) return (<>Loading...</>);

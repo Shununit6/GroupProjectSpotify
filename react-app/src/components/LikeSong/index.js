@@ -1,7 +1,7 @@
 import './LikeSong.css';
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllLikes, createLike, deleteLike } from '../../store/likes';
+import { getAllLikes, getSongLikes,createLike, deleteLike } from '../../store/likes';
 import { getSongDetails } from '../../store/songs';
 
 function LikeSong({songId, userId}) {
@@ -15,19 +15,16 @@ function LikeSong({songId, userId}) {
     // console.log("currLike", currLike);
     // console.log("currLike[0].id", currLike[0].id);
     // console.log("currLike.length", currLike.length);
-    let likeId;
-    if(currLike.length){
-      likeId = currLike[0].id;
-    }
     const[isliked, setIsLiked] = useState(currLike.length==true);
     useEffect(() => {
-      dispatch(getSongDetails(songId)).then(()=>dispatch(getAllLikes(songId))).then(() => setIsLoading(false));
+      dispatch(getSongDetails(songId)).then(()=>dispatch(getSongLikes(songId))).then(() => setIsLoading(false));
     }, [dispatch, songId, currLike.length]);
 
   if (isLoading) return (<>Loading...</>);
   const handleClick = () => {
-    if(isliked == 1 ){
-      console.log("deleteLikesongId", songId)
+      if(isliked == 1 ){
+      const likeId = currLike[0].id;
+      console.log("deleteLikesongId", songId, likeId)
       dispatch(deleteLike(likeId, songId))
       console.log("like", currLike)
     }
