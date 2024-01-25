@@ -42,7 +42,7 @@ const SongDetails = () => {
         <p className='duration'>{duration}</p>
         <p className='release_date'>{release_date}</p>
       </div>
-      <LikeSong userId={user_id} songId={songId}/>
+      {sessionUser && <LikeSong userId={user_id} songId={songId}/>}
       <button onClick={closeMenu}>
         <OpenModalMenuItem
           itemText="Delete"

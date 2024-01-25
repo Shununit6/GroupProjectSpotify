@@ -73,8 +73,8 @@ const likesReducer = (state = { }, action) => {
             // return {...likesState};
         case RECEIVE_LIKE:
             console.log("actionhereisthe", action)
-            console.log("actionhereisthe", action.likes)
-            return { ...state, [action.likes.id]: action.likes };
+            console.log("actionhereisthe", action.like)
+            return { ...state, [action.like.id]: action.like };
         case REMOVE_LIKE:{
             console.log("deleteaction", action)
             const likeState = { ...state };
