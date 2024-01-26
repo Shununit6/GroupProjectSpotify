@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getMySongs } from '../../store/songs';
 import SongIndexItem from '../SongIndexItem/index';
+import MenuLibrary from '../MenuLibrary';
 
 const ManageSongs = () => {
     const dispatch = useDispatch();
@@ -17,16 +18,21 @@ const ManageSongs = () => {
     const songsByUser = songs ? songs.filter(song => song.user_id === sessionUser.id) : [];
     const hasSongs = songsByUser.length > 0;
     return (
-        <div>
-            <p className='title'>Manage Songs</p>
-            {!hasSongs && <Link to={'/songs/new'}><button className='createSongButton'>Create a New Song</button></Link>}
-            {hasSongs && <ul className='manageSongIndex'>
-                {songsByUser.map((song) => (
-                    <li className='manageEachSong' key={String(song.id)}>
-                        {song && <SongIndexItem song={song} />} {/* Check if song is defined before rendering SongItem */}
-                    </li>
-                ))}
-             </ul>}
+        <div className='manageSongwrapper'>
+            <div className='manageSongitem-1'>
+                <MenuLibrary />
+            </div>
+            <div className='manageSongitem-2'>
+                <p className='title'>Manage Songs</p>
+                {!hasSongs && <Link to={'/songs/new'}><button className='createSongButton'>Create a New Song</button></Link>}
+                {hasSongs && <ul className='manageSongIndex'>
+                    {songsByUser.map((song) => (
+                        <li className='manageEachSong' key={String(song.id)}>
+                            <SongIndexItem/>
+                        </li>
+                    ))}
+                </ul>}
+            </div>
         </div>
     );
 };

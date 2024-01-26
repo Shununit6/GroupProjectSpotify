@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { createSong, updateSong } from '../../store/songs';
-import { fetchAllArtists } from '../../store/artists';
+import MenuLibrary from '../MenuLibrary';
 
 import './SongForm.css';
 
@@ -73,7 +73,11 @@ const SongForm = ({ song, formType }) => {
   const renderError = (error) => error ? <ul>{`${error}: ${errors[error]}`}</ul> : null;
 
   return (
-    <div className='body'>
+    <div className='songformwrapper'>
+      <div className="songform-1">
+        <MenuLibrary />
+      </div>
+      <div className="songform-2">
       <form className='form' onSubmit={handleSubmit} encType="multipart/form-data">
         <p className='formHeading'>{formTitle}</p>
         {/* <div className='errors'>
@@ -119,6 +123,7 @@ const SongForm = ({ song, formType }) => {
         <button className='submitFormButton' type="submit">{formType}</button>
         {songLoading && <p>Loading...</p>}
       </form>
+      </div>
     </div>
   );
 };

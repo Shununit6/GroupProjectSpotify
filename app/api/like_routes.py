@@ -46,8 +46,10 @@ def post_like(id):
         db.session.commit()
         return jsonify(new_like.to_dict())
     elif likebycurrent.count() == 1 and (request.method == 'DELETE' or request.method == 'POST'):
+        deletelike = likebycurrent.first()
         db.session.delete(likebycurrent.first())
         db.session.commit()
-        return {'message': 'Delete successful.'}
+        # return {'message': 'Delete successful.'}
+        return jsonify(deletelike.to_dict())
     else:
-        return "no action"
+        return

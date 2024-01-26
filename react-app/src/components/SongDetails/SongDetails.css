@@ -1,13 +1,20 @@
-
-body{
-  color: green;
+.songDetailwrapper{
+  font-family: Georgia, serif, cursive;
+  display:flex;
 }
 
-.openModalButton {
-  background-color: #4CAF50;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
+.songDetailitem-1{
+  position: relative;
+  float:inline-start;
+  width:270px;
+}
+
+.songDetailitem-2{
+  position: relative;
+  flex:1;
+  width:auto;
+  margin-top: 15px;
+  color:white;
+  background-color: #212121;
+  border-radius: 6px;
 }

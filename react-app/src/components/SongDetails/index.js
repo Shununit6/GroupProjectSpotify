@@ -11,6 +11,7 @@ import RemoveSongFromPlaylistModal from '../RemoveSongFromPlaylistModal';
 import OpenModalMenuItem from '../Navigation/OpenModalMenuItem';
 import { getSongLikes, getAllLikes } from '../../store/likes';
 import LikeSong from '../LikeSong';
+import MenuLibrary from '../MenuLibrary';
 
 const SongDetails = () => {
   const dispatch = useDispatch();
@@ -20,6 +21,7 @@ const SongDetails = () => {
   const like = useSelector(state => state.likesReducer.likes);
   console.log("this is song:", song)
   console.log("this is like:", like)
+
   const [isLoading, setIsLoading] = useState(true);
   const [showMenu, setShowMenu] = useState(false);
   const ulRef = useRef();
@@ -42,26 +44,31 @@ const SongDetails = () => {
 
   return (
     <>
-      <div className='grid-container'>
+    <div className='songDetailwrapper'>
+      <div className='songDetailitem-1'>
+         <MenuLibrary />
+      </div>
+      <div className='songDetailitem-2'>
         <img id ="songdetialimage" src={url} alt="songdetailimage"/>
         <p className='title'>{title}</p>
         <p className='lyrics'>{lyrics}</p>
         <p className='duration'>{duration}</p>
         <p className='release_date'>{release_date}</p>
-      </div>
       {sessionUser && <LikeSong userId={user_id} songId={songId}/>}
       {checkUserVSOwner &&
-      <button onClick={closeMenu}>
+      <button id='songDetailDeleteSong' onClick={closeMenu}>
         <OpenModalMenuItem
           itemText="Delete Song"
           onItemClick={closeMenu}
           modalComponent={<DeleteSongModal song={song}/>}
         />
       </button>}
-      {sessionUserId && <button> <OpenModalMenuItem itemText="Add Song to Album" onItemClick={closeMenu} modalComponent={<AddSongToAlbumModal song = {song}/>}/> </button>}
-      {sessionUserId && <button> <OpenModalMenuItem itemText="Add Song to Playlist" onItemClick={closeMenu} modalComponent={<AddSongToPlaylistModal song = {song}/>}/> </button>}
-      {sessionUserId && <button> <OpenModalMenuItem itemText="Remove Song from Album" onItemClick={closeMenu} modalComponent={<RemoveSongFromAlbumModal song = {song}/>}/> </button>}
-      {sessionUserId && <button> <OpenModalMenuItem itemText="Remove Song from Playlist" onItemClick={closeMenu} modalComponent={<RemoveSongFromPlaylistModal song = {song}/>}/> </button>}
+      {sessionUserId && <button id='songDetailAddSongtoAlbum' onClick={closeMenu}> <OpenModalMenuItem itemText="Add Song to Album" onItemClick={closeMenu} modalComponent={<AddSongToAlbumModal song = {song}/>}/> </button>}
+      {sessionUserId && <button id='songDetailAddSongtoPlaylist' onClick={closeMenu}> <OpenModalMenuItem itemText="Add Song to Playlist" onItemClick={closeMenu} modalComponent={<AddSongToPlaylistModal song = {song}/>}/> </button>}
+      {sessionUserId && <button id='songDetailRemoveSongfromAlbum' onClick={closeMenu}> <OpenModalMenuItem itemText="Remove Song from Album" onItemClick={closeMenu} modalComponent={<RemoveSongFromAlbumModal song = {song}/>}/> </button>}
+      {sessionUserId && <button id='songDetailRemoveSongfromPlaylist' onClick={closeMenu}> <OpenModalMenuItem itemText="Remove Song from Playlist" onItemClick={closeMenu} modalComponent={<RemoveSongFromPlaylistModal song = {song}/>}/> </button>}
+      </div>
+    </div>
     </>
   )
 };

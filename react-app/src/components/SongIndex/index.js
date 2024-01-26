@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllSongs } from '../../store/songs';
 import SongIndexItem from '../SongIndexItem/index';
+import MenuLibrary from '../MenuLibrary';
 
 const SongIndex = ({num}) => {
   const dispatch = useDispatch();
@@ -15,15 +16,21 @@ const SongIndex = ({num}) => {
   if (isLoading) return (<>Loading...</>);
 
   return (
-    <div>
-      <ul className='landingSongIndex'>
-        {num !== 4 &&songs.map((song) => (
-            <SongIndexItem className='songSongIndex' song={song} />
-        ))}
-        {num === 4 &&songs.slice(0,4).map((song) => (
-            <SongIndexItem className='songSongIndex' song={song} />
-        ))}
-      </ul>
+    <div className='songIndexwrapper'>
+      {num !== 4 && <div className='songIndexitem-1'>
+         <MenuLibrary />
+      </div>}
+      <div className='songIndexitem-2'>
+        { num !== 4 && <h2>{" "} All Songs:</h2>}
+        <ul className='landingSongIndex'>
+          {num !== 4 &&songs.map((song) => (
+              <SongIndexItem song={song} />
+          ))}
+          {num === 4 &&songs.slice(0,4).map((song) => (
+              <SongIndexItem song={song} />
+          ))}
+        </ul>
+      </div>
     </div>
   );
 };

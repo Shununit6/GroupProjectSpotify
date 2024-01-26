@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getMyAlbums } from '../../store/albums';
 import AlbumIndexItem from '../AlbumIndexItem/index';
+import MenuLibrary from '../MenuLibrary';
 
 const ManageAlbums = () => {
     const dispatch = useDispatch();
@@ -33,7 +34,11 @@ const ManageAlbums = () => {
     const hasAlbums = albumsByUser.length > 0;
 
     return (
-        <div>
+        <div className='manageAlbumwrapper'>
+            <div className='manageAlbumitem-1'>
+                <MenuLibrary />
+            </div>
+            <div className='manageAlbumitem-2'>
             <p className='title'>Manage Albums</p>
             {!hasAlbums && <Link to={'/albums/new'}><button className='createAlbumButton'>Create a New Album</button></Link>}
             {hasAlbums && <ul className='manageAlbumIndex'>
@@ -42,7 +47,8 @@ const ManageAlbums = () => {
                         {album && <AlbumIndexItem album={album} />}
                     </li>
                 ))}
-            </ul>}
+             </ul>}
+            </div>
         </div>
     );
 };
