@@ -73,16 +73,32 @@ export const getMyPlaylists = () => async (dispatch) => {
 };
 
 export const createNewPlaylist = (payload) => async (dispatch) => {
-  const res = await fetch("/api/playlists", {
+  console.log("We are here");
+  console.log("this is the payload:", payload);
+
+  const res = await fetch("/api/playlists/", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(payload),
   });
+
+  console.log("We are here 2");
+  console.log("This is the res", res);
+
   if (res.ok) {
-    const data = await res.json();
-    dispatch(createPlaylist(data.playlist));
-    return data;
+    // Check if the response is JSON
+    const contentType = res.headers.get("content-type");
+    if (contentType && contentType.includes("application/json")) {
+      const data = await res.json();
+      dispatch(createPlaylist(data.playlist));
+      return data;
+    } else {
+      // Handle non-JSON response
+      console.error("Server response is not in JSON format");
+      return res; // You might want to handle this case differently
+    }
   }
+
   return res;
 };
 
@@ -151,10 +167,7 @@ const playlistsReducer = (state = { playlists: {}, currPlaylist: {} }, action) =
       };
 
     case CREATE_PLAYLIST:
-      return {
-        ...state,
-        playlists: { ...state.playlists, [action.playlist.id]: action.playlist },
-      };
+      return { ...state, [action.playlist.id]: action.playlist };
 
     case UPDATE_PLAYLIST:
       return {

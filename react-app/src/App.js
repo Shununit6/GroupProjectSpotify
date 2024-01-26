@@ -19,6 +19,8 @@ import CreateAlbum from "./components/CreateAlbum";
 import PlaylistIndex from './components/PlaylistIndex';
 import PlaylistDetails from './components/PlaylistDetails';
 import Home from './components/Home';
+import UpdatePlaylist from "./components/UpdatePlaylist";
+import CreatePlaylist from "./components/CreatePlaylist";
 // import LikeSong from "./components/LikeSong";
 
 function App() {
@@ -54,6 +56,8 @@ function App() {
           <Route exact path="/songs/:songId(\d+)" component={SongDetails}/>
           <Route exact path="/songs" component={SongIndex}/>
           <Route exact path="/playlists/current" component={ManagePlaylists}/>
+          <Route exact path="/playlists/new" component={CreatePlaylist}/>
+          <Route exact path="/playlists/:playlistId(\d+)/edit" component={UpdatePlaylist}/>
           <Route exact path="/playlists/:playlistId(\d+)" component={PlaylistDetails}/>
           <Route exact path="/playlists" component={PlaylistIndex}/>
           <Route path="/login" ><LoginFormPage /></Route>

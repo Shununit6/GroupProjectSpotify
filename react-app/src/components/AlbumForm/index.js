@@ -18,28 +18,25 @@ const AlbumForm = ({ album, formType }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrors({});
-
     album = { ...album, title, release_date, url, copyright };
 
-    if (formType === 'Update Album') {
-      dispatch(updateAlbum(album))
-        .then((newAlbum) => history.push(`/albums/${newAlbum.id}`))
-        .catch(async (res) => {
-          const data = await res.json();
-          if (data && data.errors) {
-            setErrors(data.errors);
-          }
-        });
-    } else if (formType === 'Create Album') {
-      console.log("This is the album:", album)
-      dispatch(createAlbum(album))
-        .then((newAlbum) => history.push(`/albums/${newAlbum.id}`))
-        .catch(async (res) => {
-          const data = await res.json();
-          if (data && data.errors) {
-            setErrors(data.errors);
-          }
-        });
+    try {
+      if (formType === 'Update Album') {
+        await dispatch(updateAlbum(album));
+      } else if (formType === 'Create Album') {
+        await dispatch(createAlbum(album));
+      }
+
+      // Redirect to the "/albums" page
+      history.push('/albums');
+    } catch (error) {
+      // Handle error
+      console.error("Error:", error);
+
+      if (error instanceof TypeError) {
+        // Handle specific error if needed
+        console.error("Error: res.json is not a function");
+      }
     }
   };
 
