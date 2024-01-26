@@ -103,7 +103,7 @@ export const createNewPlaylist = (payload) => async (dispatch) => {
 };
 
 export const updatePlaylist = (playlist) => async (dispatch) => {
-  const res = await fetch(`/api/playlists/${playlist.id}`, {
+  const res = await fetch(`/api/playlists/${playlist.id}/edit`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(playlist),

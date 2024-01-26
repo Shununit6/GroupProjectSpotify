@@ -7,18 +7,22 @@ import { fetchPlaylistById} from '../../store/playlists';
 const UpdatePlaylist = () => {
   const dispatch = useDispatch();
   const { playlistId } = useParams();
-  const playlist = useSelector(state => state.playlistsReducer[playlistId]);
+  const playlist = useSelector((state) => state.playlistsReducer?.currentPlaylist);
+
   useEffect(() => {
     dispatch(fetchPlaylistById(playlistId));
   }, [dispatch, playlistId]);
-  if (!playlist) return(<></>);
+
+  if (!playlist) return <>loading ////</>;
+
   return (
     Object.keys(playlist).length > 1 && (
       <>
-        <PlaylistForm playlist={playlist} formType="Update Playlist"/>
+        <PlaylistForm playlist={playlist} formType="Update Playlist" />
       </>
     )
   );
 };
+
 
 export default UpdatePlaylist;

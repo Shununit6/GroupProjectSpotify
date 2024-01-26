@@ -68,7 +68,7 @@ def create_playlist():
         return jsonify({"error": "Internal Server Error"}), 500  # HTTP status code for Internal Server Error
 
 
-@playlist_routes.route('/<int:playlistId>', methods=['PUT'])
+@playlist_routes.route('/<int:playlistId>/edit', methods=['PUT'])
 @login_required
 def edit_playlist(playlistId):
     playlist = Playlist.query.get(playlistId)
