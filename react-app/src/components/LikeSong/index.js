@@ -1,11 +1,13 @@
 import './LikeSong.css';
 import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllLikes, getSongLikes,createLike, deleteLike } from '../../store/likes';
+import { getSongLikes,createLike, deleteLike } from '../../store/likes';
 import { getSongDetails } from '../../store/songs';
 
 function LikeSong({songId, userId}) {
     const dispatch = useDispatch();
+    const history = useHistory();
     const [isLoading, setIsLoading] = useState(true);
     console.log("parseInt(songId)", parseInt(songId))
     songId = parseInt(songId);
@@ -16,11 +18,17 @@ function LikeSong({songId, userId}) {
     // console.log("currLike[0].id", currLike[0].id);
     // console.log("currLike.length", currLike.length);
     const[isliked, setIsLiked] = useState(currLike.length==true);
+
     useEffect(() => {
       dispatch(getSongDetails(songId)).then(()=>dispatch(getSongLikes(songId))).then(() => setIsLoading(false));
-    }, [dispatch, songId, currLike.length]);
+    }, [dispatch, songId]);
 
   if (isLoading) return (<>Loading...</>);
+
+  // const redirectToSongId = (songId)=>{
+  //   return (<Redirect to="/songs/"/>);
+  // }
+
   const handleClick = () => {
       if(isliked == 1 ){
       let likeId;
@@ -33,7 +41,7 @@ function LikeSong({songId, userId}) {
       console.log("like", currLike)
     }
     if(isliked == 0)
-  {
+    {
     console.log("createLikesongId", songId, userId)
     const addlike = {"user_id" : userId,
       "song_id" : songId };
@@ -41,6 +49,9 @@ function LikeSong({songId, userId}) {
     console.log("like", currLike)
     }
     setIsLiked(!isliked);
+    // dispatch(getSongLikes(songId))
+    // history.push(`/songs/${songId}`)
+    // redirectToSongId(songId)
   };
   console.log("isliked", isliked)
 
@@ -50,7 +61,9 @@ function LikeSong({songId, userId}) {
     onClick={handleClick}>like</button>
       )
   return (<button
-  onClick={handleClick}>unlike</button>)
+  onClick={handleClick}>unlike</button>
+
+  )
 }
 
 export default LikeSong
