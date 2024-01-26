@@ -7,7 +7,7 @@ import SongIndexItem from '../SongIndexItem/index';
 
 const ManageSongs = () => {
     const dispatch = useDispatch();
-    const songs = useSelector(state => Object.values(state.songsReducer));
+    const songs = useSelector(state => state.songsReducer.songs|| []);
     const [isLoading, setIsLoading] = useState(true);
     useEffect(() => {
         dispatch(getMySongs()).then(() => setIsLoading(false));
@@ -23,7 +23,7 @@ const ManageSongs = () => {
             {hasSongs && <ul className='manageSongIndex'>
                 {songsByUser.map((song) => (
                     <li className='manageEachSong' key={String(song.id)}>
-                        <SongIndexItem/>
+                        {song && <SongIndexItem song={song} />} {/* Check if song is defined before rendering SongItem */}
                     </li>
                 ))}
              </ul>}
