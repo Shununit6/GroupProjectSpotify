@@ -50,7 +50,7 @@ function LikeSong({songId, userId}) {
     onClick={handleClick}>like</button>
       )
   return (<button
-  onClick={handleClick}>unike</button>)
+  onClick={handleClick}>unlike</button>)
 }
 
 export default LikeSong
