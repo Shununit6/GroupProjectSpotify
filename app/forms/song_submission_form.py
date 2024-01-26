@@ -11,5 +11,5 @@ class SongForm(FlaskForm):
     url = StringField('Song Image URL')
     duration = IntegerField('Song Duration')
     release_date = StringField('Release Date')
-    song = FileField("Song File", validators=[FileRequired(), FileAllowed(list(ALLOWED_EXTENSIONS))])
+    song_file = FileField("Song File", validators=[FileRequired(), FileAllowed(list(ALLOWED_EXTENSIONS))])
     submit = SubmitField("Create POST")
