@@ -11,6 +11,7 @@
     width:270px;
     height:24vh;
     background-color: #151515;
+    margin-top: 10px;
 }
 
 .leftmenulibrary{
@@ -40,13 +41,13 @@ button{
     margin-right: 15px;
 }
 
-.leftmenulibrarycreate-1,.leftmenulibrarycreate-2,.leftmenulibrarycreate-3{
+.leftmenulibrarycreate-1,.leftmenulibrarycreate-2,.leftmenulibrarycreate-3, .leftmenulibrarycreate-4{
     background-color: #212121;
     border-radius: 6px;
     margin: 3vh 0.5vw;
 }
 
-#leftmenulibrarytext1,#leftmenulibrarytext2,#leftmenulibrarytext3{
+#leftmenulibrarytext1,#leftmenulibrarytext2,#leftmenulibrarytext3, #leftmenulibrarytext4{
     margin-left: 27px;
     margin-top: 27px;
 }
