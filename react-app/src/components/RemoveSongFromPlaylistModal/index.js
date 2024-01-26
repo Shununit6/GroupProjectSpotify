@@ -9,7 +9,17 @@ const RemoveSongFromPlaylistModal = ({song}) => {
     const dispatch = useDispatch();
     const playlists = useSelector(state => state.playlistsReducer.playlists);
     // playlists that have this song:
-    // const targetPlaylists = ;
+    // playlists = playlists.filter((playlist) => playlist.songs.length > 0);
+    Object.keys(playlists).forEach(key => {
+        if (Array.isArray(playlists[key].songs) && !playlists[key].songs.includes(songId)) {
+          return true;
+        } else {
+          delete playlists[key];
+          return false;
+        }
+      });
+
+    console.log('playlists', playlists);
     const [isLoading, setIsLoading] = useState(true);
     const [errors, setErrors] = useState({});
     const {closeModal} = useModal();
@@ -35,7 +45,7 @@ const RemoveSongFromPlaylistModal = ({song}) => {
         <div>
             <p className='heading'>Which playlist would you like to delete this song from?</p>
             <ul>
-                {playlists.map((playlist) => (
+                {Object.values(playlists).map((playlist) => (
                     <li key={playlist.id}>
                         <button className='deleteSongFromPlaylist' onClick={() => handleDelete(playlist.id)}>{playlist.title}</button>
                     </li>

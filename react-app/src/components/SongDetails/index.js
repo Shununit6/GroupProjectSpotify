@@ -11,6 +11,10 @@ import RemoveSongFromPlaylistModal from '../RemoveSongFromPlaylistModal';
 import OpenModalMenuItem from '../Navigation/OpenModalMenuItem';
 import { getSongLikes, getAllLikes } from '../../store/likes';
 import LikeSong from '../LikeSong';
+import { getMyAlbums, deleteAlbumSong } from '../../store/albums';
+import { getMyPlaylists, removeSongFromPlaylistThunk } from '../../store/playlists';
+
+
 
 const SongDetails = () => {
   const dispatch = useDispatch();
@@ -23,6 +27,11 @@ const SongDetails = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [showMenu, setShowMenu] = useState(false);
   const ulRef = useRef();
+  const albums = useSelector(state => state.albumsReducer);
+  const playlists = useSelector(state => state.playlistsReducer.playlists);
+  const hasAlbums = Object.keys(albums).length > 0;
+  const hasPlaylists = Object.keys(playlists).length > 0;
+
 
   useEffect(() => {
     dispatch(getSongDetails(songId)).then(()=>dispatch(getAllLikes())).then(()=>dispatch(getSongLikes(songId))).then(() => setIsLoading(false));
@@ -62,6 +71,8 @@ const SongDetails = () => {
       {sessionUserId && <button> <OpenModalMenuItem itemText="Add Song to Playlist" onItemClick={closeMenu} modalComponent={<AddSongToPlaylistModal song = {song}/>}/> </button>}
       {sessionUserId && <button> <OpenModalMenuItem itemText="Remove Song from Album" onItemClick={closeMenu} modalComponent={<RemoveSongFromAlbumModal song = {song}/>}/> </button>}
       {sessionUserId && <button> <OpenModalMenuItem itemText="Remove Song from Playlist" onItemClick={closeMenu} modalComponent={<RemoveSongFromPlaylistModal song = {song}/>}/> </button>}
+      {/* {sessionUserId && hasAlbums && <button> <OpenModalMenuItem itemText="Remove Song from Album" onItemClick={closeMenu} modalComponent={<RemoveSongFromAlbumModal song = {song}/>}/> </button>}
+      {sessionUserId && hasPlaylists && <button> <OpenModalMenuItem itemText="Remove Song from Playlist" onItemClick={closeMenu} modalComponent={<RemoveSongFromPlaylistModal song = {song}/>}/> </button>} */}
     </>
   )
 };
