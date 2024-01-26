@@ -11,6 +11,7 @@ import RemoveSongFromPlaylistModal from '../RemoveSongFromPlaylistModal';
 import OpenModalMenuItem from '../Navigation/OpenModalMenuItem';
 import { getSongLikes, getAllLikes } from '../../store/likes';
 import LikeSong from '../LikeSong';
+import MenuLibrary from '../MenuLibrary';
 
 const SongDetails = () => {
   const dispatch = useDispatch();
@@ -20,8 +21,7 @@ const SongDetails = () => {
   const like = useSelector(state => state.likesReducer.likes);
   console.log("this is song:", song)
   console.log("this is like:", like)
-  // let numofliked = 0;
-  // const [numliked, setNumLiked] = useState(numofliked);
+
   const [isLoading, setIsLoading] = useState(true);
   const [showMenu, setShowMenu] = useState(false);
   const ulRef = useRef();
@@ -42,13 +42,9 @@ const SongDetails = () => {
     }
   };
 
-  // if(like){
-  //   numofliked = like.length;
-  //   setNumLiked(numofliked);
-  // }
-
   return (
     <>
+
       <div className='grid-container'>
         <img id ="songdetialimage" src={url} alt="songdetailimage"/>
         <p className='title'>{title}</p>
@@ -57,7 +53,6 @@ const SongDetails = () => {
         <p className='release_date'>{release_date}</p>
       </div>
       {sessionUser && <LikeSong userId={user_id} songId={songId}/>}
-      {/* <p>{numliked} liked the song</p> */}
       {checkUserVSOwner &&
       <button onClick={closeMenu}>
         <OpenModalMenuItem
