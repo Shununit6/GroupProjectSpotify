@@ -38,7 +38,7 @@ function App() {
           <Route exact={true} path="/">
             <Home />
           </Route>
-
+          <Route exact path="/albums/current" component={ManageAlbums}/>
           <Route path="/albums" exact={true}>
             <Albums/>
           </Route>

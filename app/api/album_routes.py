@@ -27,7 +27,7 @@ def get_current_albums():
     """
     Query for all the albums that are created by the Current User.
     """
-    current_albums = Album.query.filter(Album.user_id == current_user.id).all()
+    current_albums = Album.query.filter_by(user_id=current_user.id).all()
     return jsonify({'albums': [album.to_dict() for album in current_albums]})
 
 # Get details of an album from an id
