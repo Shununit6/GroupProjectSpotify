@@ -47,6 +47,7 @@ function App() {
             <UpdateAlbum/>
           </Route>
           <Route exact path="/albums/new" component={CreateAlbum}/>
+          <Route exact path="/albums/current" component={ManageAlbums}/>
           <Route exact path="/songs/current" component={ManageSongs}/>
           <Route exact path="/songs/new" component={CreateSong}/>
           <Route exact path="/songs/:songId(\d+)/edit" component={UpdateSong}/>
