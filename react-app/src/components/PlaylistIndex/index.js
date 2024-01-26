@@ -19,6 +19,7 @@ const PlaylistIndex = ({num}) => {
          <MenuLibrary />
       </div>}
       <div className='playlistIndexitem-2'>
+        { num !== 4 && <h2>{" "} All Playlists:</h2>}
         <ul className='landingPlaylistIndex'>
           {num !== 4 && playlists.map((playlist) => (
             <PlaylistIndexItem playlist={playlist} />
