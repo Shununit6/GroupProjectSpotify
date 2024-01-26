@@ -7,7 +7,7 @@ import PlaylistIndexItem from '../PlaylistIndexItem/index';
 
 const ManagePlaylists = () => {
     const dispatch = useDispatch();
-    const playlists = useSelector(state => Object.values(state.playlistsReducer));
+    const playlists = useSelector(state => Object.values(state.playlistsReducer.playlists.playlists||[]));
     const [isLoading, setIsLoading] = useState(true);
     useEffect(() => {
         dispatch(getMyPlaylists()).then(() => setIsLoading(false));
@@ -19,11 +19,11 @@ const ManagePlaylists = () => {
     return (
         <div>
             <p className='title'>Manage Playlists</p>
-            {/* {!hasPlaylists && <Link to={'/playlists/new'}><button className='createPlaylistButton'>Create a New Playlist</button></Link>} */}
+            {!hasPlaylists && <Link to={'/playlists/new'}><button className='createPlaylistButton'>Create a New Playlist</button></Link>}
             {hasPlaylists && <ul className='managePlaylistIndex'>
                 {playlistsByUser.map((playlist) => (
                     <li className='manageEachPlaylist' key={String(playlist.id)}>
-                        <PlaylistIndexItem playlist={playlist}/>
+                        {playlist && <PlaylistIndexItem playlist={playlist}/>}
                     </li>
                 ))}
              </ul>}
