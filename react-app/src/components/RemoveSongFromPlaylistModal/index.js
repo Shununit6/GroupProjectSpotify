@@ -9,15 +9,14 @@ const RemoveSongFromPlaylistModal = ({song}) => {
     const dispatch = useDispatch();
     const playlists = useSelector(state => state.playlistsReducer.playlists);
     // playlists that have this song:
-    // playlists = playlists.filter((playlist) => playlist.songs.length > 0);
-    Object.keys(playlists).forEach(key => {
-        if (Array.isArray(playlists[key].songs) && !playlists[key].songs.includes(songId)) {
-          return true;
-        } else {
-          delete playlists[key];
-          return false;
-        }
-      });
+    // Object.keys(playlists).forEach(key => {
+    //     if (Array.isArray(playlists[key].songs) && !playlists[key].songs.includes(songId)) {
+    //       return true;
+    //     } else {
+    //       delete playlists[key];
+    //       return false;
+    //     }
+    //   });
 
     console.log('playlists', playlists);
     const [isLoading, setIsLoading] = useState(true);
