@@ -1,6 +1,6 @@
 import './SongDetails.css';
 import { useState, useEffect, useRef } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getSongDetails } from '../../store/songs';
 import DeleteSongModal from '../DeleteSongModal';
@@ -19,6 +19,7 @@ import MenuLibrary from '../MenuLibrary';
 
 const SongDetails = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const { songId } = useParams();
   const sessionUser = useSelector(state => state.session.user);
   const song = useSelector(state => state.songsReducer[songId]);
@@ -50,6 +51,11 @@ const SongDetails = () => {
     }
   };
 
+  const handleEditClick = () => {
+    // Navigate to the edit page for the current playlist
+    history.push(`/songs/${songId}/edit`);
+  };
+
   return (
     <>
       <div className='songDetailwrapper'>
@@ -71,6 +77,9 @@ const SongDetails = () => {
           modalComponent={<DeleteSongModal song={song}/>}
         />
       </button>}
+      {checkUserVSOwner &&(
+      <button onClick={handleEditClick}>Edit</button>
+      )}
       {sessionUserId && <button onClick={closeMenu}> <OpenModalMenuItem itemText="Add Song to Album" onItemClick={closeMenu} modalComponent={<AddSongToAlbumModal song = {song}/>}/> </button>}
       {sessionUserId && <button onClick={closeMenu}> <OpenModalMenuItem itemText="Add Song to Playlist" onItemClick={closeMenu} modalComponent={<AddSongToPlaylistModal song = {song}/>}/> </button>}
       {sessionUserId && <button onClick={closeMenu}> <OpenModalMenuItem itemText="Remove Song from Album" onItemClick={closeMenu} modalComponent={<RemoveSongFromAlbumModal song = {song}/>}/> </button>}

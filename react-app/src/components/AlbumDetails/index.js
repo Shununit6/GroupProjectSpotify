@@ -1,6 +1,6 @@
 import './AlbumDetails.css';
 import { useState, useEffect, useRef } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAlbumDetails } from '../../store/albums';
 import DeleteAlbumModal from '../DeleteAlbumModal';
@@ -9,6 +9,7 @@ import MenuLibrary from '../MenuLibrary';
 
 const AlbumDetails = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const { albumId } = useParams();
   console.log("This is albumId:", albumId)
   const sessionUser = useSelector(state => state.session.user);
@@ -29,8 +30,12 @@ const AlbumDetails = () => {
       setShowMenu(false);
     }
   };
+  const handleEditClick = () => {
+    // Navigate to the edit page for the current playlist
+    history.push(`/albums/${albumId}/edit`);
+  };
 
-  const canDeleteAlbum = sessionUser && sessionUser.id === user_id;
+  const ownsAlbum = sessionUser && sessionUser.id === user_id;
 
   return (
     <>
@@ -55,7 +60,7 @@ const AlbumDetails = () => {
               </ul>
             </div>
           )}
-          {canDeleteAlbum && (
+          {ownsAlbum && (
             <button>
               <OpenModalMenuItem
                 itemText="Delete"
@@ -63,6 +68,9 @@ const AlbumDetails = () => {
                 modalComponent={<DeleteAlbumModal album={album} />}
               />
             </button>
+          )}
+          {ownsAlbum && (
+            <button onClick={handleEditClick}>Edit</button>
           )}
         </div>
       </div>

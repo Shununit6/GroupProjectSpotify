@@ -43,7 +43,7 @@ const PlaylistForm = ({ playlist, formType }) => {
     const isFormValid = validateForm();
     playlist = { ...playlist, title, url, description };
 
-    if (isFormValid){
+    if (isFormValid) {
       try {
         let newPlaylist;
 
@@ -71,48 +71,50 @@ const PlaylistForm = ({ playlist, formType }) => {
         }
 
         // Redirect to the "/playlists" page
-        history.push('/playlists');
+        history.push('/playlists/');
       } catch (error) {
         // Handle general error
         console.error("Error:", error);
+        history.push('/playlists/');
 
         if (error instanceof TypeError) {
           // Handle specific error when res.json is not a function
           console.error("Error: res.json is not a function");
           // Additional error handling if needed
         }
+      }finally {
+        history.push(`/playlists`);
       }
     }
   };
   const titleError = errors.title ? 'Title: ' + errors.title : null;
   const urlError = errors.url ? 'URL: ' + errors.url : null;
-  const descriptionError = errors.description ? 'Description: ' + errors.description : null;
   return (
     <div className='body'>
-    <form className='form' onSubmit={handleSubmit}>
-      <p className='formHeading'>{formTitle}</p>
-      <div className='errors'>
-        <ul>{titleError}</ul>
-        <ul>{urlError}</ul>
-      </div>
-      <p className='formSubheading'>Want to share your playlist?</p>
-      <p className='nomal'>Some details about your playlist.</p>
-      <div className='formNormal'>
-      <label>
-        Playlist Title<br/>
-        <input type="text" value={title} placeholder="Playlist Title" onChange={(e) => setTitle(e.target.value)}/><br/>
-      </label>
-      <label>
-        Playlist Image URL<br/>
-        <input type="text" value={url} placeholder="Playlist Image URL" onChange={(e) => setUrl(e.target.value)}/><br/>
-      </label>
-      <label>
-        Playlist Description<br/>
-        <input type="text" value={description} placeholder="Playlist Description" onChange={(e) => setDescription(e.target.value)}/>
-      </label>
-      </div>
-      <button className='submitFormButton' type="submit">{formType}</button>
-    </form>
+      <form className='form' onSubmit={handleSubmit}>
+        <p className='formHeading'>{formTitle}</p>
+        <div className='errors'>
+          <ul>{titleError}</ul>
+          <ul>{urlError}</ul>
+        </div>
+        <p className='formSubheading'>Want to share your playlist?</p>
+        <p className='nomal'>Some details about your playlist.</p>
+        <div className='formNormal'>
+          <label>
+            Playlist Title<br />
+            <input type="text" value={title} placeholder="Playlist Title" onChange={(e) => setTitle(e.target.value)} /><br />
+          </label>
+          <label>
+            Playlist Image URL<br />
+            <input type="text" value={url} placeholder="Playlist Image URL" onChange={(e) => setUrl(e.target.value)} /><br />
+          </label>
+          <label>
+            Playlist Description<br />
+            <input type="text" value={description} placeholder="Playlist Description" onChange={(e) => setDescription(e.target.value)} />
+          </label>
+        </div>
+        <button className='submitFormButton' type="submit">{formType}</button>
+      </form>
     </div>
   );
 };
