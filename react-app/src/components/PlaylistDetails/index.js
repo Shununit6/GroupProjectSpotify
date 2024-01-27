@@ -41,6 +41,9 @@ const PlaylistDetails = () => {
   return (
     <>
       <div className='grid-container'>
+      <div className='playlistDetailitem-1'>
+         <MenuLibrary />
+      </div>
         <p className='title'>{title}</p>
         {description !== null && (
           <p className='description'>{description}</p>
