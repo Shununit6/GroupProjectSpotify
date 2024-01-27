@@ -22,9 +22,9 @@ const ManagePlaylists = () => {
             {!hasPlaylists && <Link to={'/playlists/new'}><button className='createPlaylistButton'>Create a New Playlist</button></Link>}
             {hasPlaylists && <ul className='managePlaylistIndex'>
                 {playlistsByUser.map((playlist) => (
-                    <li className='manageEachPlaylist' key={String(playlist.id)}>
+                    <ul className='manageEachPlaylist' key={String(playlist.id)}>
                         {playlist && <PlaylistIndexItem playlist={playlist}/>}
-                    </li>
+                    </ul>
                 ))}
              </ul>}
         </div>
