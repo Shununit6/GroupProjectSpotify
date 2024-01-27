@@ -88,12 +88,14 @@ export const createSong = (post) => async (dispatch) => {
 };
 
 
-export const updateSong = (payload) => async (dispatch) => {
-  const res = await fetch(`/api/songs/${payload.id}`, {
+export const updateSong = (formData, id) => async (dispatch) => {
+  const res = await fetch(`/api/songs/${id}/edit`, {
     method: 'PUT',
-    // headers: { 'Content-Type': 'application/json' },
+    headers: {
+      
+    },
     // body: JSON.stringify(payload)
-    body: payload
+    body: formData
   });
   if (res.ok) {
     const { data } = await res.json();

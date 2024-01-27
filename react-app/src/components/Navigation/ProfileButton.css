@@ -21,14 +21,9 @@
     display:none;
 }
 
-#menuviewgroups{
+#menulibraryhome{
     text-decoration: none;
-    color: black;
-}
-
-#menuviewevents{
-    text-decoration: none;
-    color: black;
+    color: purple;
 }
 
 #iconandcloseopenmenu{

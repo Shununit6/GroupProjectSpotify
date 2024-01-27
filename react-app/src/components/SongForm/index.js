@@ -23,6 +23,7 @@ const SongForm = ({ song, formType }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log("Song prop in SongForm:", song);
     setErrors({});
 
     const formData = new FormData();
@@ -32,7 +33,7 @@ const SongForm = ({ song, formType }) => {
     formData.append("lyrics", lyrics);
     formData.append("url", url);
     formData.append("duration", duration);
-    formData.append("releaseDate", release_date);
+    formData.append("release_date", release_date);
     setSongLoading(true);
 
     try {
@@ -43,7 +44,9 @@ const SongForm = ({ song, formType }) => {
         action = createSong;
       }
 
-      const response = await dispatch(action(formData));
+      console.log("This is form data:", formData)
+      console.log("This is the action:", action)
+      const response = await dispatch(action(formData, song.id));
 
       // Check if response.song is defined
       if (response && response.song) {

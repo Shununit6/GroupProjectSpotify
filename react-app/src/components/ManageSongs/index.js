@@ -8,7 +8,7 @@ import MenuLibrary from '../MenuLibrary';
 
 const ManageSongs = () => {
     const dispatch = useDispatch();
-    const songs = useSelector(state => Object.values(state.songsReducer));
+    const songs = useSelector(state => state.songsReducer.songs|| []);
     const [isLoading, setIsLoading] = useState(true);
     useEffect(() => {
         dispatch(getMySongs()).then(() => setIsLoading(false));
@@ -27,9 +27,9 @@ const ManageSongs = () => {
                 {!hasSongs && <Link to={'/songs/new'}><button className='createSongButton'>Create a New Song</button></Link>}
                 {hasSongs && <ul className='manageSongIndex'>
                     {songsByUser.map((song) => (
-                        <li className='manageEachSong' key={String(song.id)}>
-                            <SongIndexItem/>
-                        </li>
+                        <ul className='manageEachSong' key={String(song.id)}>
+                            <SongIndexItem song={song}/>
+                        </ul>
                     ))}
                 </ul>}
             </div>
