@@ -6,7 +6,7 @@ class Album_Song(db.Model):
     if environment == "production":
         __table_args__ = {'schema': SCHEMA}
 
-    song_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("songs.id")), nullable=False, primary_key=True),
+    song_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("songs.id")), nullable=False, primary_key=True)
     album_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('albums.id')), nullable=False, primary_key=True)
 
 
