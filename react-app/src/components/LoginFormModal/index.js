@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { login } from "../../store/session";
+import { login, logout } from "../../store/session";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import "./LoginForm.css";
+import { Link } from 'react-router-dom';
 
 function LoginFormModal() {
   const dispatch = useDispatch();
@@ -21,43 +22,66 @@ function LoginFormModal() {
     }
   };
 
-  const handleDemoLogin = () => {
-    setEmail("demo@aa.io");
-    setPassword("password");
+  const handleDemoLogin = async (e) => {
+    e.preventDefault();
+    await dispatch(logout());
+    closeModal();
+    const email = "demo@user.io";
+    const password ="password"
+    return await dispatch(login(email, password))
   };
 
   return (
     <>
+      <div id="loginmodal">
       <h1>Log In</h1>
-      <form onSubmit={handleSubmit}>
-        <ul>
-          {errors.map((error, idx) => (
-            <li key={idx}>{error}</li>
+      <div>
+      <form id="loginform" onSubmit={handleSubmit}>
+        <div>
+          {errors && errors.map((error, idx) => (
+              <p key={idx}>{error}</p>
           ))}
-        </ul>
-        <label>
-          Email
-          <input
-            type="text"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </label>
-        <label>
-          Password
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </label>
-        <button type="submit">Log In</button>
-        <button type="submit" onClick={handleDemoLogin}>
-          Log In as Demo User
+        </div>
+        <div>
+          <label>
+            Email
+            <input
+              className="loginput"
+              type="text"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              minLength={4}
+              required
+            />
+          </label>
+          {(email.length<4) &&
+          <p>Email has at least 4 characters</p>}
+        </div>
+        <div>
+          <label>
+            Password
+            <input
+              className="loginput"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              minLength = {6}
+              required
+            />
+          </label>
+          {(password.length<6) &&
+          <p>Password has at least 6 characters</p>}
+        </div>
+        {(email.length<4 || password.length<6) &&
+        <button id="disabledlogin" disabled={true}>Log In</button>}
+        {email.length>=4 && password.length>=6 &&
+        <button id="loginsubmitbutton" type="submit">Log In</button>}
+        <button id="logindemobutton" onClick={handleDemoLogin}>
+            <Link className="logindemobutton" to="/" >Log in as Demo User</Link>
         </button>
       </form>
+      </div>
+      </div>
     </>
   );
 }
