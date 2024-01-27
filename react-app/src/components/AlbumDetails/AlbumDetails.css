@@ -1,0 +1,20 @@
+.albumDetailwrapper{
+  font-family: Georgia, serif, cursive;
+  display:flex;
+}
+
+.albumDetailitem-1{
+  position: relative;
+  float:inline-start;
+  width:270px;
+}
+
+.albumDetailitem-2{
+  position: relative;
+  flex:1;
+  width:auto;
+  margin-top: 15px;
+  color:white;
+  background-color: #212121;
+  border-radius: 6px;
+}

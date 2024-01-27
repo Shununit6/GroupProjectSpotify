@@ -1,0 +1,54 @@
+#openMenuNavButton, #closeMenuNavButton {
+    color: #ff0088;
+    border-color: white;
+}
+
+#profileNavButtonMenuItem {
+    position:relative;
+    display: flex;
+    float: inline-end;
+}
+#menuitemlogin{
+    margin-right: 1em;
+}
+
+#menuitemsignup{
+    margin-left: 1em;
+    margin-right: 1.5em;
+}
+
+.hidden{
+    display:none;
+}
+
+#menuviewgroups{
+    text-decoration: none;
+    color: black;
+}
+
+#menuviewevents{
+    text-decoration: none;
+    color: black;
+}
+
+#iconandcloseopenmenu{
+    display: flex;
+    flex-direction: column;
+}
+#menuwithlogout{
+    right:1em;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 150px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    padding: 12px 16px;
+    z-index: 1;
+    /* background-color: aliceblue; */
+}
+#menulogout{
+    color: black;
+    text-decoration: none;
+}
+#menuwithlogout > div{
+    margin-top: 0.9em;
+}

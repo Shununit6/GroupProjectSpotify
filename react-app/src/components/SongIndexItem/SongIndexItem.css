@@ -1,0 +1,37 @@
+#songlinkwithtext {
+    text-decoration:none;
+    color:white;
+}
+
+#songImage{
+    height:200px;
+    width:200px;
+    border-radius: 6px;
+}
+
+#songgrid1{
+    display: grid;
+    grid-template-areas:
+      "item1"
+      "item2";
+    grid-template-rows:  200px 1fr;
+    grid-template-columns: 220px 1fr;
+    /* background-color: #ffff64; */
+    border-radius: 6px;
+    /* border-radius: 6px;
+    background-color: aqua; */
+    /* background-color: #ffff64; */
+}
+
+
+#songitem1{
+    grid-area: item1;
+    /* margin-right: 0.5em; */
+    /* background-color: #8ca0ff; */
+}
+
+#songitem2 {
+    grid-area: item2;
+    /* width:150px; */
+    /* background-color: #ffa08c; */
+}

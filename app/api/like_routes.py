@@ -4,7 +4,17 @@ from app.models import db, Like
 
 like_routes = Blueprint('likes', __name__)
 
-# Get all Likes
+# Get all the Likes
+@like_routes.route('/likes')
+def get_all_likes():
+    """
+    Query for all likes
+    """
+    likes = Like.query.all()
+
+    return jsonify({'likes': [like.to_dict() for like in likes]})
+
+# Get all Likes of a song
 # Require Authentication: false
 # GET /api/songs/:id/likes
 @like_routes.route('/<int:id>/likes')
@@ -36,8 +46,10 @@ def post_like(id):
         db.session.commit()
         return jsonify(new_like.to_dict())
     elif likebycurrent.count() == 1 and (request.method == 'DELETE' or request.method == 'POST'):
-        db.session.delete(likebycurrent.one())
+        deletelike = likebycurrent.first()
+        db.session.delete(likebycurrent.first())
         db.session.commit()
-        return {'message': 'Delete successful.'}
+        # return {'message': 'Delete successful.'}
+        return jsonify(deletelike.to_dict())
     else:
-        return "no action"
+        return

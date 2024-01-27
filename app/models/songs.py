@@ -15,6 +15,7 @@ class Song(db.Model):
   title = db.Column(db.String(255), nullable=False)
   lyrics = db.Column(db.String(2000), nullable=False)
   url = db.Column(db.String(255), nullable=False)
+  song_file = db.Column(db.String(2000), nullable=False, default='default_value')
   duration = db.Column(db.Integer, nullable=False)
   release_date = db.Column(db.String(255),nullable=False)
   created_at = db.Column(db.DateTime, default=func.now())
@@ -44,13 +45,9 @@ class Song(db.Model):
         'title': self.title,
         'lyrics': self.lyrics,
         'url': self.url,
+        'song_file': self.song_file,
         'duration': self.duration,
         'release_date': self.release_date,
-        'created_at': self.created_at.strftime('%Y-%m-%d %H:%M:%S'),
-        'updated_at': self.updated_at.strftime('%Y-%m-%d %H:%M:%S'),
-        'user': self.user.to_dict(),
-        # 'artist': self.artist.to_dict(),
-        # 'like': [like.to_dict() for like in self.like],
-        # 'albums': [album.to_dict() for album in self.albums],
-        # 'playlists': [playlist.to_dict() for playlist in self.playlists],
+        'created_at': self.created_at,
+        'updated_at': self.updated_at
     }

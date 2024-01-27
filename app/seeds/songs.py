@@ -62,7 +62,8 @@ def seed_songs():
         'Cause girl, you're amazing
         Just the way you are
         Yeah""",
-        url = '',
+        url = 'https://i.pinimg.com/736x/29/1d/7d/291d7da2542699b4fe0b8b02ff688b76.jpg',
+        song_file = 'https://commondatastorage.googleapis.com/codeskulptor-demos/DDR_assets/Kangaroo_MusiQue_-_The_Neverwritten_Role_Playing_Game.mp3',
         duration = 220,
         release_date = 'October 5, 2010')
     secondsong = Song(
@@ -71,6 +72,7 @@ def seed_songs():
         title = 'Just the Way You Are',
         lyrics = "Hmm. We don't know the lyrics for this one.",
         url = 'https://i.pinimg.com/736x/29/1d/7d/291d7da2542699b4fe0b8b02ff688b76.jpg',
+        song_file = 'https://commondatastorage.googleapis.com/codeskulptor-demos/DDR_assets/Kangaroo_MusiQue_-_The_Neverwritten_Role_Playing_Game.mp3',
         duration = 230,
         release_date = 'November 13, 2015')
     thirdsong = Song(
@@ -79,6 +81,7 @@ def seed_songs():
         title = 'Sugar',
         lyrics = "Hmm. We don't know the lyrics for this one.",
         url = 'https://i.pinimg.com/736x/29/1d/7d/291d7da2542699b4fe0b8b02ff688b76.jpg',
+        song_file = 'https://commondatastorage.googleapis.com/codeskulptor-demos/DDR_assets/Kangaroo_MusiQue_-_The_Neverwritten_Role_Playing_Game.mp3',
         duration = 235,
         release_date = 'September 2, 2014')
     fourthsong = Song(
@@ -87,6 +90,7 @@ def seed_songs():
         title = 'Just the Way You Are',
         lyrics = "Hmm. We don't know the lyrics for this one.",
         url = 'https://i.pinimg.com/736x/29/1d/7d/291d7da2542699b4fe0b8b02ff688b76.jpg',
+        song_file = 'https://commondatastorage.googleapis.com/codeskulptor-demos/DDR_assets/Kangaroo_MusiQue_-_The_Neverwritten_Role_Playing_Game.mp3',
         duration = 230,
         release_date = 'November 13, 2015')
     fifthsong = Song(
@@ -95,6 +99,7 @@ def seed_songs():
         title = 'Just the Way You Are',
         lyrics = "Hmm. We don't know the lyrics for this one.",
         url = 'https://i.pinimg.com/736x/29/1d/7d/291d7da2542699b4fe0b8b02ff688b76.jpg',
+        song_file = 'https://commondatastorage.googleapis.com/codeskulptor-demos/DDR_assets/Kangaroo_MusiQue_-_The_Neverwritten_Role_Playing_Game.mp3',
         duration = 230,
         release_date = 'November 13, 2015')
     sixthsong = Song(
@@ -103,6 +108,43 @@ def seed_songs():
         title = 'Just the Way You Are',
         lyrics = "Hmm. We don't know the lyrics for this one.",
         url = 'https://i.pinimg.com/736x/29/1d/7d/291d7da2542699b4fe0b8b02ff688b76.jpg',
+        song_file = 'https://commondatastorage.googleapis.com/codeskulptor-demos/DDR_assets/Kangaroo_MusiQue_-_The_Neverwritten_Role_Playing_Game.mp3',
+        duration = 230,
+        release_date = 'November 13, 2015')
+    seventhsong = Song(
+        user_id= 1,
+        artist_id = 5,
+        title = 'Just the Way You Are',
+        lyrics = "Hmm. We don't know the lyrics for this one.",
+        url = 'https://i.pinimg.com/736x/29/1d/7d/291d7da2542699b4fe0b8b02ff688b76.jpg',
+        song_file = 'https://commondatastorage.googleapis.com/codeskulptor-demos/DDR_assets/Kangaroo_MusiQue_-_The_Neverwritten_Role_Playing_Game.mp3',
+        duration = 230,
+        release_date = 'November 13, 2015')
+    eighthsong = Song(
+        user_id= 2,
+        artist_id = 5,
+        title = 'Just the Way You Are',
+        lyrics = "Hmm. We don't know the lyrics for this one.",
+        url = 'https://i.pinimg.com/736x/29/1d/7d/291d7da2542699b4fe0b8b02ff688b76.jpg',
+        song_file = 'https://commondatastorage.googleapis.com/codeskulptor-demos/DDR_assets/Kangaroo_MusiQue_-_The_Neverwritten_Role_Playing_Game.mp3',
+        duration = 230,
+        release_date = 'November 13, 2015')
+    ninthsong = Song(
+        user_id= 3,
+        artist_id = 5,
+        title = 'Just the Way You Are',
+        lyrics = "Hmm. We don't know the lyrics for this one.",
+        url = 'https://i.pinimg.com/736x/29/1d/7d/291d7da2542699b4fe0b8b02ff688b76.jpg',
+        song_file = 'https://commondatastorage.googleapis.com/codeskulptor-demos/DDR_assets/Kangaroo_MusiQue_-_The_Neverwritten_Role_Playing_Game.mp3',
+        duration = 230,
+        release_date = 'November 13, 2015')
+    tenthsong = Song(
+        user_id= 2,
+        artist_id = 5,
+        title = 'Just the Way You Are',
+        lyrics = "Hmm. We don't know the lyrics for this one.",
+        url = 'https://i.pinimg.com/736x/29/1d/7d/291d7da2542699b4fe0b8b02ff688b76.jpg',
+        song_file = 'https://commondatastorage.googleapis.com/codeskulptor-demos/DDR_assets/Kangaroo_MusiQue_-_The_Neverwritten_Role_Playing_Game.mp3',
         duration = 230,
         release_date = 'November 13, 2015')
     db.session.add(firstsong)
@@ -111,6 +153,10 @@ def seed_songs():
     db.session.add(fourthsong)
     db.session.add(fifthsong)
     db.session.add(sixthsong)
+    db.session.add(seventhsong)
+    db.session.add(eighthsong)
+    db.session.add(ninthsong)
+    db.session.add(tenthsong)
     db.session.commit()
 
 

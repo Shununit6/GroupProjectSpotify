@@ -1,7 +1,5 @@
-.profile-dropdown {
-  position: absolute;
-}
-
-.hidden {
-  display: none;
+#loginsignupnavbar{
+    right:0;
+    position:fixed;
+    z-index:1;
 }
