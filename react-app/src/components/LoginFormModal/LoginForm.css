@@ -1,0 +1,48 @@
+#loginform {
+    display: grid;
+    width:400px;
+    grid-gap: 15px;
+    justify-content: center;
+    font-family: Georgia, serif, cursive;
+  }
+
+  #loginmodal > h1{
+    text-align: center;
+  }
+  .loginput {
+    width:300px;
+    /* width: 100%; */
+    display: inline-block;
+  }
+
+  #loginsubmitbutton, #logindemobutton{
+    width:400px;
+    margin: 0 auto;
+    background-color: white;
+    cursor: pointer;
+    /* width: 100%; */
+  }
+  #disabledlogin{
+    width:300px;
+    margin: 0 auto;
+    padding: 8px 6px;
+    background-color:gray;
+  }
+
+  #loginsubmitbutton{
+    color: white;
+    background-color: red;
+    cursor: pointer;
+    padding: 8px 6px;
+  }
+
+  #logindemobutton{
+    width:300px;
+    /* text-decoration: none; */
+    justify-content: center;
+    border-color: white;
+  }
+
+  .logindemobutton{
+    text-decoration: none;
+  }
