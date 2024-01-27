@@ -1,0 +1,18 @@
+.managePlaylistwrapper{
+    font-family: Georgia, serif, cursive;
+    display:flex;
+  }
+
+.managePlaylistitem-1{
+    position: relative;
+    float:inline-start;
+    width:270px;
+}
+
+.managePlaylistitem-2{
+    position: relative;
+    flex:1;
+    width:auto;
+    margin-top: 15px;
+    color:white;
+}

@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { createAlbum, updateAlbum } from '../../store/albums';
+import MenuLibrary from '../MenuLibrary';
 
 const AlbumForm = ({ album, formType }) => {
   const dispatch = useDispatch();
@@ -18,28 +19,25 @@ const AlbumForm = ({ album, formType }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrors({});
-
     album = { ...album, title, release_date, url, copyright };
 
-    if (formType === 'Update Album') {
-      dispatch(updateAlbum(album))
-        .then((newAlbum) => history.push(`/albums/${newAlbum.id}`))
-        .catch(async (res) => {
-          const data = await res.json();
-          if (data && data.errors) {
-            setErrors(data.errors);
-          }
-        });
-    } else if (formType === 'Create Album') {
-      console.log("This is the album:", album)
-      dispatch(createAlbum(album))
-        .then((newAlbum) => history.push(`/albums/${newAlbum.id}`))
-        .catch(async (res) => {
-          const data = await res.json();
-          if (data && data.errors) {
-            setErrors(data.errors);
-          }
-        });
+    try {
+      if (formType === 'Update Album') {
+        await dispatch(updateAlbum(album));
+      } else if (formType === 'Create Album') {
+        await dispatch(createAlbum(album));
+      }
+
+      // Redirect to the "/albums" page
+      history.push('/albums');
+    } catch (error) {
+      // Handle error
+      console.error("Error:", error);
+
+      if (error instanceof TypeError) {
+        // Handle specific error if needed
+        console.error("Error: res.json is not a function");
+      }
     }
   };
 
@@ -50,7 +48,11 @@ const AlbumForm = ({ album, formType }) => {
   const copyrightError = errors.copyright ? 'Copyright: ' + errors.copyright : null;
 
   return (
-    <div className='body'>
+    <div className='albumformwrapper'>
+      <div className="albumform-1">
+        <MenuLibrary />
+      </div>
+      <div className="albumform-2">
       <form className='form' onSubmit={handleSubmit}>
         <p className='formHeading'>{formTitle}</p>
         <div className='errors'>
@@ -81,6 +83,7 @@ const AlbumForm = ({ album, formType }) => {
         </div>
         <button className='submitFormButton' type="submit">{formType}</button>
       </form>
+      </div>
     </div>
   );
 };

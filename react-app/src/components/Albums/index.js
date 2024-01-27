@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getAllAlbums } from '../../store/albums';
 import AlbumIndexItem from '../AlbumIndexItem';
 import "./albums.css";
+import MenuLibrary from '../MenuLibrary';
 
 function Albums({num}) {
     const dispatch = useDispatch();
@@ -19,15 +20,21 @@ function Albums({num}) {
 
   if(isLoaded){
   return (
-    <div class="albumslistgrid">
-      <ul class="viewalbums">
-            { num !== 5 && Object.values(albums).map((album, index) => (
-                  <AlbumIndexItem class="albumAlbumIndex" album={album} key={index}/>
-            ))}
-            { num === 5 && Object.values(albums).slice(0,5).map((album, index) => (
-              <AlbumIndexItem class="albumAlbumIndex" album={album} key={index}/>
-            ))}
-      </ul>
+    <div className='albumwrapper'>
+      {num !== 4 && <div className='albumitem-1'>
+         <MenuLibrary />
+      </div>}
+      <div className='albumitem-2'>
+        { num !== 4 && <h2>{" "} All Albums:</h2>}
+        <ul class="viewalbums">
+              { num !== 4 && Object.values(albums).map((album, index) => (
+                    <AlbumIndexItem album={album} key={index}/>
+              ))}
+              { num === 4 && Object.values(albums).slice(0,4).map((album, index) => (
+                <AlbumIndexItem album={album} key={index}/>
+              ))}
+        </ul>
+      </div>
     </div>
   );}
 }

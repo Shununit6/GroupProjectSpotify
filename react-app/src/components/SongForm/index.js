@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { createSong, updateSong } from '../../store/songs';
-import { fetchAllArtists } from '../../store/artists';
+import MenuLibrary from '../MenuLibrary';
 
 import './SongForm.css';
 
@@ -23,6 +23,7 @@ const SongForm = ({ song, formType }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log("Song prop in SongForm:", song);
     setErrors({});
 
     const formData = new FormData();
@@ -32,7 +33,7 @@ const SongForm = ({ song, formType }) => {
     formData.append("lyrics", lyrics);
     formData.append("url", url);
     formData.append("duration", duration);
-    formData.append("releaseDate", release_date);
+    formData.append("release_date", release_date);
     setSongLoading(true);
 
     try {
@@ -43,7 +44,9 @@ const SongForm = ({ song, formType }) => {
         action = createSong;
       }
 
-      const response = await dispatch(action(formData));
+      console.log("This is form data:", formData)
+      console.log("This is the action:", action)
+      const response = await dispatch(action(formData, song.id));
 
       // Check if response.song is defined
       if (response && response.song) {
@@ -70,7 +73,11 @@ const SongForm = ({ song, formType }) => {
   const renderError = (error) => error ? <ul>{`${error}: ${errors[error]}`}</ul> : null;
 
   return (
-    <div className='body'>
+    <div className='songformwrapper'>
+      <div className="songform-1">
+        <MenuLibrary />
+      </div>
+      <div className="songform-2">
       <form className='form' onSubmit={handleSubmit} encType="multipart/form-data">
         <p className='formHeading'>{formTitle}</p>
         {/* <div className='errors'>
@@ -116,6 +123,7 @@ const SongForm = ({ song, formType }) => {
         <button className='submitFormButton' type="submit">{formType}</button>
         {songLoading && <p>Loading...</p>}
       </form>
+      </div>
     </div>
   );
 };
