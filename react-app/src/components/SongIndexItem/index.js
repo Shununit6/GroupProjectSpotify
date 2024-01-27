@@ -6,8 +6,8 @@ import DeleteSongModal from '../DeleteSongModal/index';
 
 const SongIndexItem = ({ song }) => {
   console.log("Song in SongIndexItem:", song);
-  console.log("Title:", song.title);
-  console.log("User ID:", song.user_id);
+  // console.log("Title:", song.title);
+  // console.log("User ID:", song.user_id);
   const dispatch = useDispatch();
   const sessionUser = useSelector(state => state.session.user);
   const {id, title, url, user_id} = song;

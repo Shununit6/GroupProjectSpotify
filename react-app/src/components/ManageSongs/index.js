@@ -27,9 +27,9 @@ const ManageSongs = () => {
                 {!hasSongs && <Link to={'/songs/new'}><button className='createSongButton'>Create a New Song</button></Link>}
                 {hasSongs && <ul className='manageSongIndex'>
                     {songsByUser.map((song) => (
-                        <li className='manageEachSong' key={String(song.id)}>
+                        <ul className='manageEachSong' key={String(song.id)}>
                             <SongIndexItem song={song}/>
-                        </li>
+                        </ul>
                     ))}
                 </ul>}
             </div>
