@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchPlaylistById } from '../../store/playlists';
 import DeletePlaylistModal from '../DeletePlaylistModal';
 import OpenModalMenuItem from '../Navigation/OpenModalMenuItem';
+import MenuLibrary from '../MenuLibrary';
 
 
 const PlaylistDetails = () => {
@@ -30,19 +31,24 @@ const PlaylistDetails = () => {
   const {user_id, artist_id, title, lyrics, url, duration, release_date, songs} = playlist;
   return (
     <>
-    <div className='grid-container'>
-      <p className='title'>{title}</p>
-      <p className='lyrics'>{lyrics}</p>
-      <p className='duration'>{duration}</p>
-      <p className='release_date'>{release_date}</p>
-    </div>
-    <button>
-        <OpenModalMenuItem
-          itemText="Delete"
-          onItemClick={closeMenu}
-          modalComponent={<DeletePlaylistModal playlist={playlist}/>}
-        />
+    <div className='playlistDetailwrapper'>
+      <div className='playlistDetailitem-1'>
+         <MenuLibrary />
+      </div>
+      <div className='playlistDetailitem-2'>
+        <p className='title'>{title}</p>
+        <p className='lyrics'>{lyrics}</p>
+        <p className='duration'>{duration}</p>
+        <p className='release_date'>{release_date}</p>
+      <button>
+          <OpenModalMenuItem
+            itemText="Delete"
+            onItemClick={closeMenu}
+            modalComponent={<DeletePlaylistModal playlist={playlist}/>}
+          />
       </button>
+      </div>
+      </div>
     </>
   )
 };

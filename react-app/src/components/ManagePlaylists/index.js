@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getMyPlaylists } from '../../store/playlists';
 import PlaylistIndexItem from '../PlaylistIndexItem/index';
+import MenuLibrary from '../MenuLibrary';
 
 const ManagePlaylists = () => {
     const dispatch = useDispatch();
@@ -17,16 +18,21 @@ const ManagePlaylists = () => {
     const playlistsByUser = playlists ? playlists.filter(playlist => playlist.user_id === sessionUser.id) : [];
     const hasPlaylists = playlistsByUser.length > 0;
     return (
-        <div>
+      <div className='managePlaylistwrapper'>
+        <div className='managePlaylistitem-1'>
+          <MenuLibrary />
+        </div>
+        <div className='managePlaylistitem-2'>
             <p className='title'>Manage Playlists</p>
             {!hasPlaylists && <Link to={'/playlists/new'}><button className='createPlaylistButton'>Create a New Playlist</button></Link>}
             {hasPlaylists && <ul className='managePlaylistIndex'>
                 {playlistsByUser.map((playlist) => (
-                    <li className='manageEachPlaylist' key={String(playlist.id)}>
+                    <ul className='manageEachPlaylist' key={String(playlist.id)}>
                         {playlist && <PlaylistIndexItem playlist={playlist}/>}
-                    </li>
+                    </ul>
                 ))}
              </ul>}
+             </div>
         </div>
     );
 };

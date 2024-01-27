@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { createNewPlaylist, updatePlaylist } from '../../store/playlists';
+import MenuLibrary from '../MenuLibrary';
 
 const PlaylistForm = ({ playlist, formType }) => {
   const dispatch = useDispatch();
@@ -60,32 +61,37 @@ const PlaylistForm = ({ playlist, formType }) => {
   const urlError = errors.url ? 'URL: ' + errors.url : null;
   const descriptionError = errors.description ? 'Description: ' + errors.description : null;
   return (
-    <div className='body'>
-    <form className='form' onSubmit={handleSubmit}>
-      <p className='formHeading'>{formTitle}</p>
-      <div className='errors'>
-        <ul>{titleError}</ul>
-        <ul>{urlError}</ul>
-        <ul>{descriptionError}</ul>
+    <div className='playlistformwrapper'>
+      <div className="playlistformitem-1">
+        <MenuLibrary />
       </div>
-      <p className='formSubheading'>Want to share your playlist?</p>
-      <p className='nomal'>Some details about your playlist.</p>
-      <div className='formNormal'>
-      <label>
-        Playlist Title<br/>
-        <input type="text" value={title} placeholder="Playlist Title" onChange={(e) => setTitle(e.target.value)}/><br/>
-      </label>
-      <label>
-        Playlist Image URL<br/>
-        <input type="text" value={url} placeholder="Playlist Image URL" onChange={(e) => setUrl(e.target.value)}/><br/>
-      </label>
-      <label>
-        Playlist Description<br/>
-        <input type="text" value={description} placeholder="Playlist Description" onChange={(e) => setDescription(e.target.value)}/>
-      </label>
+      <div className="playlistformitem-2">
+      <form className='form' onSubmit={handleSubmit}>
+        <p className='formHeading'>{formTitle}</p>
+        <div className='errors'>
+          <ul>{titleError}</ul>
+          <ul>{urlError}</ul>
+          <ul>{descriptionError}</ul>
+        </div>
+        <p className='formSubheading'>Want to share your playlist?</p>
+        <p className='nomal'>Some details about your playlist.</p>
+        <div className='formNormal'>
+        <label>
+          Playlist Title<br/>
+          <input type="text" value={title} placeholder="Playlist Title" onChange={(e) => setTitle(e.target.value)}/><br/>
+        </label>
+        <label>
+          Playlist Image URL<br/>
+          <input type="text" value={url} placeholder="Playlist Image URL" onChange={(e) => setUrl(e.target.value)}/><br/>
+        </label>
+        <label>
+          Playlist Description<br/>
+          <input type="text" value={description} placeholder="Playlist Description" onChange={(e) => setDescription(e.target.value)}/>
+        </label>
+        </div>
+        <button className='submitFormButton' type="submit">{formType}</button>
+      </form>
       </div>
-      <button className='submitFormButton' type="submit">{formType}</button>
-    </form>
     </div>
   );
 };
