@@ -1,17 +1,10 @@
-from .db import db, add_prefix_for_prod, SCHEMA, environment
+from .db import db, add_prefix_for_prod, environment, SCHEMA
 
-class Playlist_Song(db.Model):
-    __tablename__ = 'playlist_songs'
+playlist_songs = db.Table(
+    "playlist_songs",  # Table name
+    db.Column('song_id', db.Integer, db.ForeignKey(add_prefix_for_prod("songs.id")), nullable=False, primary_key=True),
+    db.Column('playlist_id', db.Integer, db.ForeignKey(add_prefix_for_prod('playlists.id')), nullable=False, primary_key=True)
+)
 
-    if environment == "production":
-        __table_args__ = {'schema': SCHEMA}
-
-    song_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("songs.id")), nullable=False, primary_key=True),
-    playlist_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('playlists.id')), nullable=False, primary_key=True)
-
-
-    def to_dict(self):
-        return {
-            'song_id': self.song_id,
-            'playlist_id': self.playlist_id,
-        }
+if environment == "production":
+    playlist_songs.schema = SCHEMA
