@@ -1,6 +1,6 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 from datetime import datetime
-from .album_songs import album_songs
+from .album_songs import Album_Song
 
 
 class Album(db.Model):
@@ -24,7 +24,7 @@ class Album(db.Model):
 
     songs = db.relationship(
     "Song",
-    secondary=album_songs,
+    secondary=Album_Song,
     back_populates = 'albums'
     )
 

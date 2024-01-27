@@ -1,7 +1,7 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 from sqlalchemy import func
-from .album_songs import album_songs
-from .playlist_songs import playlist_songs
+from .album_songs import Album_Song
+from .playlist_songs import Playlist_Song
 
 class Song(db.Model):
   __tablename__ = 'songs'
@@ -27,13 +27,13 @@ class Song(db.Model):
 
   albums = db.relationship(
     "Album",
-    secondary=album_songs,
+    secondary=Album_Song,
     back_populates = 'songs'
   )
 
   playlists = db.relationship(
     "Playlist",
-    secondary=playlist_songs,
+    secondary=Playlist_Song,
     back_populates = 'songs'
   )
 
