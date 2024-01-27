@@ -7,52 +7,80 @@ import { createNewPlaylist, updatePlaylist } from '../../store/playlists';
 const PlaylistForm = ({ playlist, formType }) => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const [title, setTitle] = useState(playlist?.title);
+  const [title, setTitle] = useState(playlist?.title || '');
   const [url, setUrl] = useState(playlist?.url);
   const [description, setDescription] = useState(playlist?.description);
   const [errors, setErrors] = useState({});
   const formTitle = formType === 'Create Playlist' ? 'Create a New Playlist' : 'Update Your Playlist';
+
+  const isValidUrl = (value) => {
+    try {
+      new URL(value);
+      return true;
+    } catch (error) {
+      return false;
+    }
+  };
+
+  const validateForm = () => {
+    const newErrors = {};
+
+    if (!title || title.trim() === '') {
+      newErrors.title = 'Title is required';
+    }
+    if (!isValidUrl(url)) {
+      newErrors.url = 'Invalid URL format';
+    }
+
+    setErrors(newErrors);
+
+    return Object.keys(newErrors).length === 0;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrors({});
+    const isFormValid = validateForm();
     playlist = { ...playlist, title, url, description };
 
-    try {
-      let newPlaylist;
+    if (isFormValid){
+      try {
+        let newPlaylist;
 
-      if (formType === 'Update Playlist') {
-        newPlaylist = await dispatch(updatePlaylist(playlist));
-      } else if (formType === 'Create Playlist') {
-        const res = await dispatch(createNewPlaylist(playlist));
+        if (formType === 'Update Playlist') {
+          newPlaylist = await dispatch(updatePlaylist(playlist));
+        } else if (formType === 'Create Playlist') {
+          const res = await dispatch(createNewPlaylist(playlist));
 
-        if (!res.ok) {
-          // Handle non-OK response
-          console.error("Server response is not OK:", res);
-          return;
+          if (!res.ok) {
+            // Handle non-OK response
+            console.error("Server response is not OK:", res);
+            return;
+          }
+
+          // Parse the response
+          const contentType = res.headers.get("content-type");
+          if (contentType && contentType.includes("application/json")) {
+            const data = await res.json();
+            newPlaylist = data.playlist;
+          } else {
+            // Handle non-JSON response
+            console.error("Server response is not in JSON format");
+            return;
+          }
         }
 
-        // Parse the response
-        const contentType = res.headers.get("content-type");
-        if (contentType && contentType.includes("application/json")) {
-          const data = await res.json();
-          newPlaylist = data.playlist;
-        } else {
-          // Handle non-JSON response
-          console.error("Server response is not in JSON format");
-          return;
+        // Redirect to the "/playlists" page
+        history.push('/playlists');
+      } catch (error) {
+        // Handle general error
+        console.error("Error:", error);
+
+        if (error instanceof TypeError) {
+          // Handle specific error when res.json is not a function
+          console.error("Error: res.json is not a function");
+          // Additional error handling if needed
         }
-      }
-
-      // Redirect to the "/playlists" page
-      history.push('/playlists');
-    } catch (error) {
-      // Handle general error
-      console.error("Error:", error);
-
-      if (error instanceof TypeError) {
-        // Handle specific error when res.json is not a function
-        console.error("Error: res.json is not a function");
-        // Additional error handling if needed
       }
     }
   };
@@ -66,7 +94,6 @@ const PlaylistForm = ({ playlist, formType }) => {
       <div className='errors'>
         <ul>{titleError}</ul>
         <ul>{urlError}</ul>
-        <ul>{descriptionError}</ul>
       </div>
       <p className='formSubheading'>Want to share your playlist?</p>
       <p className='nomal'>Some details about your playlist.</p>
