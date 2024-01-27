@@ -6,4 +6,5 @@ from .playlists import Playlist
 from .likes import Like
 from .albums import Album
 from .album_songs import album_songs
+from .playlist_songs import playlist_songs
 from .db import environment, SCHEMA

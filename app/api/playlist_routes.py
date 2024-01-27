@@ -140,7 +140,7 @@ def remove_playlist(playlist_id):
     if playlist:
       # Check if the song is in the playlist
       if current_user.id == playlist.user_id:
-        playlist.remove()
+        db.session.delete(playlist)
         db.session.commit()
         return jsonify({'message': 'Playlist Deleted successfully'})
     else:
