@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getMyAlbums } from '../../store/albums';
 import AlbumIndexItem from '../AlbumIndexItem/index';
+import MenuLibrary from '../MenuLibrary';
 
 const ManageAlbums = () => {
     const dispatch = useDispatch();
@@ -17,9 +18,13 @@ const ManageAlbums = () => {
     const albumsByUser = albums ? albums.filter(album => album.user_id === sessionUser.id) : [];
     const hasAlbums = albumsByUser.length > 0;
     return (
-        <div>
+        <div className='manageAlbumwrapper'>
+            <div className='manageAlbumitem-1'>
+                <MenuLibrary />
+            </div>
+            <div className='manageAlbumitem-2'>
             <p className='title'>Manage Albums</p>
-            {/* {!hasAlbums && <Link to={'/albums/new'}><button className='createAlbumButton'>Create a New Album</button></Link>} */}
+            {!hasAlbums && <Link to={'/albums/new'}><button className='createAlbumButton'>Create a New Album</button></Link>}
             {hasAlbums && <ul className='manageAlbumIndex'>
                 {albumsByUser.map((album) => (
                     <li className='manageEachAlbum' key={String(album.id)}>
@@ -27,6 +32,7 @@ const ManageAlbums = () => {
                     </li>
                 ))}
              </ul>}
+            </div>
         </div>
     );
 };

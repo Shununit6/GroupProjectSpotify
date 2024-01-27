@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getAlbumDetails} from '../../store/albums';
 import DeleteAlbumModal from '../DeleteAlbumModal';
 import OpenModalMenuItem from '../Navigation/OpenModalMenuItem';
-
+import MenuLibrary from '../MenuLibrary';
 
 const AlbumDetails = () => {
   const dispatch = useDispatch();
@@ -32,19 +32,24 @@ const AlbumDetails = () => {
 
   return (
     <>
-    <div className='grid-container'>
-      <p className='title'>{title}</p>
-      <p className='lyrics'>{lyrics}</p>
-      <p className='duration'>{duration}</p>
-      <p className='release_date'>{release_date}</p>
-    </div>
-    <button>
-        <OpenModalMenuItem
-          itemText="Delete"
-          onItemClick={closeMenu}
-          modalComponent={<DeleteAlbumModal album = {album}/>}
-        />
-      </button>
+    <div className='albumDetailwrapper'>
+      <div className='albumDetailitem-1'>
+          <MenuLibrary />
+      </div>
+      <div className='albumDetailitem-2'>
+        <p className='title'>{title}</p>
+        <p className='lyrics'>{lyrics}</p>
+        <p className='duration'>{duration}</p>
+        <p className='release_date'>{release_date}</p>
+      <button>
+          <OpenModalMenuItem
+            itemText="Delete"
+            onItemClick={closeMenu}
+            modalComponent={<DeleteAlbumModal album = {album}/>}
+          />
+        </button>
+        </div>
+      </div>
     </>
   )
 };

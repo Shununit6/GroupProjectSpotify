@@ -58,21 +58,36 @@ export const getSongDetails = (songId) => async (dispatch) => {
   }
   return res;
 };
+
 export const createSong = (post) => async (dispatch) => {
-  const res = await fetch('/api/songs/new', {
-    method: 'POST',
-    // headers: { 'Content-Type': 'application/json' },
-    // body: JSON.stringify(payload)
-    body: post,
-  });
-  if (res.ok) {
-    const { data } = await res.json();
-    dispatch(receiveSong(data));
-    return data;
+  try {
+    const res = await fetch('/api/songs/new', {
+      method: 'POST',
+      body: post,
+    });
+
+    // Log the entire response
+    console.log("Full response from server:", res);
+
+    if (res.ok) {
+      const data = await res.json();
+      console.log("Data received from server:", data);
+
+      // Assuming the server sends the created song directly in the response
+      dispatch(receiveSong(data));
+
+      return data;
+    }
+
+    console.log("There was an error making your post song!");
+    return null; // Return null or handle the error accordingly
+  } catch (error) {
+    console.error("An error occurred:", error);
+    return null; // Return null or handle the error accordingly
   }
-  console.log("There was an error making your post song!")
-  return res;
 };
+
+
 export const updateSong = (payload) => async (dispatch) => {
   const res = await fetch(`/api/songs/${payload.id}`, {
     method: 'PUT',
@@ -88,6 +103,7 @@ export const updateSong = (payload) => async (dispatch) => {
   console.log("There was an error making your put song!")
   return res;
 };
+
 export const deleteSong = (songId) => async (dispatch) => {
   const res = await fetch(`/api/songs/${songId}`, {
     method: 'DELETE'
@@ -103,15 +119,28 @@ export const deleteSong = (songId) => async (dispatch) => {
 const songsReducer = (state = {}, action) => {
   switch (action.type) {
     case LOAD_SONGS:
-      return {...state, ...action.songs}
-      // const songsState = { ...state };
-      // action.songs.forEach((song) => {
-      //   if (!songsState[song.id]) { songsState[song.id] = song; }
-      // });
-      // return songsState;
-      // return state; // Handle the case when action.songs or action.songs.Songs is undefined
+      return { ...state, ...action.songs }
+    // const songsState = { ...state };
+    // action.songs.forEach((song) => {
+    //   if (!songsState[song.id]) { songsState[song.id] = song; }
+    // });
+    // return songsState;
+    // return state; // Handle the case when action.songs or action.songs.Songs is undefined
     case RECEIVE_SONG:
-      console.log("Received song:", action);
+      console.log("Received song action:", action);
+
+      if (!action.song) {
+        console.error("Error: action.song is undefined");
+        return state;
+      }
+
+      // Check if action.song has the 'id' property
+      if (!action.song.id) {
+        console.error("Error: action.song.id is undefined");
+        return state;
+      }
+
+      console.log("Updating state with received song:", action.song);
       return { ...state, [action.song.id]: action.song };
     case UPDATE_SONG:
       return { ...state, [action.song.id]: action.song };

@@ -1,9 +1,10 @@
 from flask import Blueprint, redirect, jsonify, request
 from ..config import Config
 from flask_login import login_required, current_user
-from ..forms import CreateEditSongForm
+from ..forms.create_edit_song_form import CreateEditSongForm
 from ..models import db, Song, Like, Artist
 from flask_migrate import Migrate
+from datetime import datetime
 
 from ..forms.song_submission_form import SongForm
 from .aws_helpers import get_unique_filename, upload_file_to_s3, remove_file_from_s3
@@ -26,7 +27,7 @@ def get_my_songs():
 # Get Song Details - GET /api/songs/:songId
 @song_routes.route("/<int:song_id>", methods=["GET"])
 def get_song_details(song_id):
-    song = Song.query.filter_by(id=song_id).one()
+    song = Song.query.filter_by(id=song_id).first()
     print("this is song:", song)
     return jsonify(song.to_dict())
 
@@ -42,39 +43,56 @@ def get_song_details(song_id):
 def create_song():
     form = SongForm()
     form['csrf_token'].data = request.cookies['csrf_token']
-    if form.validate_on_submit():
-        song = form.data["song"]
-        song.filename = get_unique_filename(song.filename)
-        upload = upload_file_to_s3(song)
-        print(upload)
 
-        if "url" not in upload:
-        # if the dictionary doesn't have a url key
-        # it means that there was an error when we tried to upload
-        # so we send back that error message (and we printed it above)
-            return jsonify({"error": "url upload failed"}), 500
-        song_url = upload['url']
-        data = form.data
-        # check and add artist
-        artist = Artist.query.filter_by(name=data['artist_name']).first()
-        if not artist:
-            new_artist = Artist(name=data['artist_name'])
-            db.session.add(new_artist)
-            db.session.commit()
-        artist = Artist.query.filter_by(name=data['artist_name']).one()
-        new_song = Song(user_id=current_user.id,
-                        artist_id=artist.id,
-                        title=data['title'],
-                        lyrics=data['lyrics'],
-                        url=data['url'],
-                        duration=data['duration'],
-                        release_date=data['release_date'],
-                        song_file=song_url),
-        db.session.add(new_song)
+    if not form.validate_on_submit():
+        print("We are here")
+        print(form.errors)
+        return jsonify({"error": "Form validation failed", "details": form.errors}), 400
+
+    data = form.data
+
+    if "artist_name" not in data or "title" not in data:
+        return jsonify({"error": "Invalid form data"}), 400
+
+    song = data["song_file"]
+    song.filename = get_unique_filename(song.filename)
+
+    upload = upload_file_to_s3(song)
+
+    if "url" not in upload:
+        return jsonify({"error": "S3 upload failed", "details": upload.get("error", "Unknown error")}), 500
+
+    song_url = upload['url']
+
+    # Check and add artist
+    artist = Artist.query.filter_by(name=data['artist_name']).first()
+
+    if not artist:
+        new_artist = Artist(name=data['artist_name'])
+        db.session.add(new_artist)
         db.session.commit()
-        return jsonify(new_song.to_dict())
-    if form.errors:
-        return form.errors
+
+    artist = Artist.query.filter_by(name=data['artist_name']).one()
+
+    release_date = data.get('release_date') or datetime.utcnow()
+
+    new_song = Song(
+        user_id=current_user.id,
+        artist_id=artist.id,
+        title=data['title'],
+        lyrics=data['lyrics'],
+        url=data['url'],
+        duration=data['duration'],
+        release_date=release_date,
+        song_file=song_url
+    )
+
+    print(new_song)
+
+    db.session.add(new_song)
+    db.session.commit()
+
+    return jsonify(new_song.to_dict())
 
 # Edit a Song - PUT /api/songs/:songId
 @song_routes.route("/<int:songId>", methods=["PUT"])

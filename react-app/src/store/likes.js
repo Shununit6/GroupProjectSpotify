@@ -1,6 +1,6 @@
 // /** Action Type Constants: */
 export const LOAD_LIKES = "likes/LOAD_LIKES";
-export const LOAD_LIKE_DETAILS = "likes/LOAD_LIKE_DETAILS";
+export const LOAD_SONG_LIKES = "likes/LOAD_SONG_LIKES";
 export const RECEIVE_LIKE = "likes/RECEIVE_LIKE";
 export const REMOVE_LIKE = "likes/REMOVE_LIKE";
 
@@ -10,9 +10,9 @@ export const loadLikes = (likes) => ({
     likes,
 });
 
-export const loadLikeDetails = (like) => ({
-    type: LOAD_LIKE_DETAILS,
-    like,
+export const loadSongLikes = (likes) => ({
+    type: LOAD_SONG_LIKES,
+    likes,
 });
 
 export const receiveLike = (like) => ({
@@ -27,30 +27,32 @@ export const removeLike = (like) => ({
 
 // /** Thunk Action Creators: */
 export const getAllLikes = () => async (dispatch) => {
-    const res = await fetch("/api/likes");
+    const res = await fetch(`/api/songs/likes`);
 
     if (res.ok) {
         const data = await res.json();
-        // console.log("data", data);
+        console.log("data", data);
         dispatch(loadLikes(data));
         return data;
     }
     return res;
 };
 
-export const likeDetails = (likeId) => async dispatch => {
-    const res = await fetch(`/api/likes/${likeId}`)
+export const getSongLikes = (songId) => async (dispatch) => {
+    const res = await fetch(`/api/songs/${songId}/likes`);
 
     if (res.ok) {
         const data = await res.json();
-        dispatch(loadLikeDetails(data));
+        console.log("likedata", data);
+        dispatch(loadSongLikes(data));
         return data;
     }
     return res;
-}
+};
 
-export const createLike = (payload) => async (dispatch) => {
-    const res = await fetch("/api/likes", {
+
+export const createLike = (payload, songId) => async (dispatch) => {
+    const res = await fetch(`/api/songs/${songId}/likes`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
@@ -63,14 +65,15 @@ export const createLike = (payload) => async (dispatch) => {
     return res;
 };
 
-export const deleteLike = (likeId) => async (dispatch) => {
-    const res = await fetch(`/api/likes/${likeId}`, {
+export const deleteLike = (likeId, songId) => async (dispatch) => {
+    const res = await fetch(`/api/songs/${songId}/likes`, {
         method: "DELETE",
     });
 
     if (res.ok) {
         const data = await res.json();
-        dispatch(removeLike(likeId));
+        console.log("likeIddletelike", data);
+        dispatch(removeLike(data.id));
         return data;
     }
     return res;
@@ -80,22 +83,28 @@ const likesReducer = (state = { }, action) => {
     switch (action.type) {
         case LOAD_LIKES:
             const likesState = {...state};
-            action.likes.Likes.forEach((like) => {
+            console.log(action)
+            action.likes.likes.forEach((like) => {
                 if(!likesState[like.id]) {likesState[like.id] = like;}
             });
             return {...likesState};
-        case LOAD_LIKE_DETAILS: {
-            const likeState = {...state};
-            if(action.likes){
-                likeState[action.likes.id] = action.likes;
-            }
-            return likeState;
-        }
+        case LOAD_SONG_LIKES:{
+            return { ...state, ...action.likes };
+        };
         case RECEIVE_LIKE:
-            return { ...state, [action.like.id]: action.like };
+            // console.log("actionhereisthe", action)
+            // console.log("actionhereisthe", action.like.id)
+            // console.log("state", {...state})
+            return { ...state, [action.like.id]: action.like};
         case REMOVE_LIKE:{
-            const likeState = { ...state };
-            delete likeState[action.likes];
+            // console.log("deleteaction", action)
+            // console.log("deleteactionhereisthe", action)
+            // console.log("deleteactionhereisthe", action.like.id)
+            const likeState = { ...state, ...action.likes};
+            // console.log("state", likeState)
+            // console.log("statelikeState[likes]", likeState.likes)
+            // console.log("statelikeState[likes]", likeState.likes[0].id)
+            delete likeState[action.like];
             return likeState;
         }
         default:
