@@ -23,11 +23,11 @@ const SongIndex = ({num}) => {
       <div className='songIndexitem-2'>
         { num !== 4 && <h2>{" "} All Songs:</h2>}
         <ul className='landingSongIndex'>
-          {num !== 4 &&songs.map((song) => (
-              <SongIndexItem song={song} />
+          {num !== 4 && Object.values(songs).map((song, index) => (
+              <SongIndexItem song={song} key={index}/>
           ))}
-          {num === 4 &&songs.slice(0,4).map((song) => (
-              <SongIndexItem song={song} />
+          {num === 4 && Object.values(songs).slice(0,4).map((song, index) => (
+              <SongIndexItem song={song} key={index}/>
           ))}
         </ul>
       </div>
