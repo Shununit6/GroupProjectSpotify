@@ -1,0 +1,18 @@
+.playlistformwrapper{
+    font-family: Georgia, serif, cursive;
+    display:flex;
+}
+
+.playlistformitem-1{
+    position: relative;
+    float:inline-start;
+    width:270px;
+}
+
+.playlistformitem-2{
+    position: relative;
+    flex:1;
+    width:auto;
+    margin-top: 15px;
+    color:white;
+}

@@ -10,8 +10,8 @@ class User(db.Model, UserMixin):
         __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
-    firstname = db.Column(db.String(40), nullable=False)
-    lastname = db.Column(db.String(40), nullable=False)
+    firstname = db.Column(db.String(40), nullable=True)
+    lastname = db.Column(db.String(40), nullable=True)
     url = db.Column(db.String(255), nullable=False, default="https://fontawesome.com/icons/user?f=classic&s=solid")
     username = db.Column(db.String(40), nullable=False, unique=True)
     email = db.Column(db.String(255), nullable=False, unique=True)

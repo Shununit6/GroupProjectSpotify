@@ -29,27 +29,37 @@ function SignupFormModal() {
 		}
 	};
 
+	let disabled = true;
+    if(email.length > 0 && confirmPassword.length > 0 && username.length >=4 && password.length >= 6){
+            disabled = false;
+    }
+
 	return (
 		<>
+		<div id="signupmodal">
 			<h1>Sign Up</h1>
-			<form onSubmit={handleSubmit}>
+			<form id="signupform" onSubmit={handleSubmit}>
 				<ul>
 					{errors.map((error, idx) => (
 						<li key={idx}>{error}</li>
 					))}
 				</ul>
 				<label>
-					Email
+					Email <br></br>
 					<input
+						className="signupinput"
 						type="text"
 						value={email}
 						onChange={(e) => setEmail(e.target.value)}
+						minLength={4}
 						required
 					/>
 				</label>
+				{(email.length<4) && <p>Email has at least 4 characters</p>}
 				<label>
-					Username
+					Username <br></br>
 					<input
+						className="signupinput"
 						type="text"
 						value={username}
 						onChange={(e) => setUsername(e.target.value)}
@@ -57,25 +67,31 @@ function SignupFormModal() {
 					/>
 				</label>
 				<label>
-					Password
+					Password <br></br>
 					<input
+						className="signupinput"
 						type="password"
 						value={password}
 						onChange={(e) => setPassword(e.target.value)}
+						minLength = {6}
 						required
 					/>
 				</label>
+				{(password.length<6) && <p>Password has at least 6 characters</p>}
 				<label>
 					Confirm Password
 					<input
+						className="signupinput"
 						type="password"
 						value={confirmPassword}
 						onChange={(e) => setConfirmPassword(e.target.value)}
 						required
 					/>
 				</label>
-				<button type="submit">Sign Up</button>
+                {disabled && <button id="disabledsignup">Sign Up</button>}
+                {!disabled && <button id="regularsignup" type="submit">Sign Up</button>}
 			</form>
+			</div>
 		</>
 	);
 }
