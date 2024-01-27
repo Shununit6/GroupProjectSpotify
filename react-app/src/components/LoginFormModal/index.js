@@ -25,10 +25,12 @@ function LoginFormModal() {
   const handleDemoLogin = async (e) => {
     e.preventDefault();
     await dispatch(logout());
-    closeModal();
-    const email = "demo@user.io";
-    const password ="password"
-    return await dispatch(login(email, password))
+    closeModal()
+    const email = "demo@aa.io";
+    const password ="password";
+    setEmail(email);
+    setPassword(password);
+    const data = await dispatch(login(email, password));
   };
 
   return (
