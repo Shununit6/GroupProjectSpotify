@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import OpenModalMenuItem from '../Navigation/OpenModalMenuItem';
 import DeleteSongModal from '../DeleteSongModal/index';
 
-const SongItem = ({ song }) => {
+const SongIndexItem = ({ song }) => {
   console.log("Song in SongIndexItem:", song);
   // console.log("Title:", song.title);
   // console.log("User ID:", song.user_id);
@@ -30,4 +30,4 @@ const SongItem = ({ song }) => {
   );
 };
 
-export default SongItem;
+export default SongIndexItem;

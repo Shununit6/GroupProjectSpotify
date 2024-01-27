@@ -126,11 +126,9 @@ export const deleteAlbum = (albumId) => async (dispatch) => {
     return res;
 };
 
-export const createAlbumSong = (albumSong, albumId, songId) => async (dispatch) => {
+export const createAlbumSong = (albumId, songId) => async (dispatch) => {
     const res = await fetch(`/api/albums/${albumId}/songs/${songId}`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(albumSong),
     });
 
     if (res.ok) {

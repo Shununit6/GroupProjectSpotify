@@ -7,9 +7,18 @@ import { getMyAlbums, deleteAlbumSong } from '../../store/albums';
 const RemoveSongFromAlbumModal = ({song}) => {
     const songId = song.id;
     const dispatch = useDispatch();
-    const albums = useSelector(state => state.albumsReducer.albums);
+    let albums = useSelector(state => state.albumsReducer);
     // albums that have this song:
-    // const targetAlbums = ;
+    Object.keys(albums).forEach(key => {
+        if (Array.isArray(albums[key].songs) && !albums[key].songs.includes(songId)) {
+          return true;
+        } else {
+          delete albums[key];
+          return false;
+        }
+      });
+
+    console.log('albums', albums);
     const [isLoading, setIsLoading] = useState(true);
     const [errors, setErrors] = useState({});
     const {closeModal} = useModal();
@@ -35,7 +44,7 @@ const RemoveSongFromAlbumModal = ({song}) => {
         <div>
             <p className='heading'>Which album would you like to delete this song from?</p>
             <ul>
-                {albums.map((album) => (
+                {Object.values(albums).map((album) => (
                     <li key={album.id}>
                         <button className='deleteSongFromAlbum' onClick={() => handleDelete(album.id)}>{album.title}</button>
                     </li>
