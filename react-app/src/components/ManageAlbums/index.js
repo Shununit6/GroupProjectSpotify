@@ -43,9 +43,9 @@ const ManageAlbums = () => {
             {!hasAlbums && <Link to={'/albums/new'}><button className='createAlbumButton'>Create a New Album</button></Link>}
             {hasAlbums && <ul className='manageAlbumIndex'>
                 {albumsByUser.map((album) => (
-                    <li className='manageEachAlbum' key={String(album.id)}>
+                    <ul className='manageEachAlbum' key={String(album.id)}>
                         {album && <AlbumIndexItem album={album} />}
-                    </li>
+                    </ul>
                 ))}
              </ul>}
             </div>
