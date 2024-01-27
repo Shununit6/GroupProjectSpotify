@@ -30,7 +30,7 @@ function LoginFormModal() {
     const password ="password";
     setEmail(email);
     setPassword(password);
-    const data = await dispatch(login(email, password));
+    return await dispatch(login(email, password));
   };
 
   return (
