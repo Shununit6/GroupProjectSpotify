@@ -9,13 +9,14 @@ import './SongForm.css';
 const SongForm = ({ song, formType }) => {
   const dispatch = useDispatch();
   const history = useHistory();
+  const [songId] = useState(song?.id)
   const [artistName, setArtistName] = useState(song?.artist_name || '');
   const [title, setTitle] = useState(song?.title || '');
   const [lyrics, setLyrics] = useState(song?.lyrics || '');
   const [url, setUrl] = useState(song?.url || '');
   const [duration, setDuration] = useState(song?.duration || '');
   const [release_date, setReleaseDate] = useState(song?.release_date || '');
-  const [song_file, setSongFile] = useState(null);
+  const [song_file, setSongFile] = useState(song?.song_file);
   const [songLoading, setSongLoading] = useState(false);
   const [errors, setErrors] = useState({});
   const formTitle = formType === 'Create Song' ? 'Create a New Song' : 'Update Your Song';
@@ -43,7 +44,7 @@ const SongForm = ({ song, formType }) => {
     if (!isValidUrl(url)) {
       newErrors.url = 'Invalid URL format';
     }
-    if (!duration || duration.trim() === '') {
+    if (!duration) {
       newErrors.duration = 'Duration is required';
     }
     if (!release_date || release_date.trim() === '') {
@@ -74,7 +75,7 @@ const SongForm = ({ song, formType }) => {
     setSongLoading(true);
       try {
         if (formType === 'Update Song') {
-          await dispatch(updateSong(formData));
+          await dispatch(updateSong(formData, songId));
         } else if (formType === 'Create Song') {
           await dispatch(createSong(formData));
         }

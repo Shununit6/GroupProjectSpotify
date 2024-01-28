@@ -91,14 +91,16 @@ export const createSong = (post) => async (dispatch) => {
 export const updateSong = (formData, id) => async (dispatch) => {
   const res = await fetch(`/api/songs/${id}/edit`, {
     method: 'PUT',
-    headers: {
-      
-    },
+    headers: {},
     // body: JSON.stringify(payload)
     body: formData
   });
+
+  // Log the entire response
+  console.log("Full response from server for put:", res);
   if (res.ok) {
     const { data } = await res.json();
+    console.log("Data received from server:", data);
     dispatch(editSong(data));
     return data;
   }
