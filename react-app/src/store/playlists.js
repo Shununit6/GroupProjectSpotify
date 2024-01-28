@@ -73,21 +73,45 @@ export const getMyPlaylists = () => async (dispatch) => {
 };
 
 export const createNewPlaylist = (payload) => async (dispatch) => {
-  const res = await fetch("/api/playlists", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(payload),
-  });
-  if (res.ok) {
-    const data = await res.json();
-    dispatch(createPlaylist(data.playlist));
-    return data;
+  console.log("We are here");
+  console.log("this is the payload:", payload);
+
+  try {
+    const res = await fetch("/api/playlists/", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+
+    console.log("We are here 2");
+    console.log("This is the res", res);
+
+    if (res.ok) {
+      // Assuming the response is in JSON format
+      const data = await res.json();
+
+      if (data.playlist) {
+        dispatch(createPlaylist(data.playlist));
+        return data;
+      } else {
+        console.error("Invalid playlist data in the response:", data);
+        return res; // You might want to handle this case differently
+      }
+    } else {
+      // Handle non-OK response
+      console.error("Server response is not OK:", res);
+      return res; // You might want to handle this case differently
+    }
+  } catch (error) {
+    // Handle any other errors
+    console.error("Error:", error);
+    return error; // You might want to handle this case differently
   }
-  return res;
 };
 
+
 export const updatePlaylist = (playlist) => async (dispatch) => {
-  const res = await fetch(`/api/playlists/${playlist.id}`, {
+  const res = await fetch(`/api/playlists/${playlist.id}/edit`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(playlist),
@@ -150,11 +174,11 @@ const playlistsReducer = (state = { playlists: {}, currPlaylist: {} }, action) =
         currentPlaylist: action.playlist,
       };
 
-    case CREATE_PLAYLIST:
-      return {
-        ...state,
-        playlists: { ...state.playlists, [action.playlist.id]: action.playlist },
-      };
+      case CREATE_PLAYLIST:
+        return {
+          ...state,
+          playlists: { ...state.playlists, [action.playlist.id]: action.playlist },
+        };
 
     case UPDATE_PLAYLIST:
       return {
@@ -175,9 +199,11 @@ const playlistsReducer = (state = { playlists: {}, currPlaylist: {} }, action) =
     }
 
     case DELETE_PLAYLIST:
-      const newState = { ...state };
-      delete newState[action.playlistId];
-      return newState;
+      const { [action.playlist.id]: deletedPlaylist, ...updatedPlaylists } = state.playlists;
+      return {
+        ...state,
+        playlists: updatedPlaylists,
+      };
 
     default:
       return state;

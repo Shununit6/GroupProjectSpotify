@@ -1,6 +1,8 @@
 from flask import Blueprint, jsonify, render_template, request
 from flask_login import login_required, current_user
 from app.models import User, Playlist, Song, db
+from ..forms.create_edit_playlist_form import CreateEditPlaylistForm
+import logging
 
 
 playlist_routes = Blueprint('playlists', __name__)
@@ -36,15 +38,37 @@ def get_playlist_details(playlist_id):
 @playlist_routes.route('/', methods=['POST'])
 @login_required
 def create_playlist():
+    try:
+        form = CreateEditPlaylistForm()
+        form['csrf_token'].data = request.cookies['csrf_token']
 
-    payload = request.get_json()
-    new_playlist = Playlist(user_id=current_user.id, title = payload['title'], url = payload['url'], description = payload['description'])
-    db.session.add(new_playlist)
-    db.session.commit()
+        if form.validate_on_submit():
+            new_playlist = Playlist(
+                user_id=current_user.id,
+                title=form.data['title'],
+                url=form.data['url'],
+                description=form.data['description']
+            )
 
-    return jsonify({'message': 'Playlist created successfully', 'playlist': new_playlist.to_dict()})
+            db.session.add(new_playlist)
+            db.session.commit()
 
-@playlist_routes.route('/<int:playlistId>', methods=['PUT'])
+            return jsonify(new_playlist.to_dict()), 201  # HTTP status code for Created
+        else:
+            # If form validation fails, return error messages
+            errors = {field: form.errors[field][0] for field in form.errors}
+            print(form.errors)
+            return jsonify({"errors": errors}), 400  # HTTP status code for Bad Request
+
+    except Exception as e:
+        # Log the error for debugging purposes using the logging module
+        logging.error(f"Error creating playlist: {e}")
+
+        # Return a generic error message to the client
+        return jsonify({"error": "Internal Server Error"}), 500  # HTTP status code for Internal Server Error
+
+
+@playlist_routes.route('/<int:playlistId>/edit', methods=['PUT'])
 @login_required
 def edit_playlist(playlistId):
     playlist = Playlist.query.get(playlistId)
@@ -116,7 +140,7 @@ def remove_playlist(playlist_id):
     if playlist:
       # Check if the song is in the playlist
       if current_user.id == playlist.user_id:
-        playlist.remove()
+        db.session.delete(playlist)
         db.session.commit()
         return jsonify({'message': 'Playlist Deleted successfully'})
     else:

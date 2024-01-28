@@ -19,6 +19,7 @@ const SongForm = ({ song, formType }) => {
   const [songLoading, setSongLoading] = useState(false);
   const [errors, setErrors] = useState({});
   const formTitle = formType === 'Create Song' ? 'Create a New Song' : 'Update Your Song';
+
   const isValidUrl = (value) => {
     try {
       new URL(value);
@@ -27,6 +28,7 @@ const SongForm = ({ song, formType }) => {
       return false;
     }
   };
+
   const validateForm = () => {
     const newErrors = {};
     if (!artistName || artistName.trim() === '') {
@@ -56,6 +58,7 @@ const SongForm = ({ song, formType }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log("Song prop in SongForm:", song);
     setErrors({});
     const isFormValid = validateForm();
     const formData = new FormData();
@@ -65,9 +68,9 @@ const SongForm = ({ song, formType }) => {
     formData.append("lyrics", lyrics);
     formData.append("url", url);
     formData.append("duration", duration);
-    formData.append("releaseDate", release_date);
+    formData.append("release_date", release_date);
     setSongLoading(true);
-    if (isFormValid){
+    if (isFormValid) {
       try {
         if (formType === 'Update Song') {
           await dispatch(updateSong(song));
@@ -80,6 +83,9 @@ const SongForm = ({ song, formType }) => {
         if (error instanceof TypeError) {
           console.error("Error: res.json is not a function");
         }
+      } finally {
+        setSongLoading(false);
+        history.push('/songs');
       }
     }
   };
@@ -93,56 +99,58 @@ const SongForm = ({ song, formType }) => {
   const songFileError = errors.song_file ? 'Song File: ' + errors.song_file : null;
 
   return (
-    <div className='body'>
-      <form className='form' onSubmit={handleSubmit} encType="multipart/form-data">
-        <p className='formHeading'>{formTitle}</p>
-        {/* <div className="songform-1">
-          <MenuLibrary/>
-        </div> */}
-        <div className='errors'>
-          <ul>{artistNameError}</ul>
-          <ul>{titleError}</ul>
-          <ul>{lyricsError}</ul>
-          <ul>{urlError}</ul>
-          <ul>{durationError}</ul>
-          <ul>{releaseDateError}</ul>
-          <ul>{songFileError}</ul>
-        </div>
-        <p className='formSubheading'>Want to share your song?</p>
-        <p className='nomal'>Some details about your song.</p>
-        <div className='formNormal'>
-          <label>
-            Artist Name<br />
-            <input type="text" value={artistName} placeholder="Artist Name" onChange={(e) => setArtistName(e.target.value)} /><br />
-          </label>
-          <label>
-            Song Title<br />
-            <input type="text" value={title} placeholder="Song Title" onChange={(e) => setTitle(e.target.value)} /><br />
-          </label>
-          <label>
-            Lyrics<br />
-            <input type="text" value={lyrics} placeholder="Lyrics" onChange={(e) => setLyrics(e.target.value)} /><br />
-          </label>
-          <label>
-            Song Image URL<br />
-            <input type="text" value={url} placeholder="Song Image URL" onChange={(e) => setUrl(e.target.value)} /><br />
-          </label>
-          <label>
-            Song Duration<br />
-            <input type="text" value={duration} placeholder="Song Duration" onChange={(e) => setDuration(e.target.value)} />
-          </label>
-          <label>
-            Release Date<br />
-            <input type="text" value={release_date} placeholder="Release Date" onChange={(e) => setReleaseDate(e.target.value)} /><br />
-          </label>
-          <label>
-            Upload Song File<br />
-            <input type="file" accept="audio/*" placeholder="Upload Song File" onChange={(e) => setSongFile(e.target.files[0])} /><br />
-          </label>
-        </div>
-        <button className='submitFormButton' type="submit">{formType}</button>
-        {songLoading && <p>Loading...</p>}
-      </form>
+    <div className='songformwrapper'>
+      <div className="songform-1">
+        <MenuLibrary />
+      </div>
+      <div className="songform-2">
+        <form className='form' onSubmit={handleSubmit} encType="multipart/form-data">
+          <p className='formHeading'>{formTitle}</p>
+          <div className='errors'>
+            <ul>{artistNameError}</ul>
+            <ul>{titleError}</ul>
+            <ul>{lyricsError}</ul>
+            <ul>{urlError}</ul>
+            <ul>{durationError}</ul>
+            <ul>{releaseDateError}</ul>
+            <ul>{songFileError}</ul>
+          </div>
+          <p className='formSubheading'>Want to share your song?</p>
+          <p className='nomal'>Some details about your song.</p>
+          <div className='formNormal'>
+            <label>
+              Artist Name<br />
+              <input type="text" value={artistName} placeholder="Artist Name" onChange={(e) => setArtistName(e.target.value)} /><br />
+            </label>
+            <label>
+              Song Title<br />
+              <input type="text" value={title} placeholder="Song Title" onChange={(e) => setTitle(e.target.value)} /><br />
+            </label>
+            <label>
+              Lyrics<br />
+              <input type="text" value={lyrics} placeholder="Lyrics" onChange={(e) => setLyrics(e.target.value)} /><br />
+            </label>
+            <label>
+              Song Image URL<br />
+              <input type="text" value={url} placeholder="Song Image URL" onChange={(e) => setUrl(e.target.value)} /><br />
+            </label>
+            <label>
+              Song Duration<br />
+              <input type="text" value={duration} placeholder="Song Duration" onChange={(e) => setDuration(e.target.value)} />
+            </label>
+            <label>
+              Release Date<br />
+              <input type="text" value={release_date} placeholder="Release Date" onChange={(e) => setReleaseDate(e.target.value)} /><br />
+            </label>
+            <label>
+              Upload Song File<br />
+              <input type="file" accept="audio/*" placeholder="Upload Song File" onChange={(e) => setSongFile(e.target.files[0])} /><br />
+            </label>
+          </div>
+          <button className='submitFormButton' type="submit">{formType}</button>
+          {songLoading && <p>Loading...</p>}
+        </form>
+      </div>
     </div>
   );
 };

@@ -2,92 +2,125 @@ import './PlaylistForm.css';
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { createPlaylist, updatePlaylist } from '../../store/playlists';
+import { createNewPlaylist, updatePlaylist } from '../../store/playlists';
+import MenuLibrary from '../MenuLibrary';
 
 const PlaylistForm = ({ playlist, formType }) => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const [artistName, setArtistName] = useState(playlist?.artist_name);
-  const [title, setTitle] = useState(playlist?.title);
-  const [lyrics, setLyrics] = useState(playlist?.lyrics);
+  const [title, setTitle] = useState(playlist?.title || '');
   const [url, setUrl] = useState(playlist?.url);
-  const [duration, setDuration] = useState(playlist?.duration);
-  const [releaseDate, setReleaseDate] = useState(playlist?.release_date);
+  const [description, setDescription] = useState(playlist?.description);
   const [errors, setErrors] = useState({});
   const formTitle = formType === 'Create Playlist' ? 'Create a New Playlist' : 'Update Your Playlist';
+
+  const isValidUrl = (value) => {
+    try {
+      new URL(value);
+      return true;
+    } catch (error) {
+      return false;
+    }
+  };
+
+  const validateForm = () => {
+    const newErrors = {};
+
+    if (!title || title.trim() === '') {
+      newErrors.title = 'Title is required';
+    }
+    if (!isValidUrl(url)) {
+      newErrors.url = 'Invalid URL format';
+    }
+
+    setErrors(newErrors);
+
+    return Object.keys(newErrors).length === 0;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrors({});
-    playlist = {...playlist, artistName, title, lyrics, url, duration, releaseDate};
-    let newPlaylist;
-    if (formType === 'Update Playlist') {
-      dispatch(updatePlaylist(playlist))
-      .then((newPlaylist) => history.push(`/playlists/${newPlaylist.id}`))
-      .catch(async (res) => {
-        const data = await res.json();
-        if (data && data.errors) {
-          setErrors(data.errors);
+    const isFormValid = validateForm();
+    playlist = { ...playlist, title, url, description };
+
+    if (isFormValid) {
+      try {
+        let newPlaylist;
+
+        if (formType === 'Update Playlist') {
+          newPlaylist = await dispatch(updatePlaylist(playlist));
+        } else if (formType === 'Create Playlist') {
+          const res = await dispatch(createNewPlaylist(playlist));
+
+          if (!res.ok) {
+            // Handle non-OK response
+            console.error("Server response is not OK:", res);
+            return;
+          }
+
+          // Parse the response
+          const contentType = res.headers.get("content-type");
+          if (contentType && contentType.includes("application/json")) {
+            const data = await res.json();
+            newPlaylist = data.playlist;
+          } else {
+            // Handle non-JSON response
+            console.error("Server response is not in JSON format");
+            return;
+          }
         }
-      });
-    } else if (formType === 'Create Playlist') {
-      dispatch(createPlaylist(playlist))
-      .then((newPlaylist) => history.push(`/playlists/${newPlaylist.id}`))
-      .catch(async (res) => {
-        const data = await res.json();
-        if (data && data.errors) {
-          setErrors(data.errors);
+
+        // Redirect to the "/playlists" page
+        history.push('/playlists/');
+      } catch (error) {
+        // Handle general error
+        console.error("Error:", error);
+        history.push('/playlists/');
+
+        if (error instanceof TypeError) {
+          // Handle specific error when res.json is not a function
+          console.error("Error: res.json is not a function");
+          // Additional error handling if needed
         }
-      });
+      }finally {
+        history.push(`/playlists`);
+      }
     }
   };
-  const artistNameError = errors.artistName ? 'Artist Name: ' + errors.artistName : null;
   const titleError = errors.title ? 'Title: ' + errors.title : null;
-  const lyricsError = errors.lyrics ? 'Lyrics: ' + errors.lyrics : null;
   const urlError = errors.url ? 'URL: ' + errors.url : null;
-  const durationError = errors.duration ? 'Duration: ' + errors.duration : null;
-  const releaseDateError = errors.releaseDate ? 'Release Date: ' + errors.releaseDate : null;
   return (
-    <div className='body'>
-    <form className='form' onSubmit={handleSubmit}>
-      <p className='formHeading'>{formTitle}</p>
-      <div className='errors'>
-        <ul >{artistNameError}</ul>
-        <ul>{titleError}</ul>
-        <ul>{lyricsError}</ul>
-        <ul>{urlError}</ul>
-        <ul>{durationError}</ul>
-        <ul>{releaseDateError}</ul>
+    <div className='playlistformwrapper'>
+      <div className="playlistformitem-1">
+        <MenuLibrary />
       </div>
-      <p className='formSubheading'>Want to share your playlist?</p>
-      <p className='nomal'>Some details about your playlist.</p>
-      <div className='formNormal'>
-      <label>
-        Artist Name<br/>
-        <input type="text" value={artistName} placeholder="Artist Name" onChange={(e) => setArtistName(e.target.value)}/><br/>
-      </label>
-      <label>
-        Playlist Title<br/>
-        <input type="text" value={title} placeholder="Playlist Title" onChange={(e) => setTitle(e.target.value)}/><br/>
-      </label>
-      <label>
-        Lyrics<br/>
-        <input type="text" value={lyrics} placeholder="Lyrics" onChange={(e) => setLyrics(e.target.value)}/><br/>
-      </label>
-      <label>
-        Playlist Image URL<br/>
-        <input type="text" value={url} placeholder="Playlist Image URL" onChange={(e) => setUrl(e.target.value)}/><br/>
-      </label>
-      <label>
-        Playlist Duration<br/>
-        <input type="text" value={duration} placeholder="Playlist Duration" onChange={(e) => setDuration(e.target.value)}/>
-      </label>
-      <label>
-        Release Date<br/>
-        <input type="text" value={releaseDate} placeholder="Release Date" onChange={(e) => setReleaseDate(e.target.value)}/><br/>
-      </label>
+      <div className="playlistformitem-2">
+        <form className='form' onSubmit={handleSubmit}>
+          <p className='formHeading'>{formTitle}</p>
+          <div className='errors'>
+            <ul>{titleError}</ul>
+            <ul>{urlError}</ul>
+            </div>
+          <p className='formSubheading'>Want to share your playlist?</p>
+          <p className='nomal'>Some details about your playlist.</p>
+          <div className='formNormal'>
+            <label>
+              Playlist Title<br />
+              <input type="text" value={title} placeholder="Playlist Title" onChange={(e) => setTitle(e.target.value)} /><br />
+            </label>
+            <label>
+              Playlist Image URL<br />
+              <input type="text" value={url} placeholder="Playlist Image URL" onChange={(e) => setUrl(e.target.value)} /><br />
+            </label>
+            <label>
+              Playlist Description<br />
+              <input type="text" value={description} placeholder="Playlist Description" onChange={(e) => setDescription(e.target.value)} />
+            </label>
+          </div>
+          <button className='submitFormButton' type="submit">{formType}</button>
+        </form>
       </div>
-      <button className='submitFormButton' type="submit">{formType}</button>
-    </form>
     </div>
   );
 };

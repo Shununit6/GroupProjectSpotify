@@ -77,8 +77,11 @@ function ProfileButton({ user }) {
       <section className={ulClassName} ref={ulRef}>
         {user ? (
           <div id="menuwithlogout">
-            <div>Hello, {user.firstName}</div>
+            <div>Hello, {user.username}</div>
             <div>{user.email}</div>
+            <div>
+                 <Link id="menulibraryhome" to="/" > View Home Page </Link>
+            </div>
             <div>
               <hr/>
               <div onClick={logout}><Link id="menulogout" to="/" >Log Out</Link></div>

@@ -1,7 +1,7 @@
 from flask import Blueprint, redirect, jsonify, request
 from ..config import Config
 from flask_login import login_required, current_user
-from ..forms.create_edit_song_form import CreateEditSongForm
+# from ..forms.create_edit_song_form import CreateEditSongForm
 from ..models import db, Song, Like, Artist
 from flask_migrate import Migrate
 from datetime import datetime
@@ -95,33 +95,63 @@ def create_song():
     return jsonify(new_song.to_dict())
 
 # Edit a Song - PUT /api/songs/:songId
-@song_routes.route("/<int:songId>", methods=["PUT"])
+@song_routes.route("/<int:song_id>/edit", methods=["PUT"])
 @login_required
-def edit_song(songId):
-    song = Song.query.filter_by(id=songId).one()
-    if current_user.id != song.user_id:
-        return 'Forbidden'
-    form = CreateEditSongForm()
+def update_song(song_id):
+    form = SongForm()
     form['csrf_token'].data = request.cookies['csrf_token']
-    if form.validate_on_submit():
-        data = form.data
-        # check and add artist
-        artist = Artist.query.filter_by(name=data['artist_name']).first()
-        if not artist:
-            new_artist = Artist(name=data['artist_name'])
-            db.session.add(new_artist)
-            db.session.commit()
-        artist = Artist.query.filter_by(name=data['artist_name']).one()
-        song.artist_id = artist.id
-        song.title = data['title']
-        song.lyrics = data['lyrics']
-        song.url = data['url']
-        song.duration = data['duration']
-        song.release_date = data['release_date']
+
+    if not form.validate_on_submit():
+        print("Form validation failed")
+        print(form.errors)
+        return jsonify({"error": "Form validation failed", "details": form.errors}), 400
+
+    data = form.data
+
+    if "artist_name" not in data or "title" not in data:
+        return jsonify({"error": "Invalid form data"}), 400
+
+    song = Song.query.get(song_id)
+
+    if not song:
+        return jsonify({"error": "Song not found"}), 404
+
+    # Update song attributes
+    song.title = data['title']
+    song.lyrics = data['lyrics']
+    song.url = data['url']
+    song.duration = data['duration']
+
+    # Update artist
+    artist = Artist.query.filter_by(name=data['artist_name']).first()
+
+    if not artist:
+        new_artist = Artist(name=data['artist_name'])
+        db.session.add(new_artist)
         db.session.commit()
-        return jsonify(song.to_dict())
-    if form.errors:
-        return form.errors
+
+    artist = Artist.query.filter_by(name=data['artist_name']).one()
+    song.artist_id = artist.id
+
+    # Update release date
+    release_date = data.get('release_date') or datetime.utcnow()
+    song.release_date = release_date
+
+    # Check if a new song file is provided
+    if 'song_file' in data:
+        new_song_file = data['song_file']
+        new_song_file.filename = get_unique_filename(new_song_file.filename)
+        upload = upload_file_to_s3(new_song_file)
+
+        if "url" not in upload:
+            return jsonify({"error": "S3 upload failed", "details": upload.get("error", "Unknown error")}), 500
+
+        song.song_file = upload['url']
+
+    db.session.commit()
+
+    return jsonify({"message": "Song updated successfully", "song": song.to_dict()})
+
 
 # Delete a Song - DELETE /api/songs/:songId
 @song_routes.route("/<int:songId>", methods=["DELETE"])

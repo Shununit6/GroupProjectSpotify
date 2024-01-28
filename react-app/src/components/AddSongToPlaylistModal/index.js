@@ -7,8 +7,8 @@ import { getMyPlaylists, addSongToPlaylistThunk } from '../../store/playlists';
 const AddSongToPlaylistModal = ({song}) => {
     const songId = song.id;
     const dispatch = useDispatch();
-    // const playlists = useSelector(state => state.playlistsReducer.playlists);
-    const playlists = useSelector(state => state.playlistsReducer);
+    const playlists = useSelector(state => state.playlistsReducer.playlists);
+    // const playlists = useSelector(state => state.playlistsReducer);
     console.log('playlists', playlists);
     const [isLoading, setIsLoading] = useState(true);
     const [errors, setErrors] = useState({});

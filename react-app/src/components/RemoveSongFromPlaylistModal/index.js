@@ -7,7 +7,7 @@ import { getMyPlaylists, removeSongFromPlaylistThunk } from '../../store/playlis
 const RemoveSongFromPlaylistModal = ({song}) => {
     const songId = song.id;
     const dispatch = useDispatch();
-    const playlists = useSelector(state => state.playlistsReducer.playlists);
+    const playlists = useSelector(state => state.playlistsReducer.playlists.playlists);
     // playlists that have this song:
     // Object.keys(playlists).forEach(key => {
     //     if (Array.isArray(playlists[key].songs) && !playlists[key].songs.includes(songId)) {
