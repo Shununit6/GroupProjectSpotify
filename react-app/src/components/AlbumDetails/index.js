@@ -45,8 +45,8 @@ const AlbumDetails = () => {
         </div>
         <div className='albumDetailitem-2'>
           <p className='title'>{title}</p>
+          <img id ="albumdetialimage" src={url} alt="albumdetailimage"/>
           <p className='release_date'>{release_date}</p>
-          <p className='url'>{url}</p>
           {copyright !== null && (
             <p className='copyright'>{copyright}</p>
           )}

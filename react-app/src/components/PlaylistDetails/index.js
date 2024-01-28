@@ -40,15 +40,16 @@ const PlaylistDetails = () => {
 
   return (
     <>
-      <div className='grid-container'>
+    <div className='playlistDetailwrapper'>
       <div className='playlistDetailitem-1'>
          <MenuLibrary />
       </div>
+      <div className='playlistDetailitem-2'>
         <p className='title'>{title}</p>
+        <img id ="playlistdetailimage" src={url} alt="playlistdetailimage"/>
         {description !== null && (
-          <p className='description'>{description}</p>
+          <p className='description'> {description}</p>
         )}
-        <p className='url'>{url}</p>
         {songs && songs.length > 0 && (
           <div>
             <p className='songs'>Songs:</p>
@@ -59,7 +60,7 @@ const PlaylistDetails = () => {
             </ul>
           </div>
         )}
-      </div>
+
 
       {/* {ownsPlaylist && (
         <button>
@@ -73,6 +74,8 @@ const PlaylistDetails = () => {
       {ownsPlaylist &&(
       <button onClick={handleEditClick}>Edit</button>
       )}
+      </div>
+      </div>
     </>
   );
 };
