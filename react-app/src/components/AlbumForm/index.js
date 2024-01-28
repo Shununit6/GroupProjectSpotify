@@ -124,6 +124,5 @@ const AlbumForm = ({ album, formType }) => {
       </div>
     </div>
   );
-};
 
 export default AlbumForm;
