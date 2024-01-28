@@ -49,7 +49,7 @@ const SongForm = ({ song, formType }) => {
     if (!release_date || release_date.trim() === '') {
       newErrors.release_date = 'Release Date is required';
     }
-    if (!song_file || song_file.trim() === '') {
+    if (!song_file) {
       newErrors.song_file = 'Song File is required';
     }
     setErrors(newErrors);
@@ -61,6 +61,7 @@ const SongForm = ({ song, formType }) => {
     console.log("Song prop in SongForm:", song);
     setErrors({});
     const isFormValid = validateForm();
+    if (isFormValid) {
     const formData = new FormData();
     formData.append("song_file", song_file);
     formData.append("artist_name", artistName);
@@ -69,13 +70,13 @@ const SongForm = ({ song, formType }) => {
     formData.append("url", url);
     formData.append("duration", duration);
     formData.append("release_date", release_date);
+    console.log("This is formdata after appending everything", formData)
     setSongLoading(true);
-    if (isFormValid) {
       try {
         if (formType === 'Update Song') {
-          await dispatch(updateSong(song));
+          await dispatch(updateSong(formData));
         } else if (formType === 'Create Song') {
-          await dispatch(createSong(song));
+          await dispatch(createSong(formData));
         }
         history.push('/songs');
       } catch (error) {
