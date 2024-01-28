@@ -170,7 +170,7 @@ const albumsReducer = (state = {}, action) => {
             return { ...state };
         case REMOVE_ALBUM: {
             const albumState = { ...state };
-            delete albumState[action.albums];
+            delete albumState[action.album];
             return albumState;
         };
         case RECEIVE_ALBUM_SONG: {

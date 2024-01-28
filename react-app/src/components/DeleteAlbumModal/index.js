@@ -17,7 +17,7 @@ const DeleteAlbumModal = ({album}) => {
         try {
             await dispatch(deleteAlbum(albumId));
             closeModal();
-            history.push('/albums');
+            await history.push('/albums');
         } catch (error) {
             console.error('Error deleting album:', error);
 

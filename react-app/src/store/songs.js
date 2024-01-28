@@ -97,8 +97,12 @@ export const updateSong = (formData, id) => async (dispatch) => {
     // body: JSON.stringify(payload)
     body: formData
   });
+
+  // Log the entire response
+  console.log("Full response from server for put:", res);
   if (res.ok) {
     const { data } = await res.json();
+    console.log("Data received from server:", data);
     dispatch(editSong(data));
     return data;
   }
