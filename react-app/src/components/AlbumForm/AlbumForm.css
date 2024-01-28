@@ -20,3 +20,8 @@
     border-radius: 6px;
     background-color: #202020;
 }
+
+.error{
+    color:#7D0027;
+    font-size: 1.2rem;
+}
