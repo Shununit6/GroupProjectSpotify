@@ -58,16 +58,15 @@ const AlbumForm = ({ album, formType }) => {
         }
       }
     }
-  };
 
-  const titleError = errors.title ? 'Title: ' + errors.title : null;
-  const urlError = errors.url ? 'URL: ' + errors.url : null;
-  const durationError = errors.duration ? 'Duration: ' + errors.duration : null;
-  const releaseDateError = errors.release_date ? 'Release Date: ' + errors.release_date : null;
-  const copyrightError = errors.copyright ? 'Copyright: ' + errors.copyright : null;
+    const titleError = errors.title ? 'Title: ' + errors.title : null;
+    const urlError = errors.url ? 'URL: ' + errors.url : null;
+    const durationError = errors.duration ? 'Duration: ' + errors.duration : null;
+    const releaseDateError = errors.release_date ? 'Release Date: ' + errors.release_date : null;
+    const copyrightError = errors.copyright ? 'Copyright: ' + errors.copyright : null;
 
-  return (
-    <div className='albumformwrapper'>
+    return (
+      <div className='albumformwrapper'>
       <div className="albumform-1">
         <MenuLibrary />
       </div>
@@ -83,7 +82,7 @@ const AlbumForm = ({ album, formType }) => {
               <input type="text" value={title} placeholder="Album Title" onChange={(e) => setTitle(e.target.value)} /><br />
               {hasSubmitted && validationErrors.title.length > 0
                             && validationErrors.title.map((error, idx) => (
-                            <div key={idx}>
+                              <div key={idx}>
                                 <p className="error">{error}</p>
                             </div>
                             ))}
@@ -93,7 +92,7 @@ const AlbumForm = ({ album, formType }) => {
               <input type="text" value={url} placeholder="Album Image URL" onChange={(e) => setUrl(e.target.value)} /><br />
               {hasSubmitted && validationErrors.url.length > 0
                             && validationErrors.url.map((error, idx) => (
-                            <div key={idx}>
+                              <div key={idx}>
                                 <p className="error">{error}</p>
                             </div>
                             ))}
@@ -103,7 +102,7 @@ const AlbumForm = ({ album, formType }) => {
               <input type="text" value={release_date} placeholder="Release Date" onChange={(e) => setReleaseDate(e.target.value)} /><br />
               {hasSubmitted && validationErrors.release_date.length > 0
                             && validationErrors.release_date.map((error, idx) => (
-                            <div key={idx}>
+                              <div key={idx}>
                                 <p className="error">{error}</p>
                             </div>
                             ))}
@@ -113,7 +112,7 @@ const AlbumForm = ({ album, formType }) => {
               <input type="text" value={copyright} placeholder="Copyright" onChange={(e) => setCopyright(e.target.value)} /><br />
               {hasSubmitted && validationErrors.copyright.length > 0
                             && validationErrors.copyright.map((error, idx) => (
-                            <div key={idx}>
+                              <div key={idx}>
                                 <p className="error">{error}</p>
                             </div>
                             ))}
@@ -124,5 +123,6 @@ const AlbumForm = ({ album, formType }) => {
       </div>
     </div>
   );
+};
 
-export default AlbumForm;
+  export default AlbumForm;
