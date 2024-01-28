@@ -18,7 +18,7 @@ const RemoveSongFromPlaylistModal = ({song}) => {
     //     }
     //   });
 
-    console.log('playlists', playlists);
+    // console.log('playlists', playlists);
     const [isLoading, setIsLoading] = useState(true);
     const [errors, setErrors] = useState({});
     const {closeModal} = useModal();

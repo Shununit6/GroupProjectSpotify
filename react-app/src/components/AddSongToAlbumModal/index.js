@@ -10,7 +10,7 @@ const AddSongToAlbumModal = ({ song }) => {
   // const albums = useSelector(state => state.albumsReducer.albums);
   const albums = useSelector(state => state.albumsReducer);
 
-  console.log('albums', albums);
+  // console.log('albums', albums);
   const [isLoading, setIsLoading] = useState(true);
   const [errors, setErrors] = useState({});
   const { closeModal } = useModal();

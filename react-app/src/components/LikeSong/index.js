@@ -11,12 +11,12 @@ function LikeSong({songId, userId}) {
     songId = parseInt(songId);
     const likes = useSelector(state => state.likesReducer.likes);
     const alllikes = useSelector(state => state.likesReducer);
-    const numofl=  Object.values(alllikes).filter((curr)=> (curr.song_id == songId)).length;
+    const numofl=  Object.values(alllikes).filter((curr)=> (curr.song_id === songId)).length;
 
-    const currLike = Object.values(likes).filter((curr)=> (curr.user_id == userId && curr.song_id == songId))
-    console.log("currLike", currLike);
+    const currLike = Object.values(likes).filter((curr)=> (curr.user_id === userId && curr.song_id === songId))
+    // console.log("currLike", currLike);
 
-    const[isliked, setIsLiked] = useState(currLike.length==true);
+    const[isliked, setIsLiked] = useState(currLike.length===true);
 
     useEffect(() => {
       dispatch(getSongDetails(songId)).then(()=>dispatch(getSongLikes(songId))).then(() => setIsLoading(false));
@@ -26,7 +26,7 @@ function LikeSong({songId, userId}) {
 
 
   const handleClick = () => {
-      if(isliked == 1 ){
+      if(isliked === 1 ){
       let likeId;
       if(currLike.length){
         likeId = currLike[0].id;
@@ -35,7 +35,7 @@ function LikeSong({songId, userId}) {
       dispatch(deleteLike(likeId, songId))
 
     }
-    if(isliked == 0)
+    if(isliked === 0)
     {
 
     const addlike = {"user_id" : userId,

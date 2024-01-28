@@ -20,16 +20,16 @@ const ManageAlbums = () => {
 
     if (isLoading) return <>Loading...</>;
 
-    console.log("sessionUser:", sessionUser);
-    console.log("albums:", albums);
+    // console.log("sessionUser:", sessionUser);
+    // console.log("albums:", albums);
 
     const albumsByUser = albums ? albums.filter(album => {
-        console.log("Checking album with user_id:", album.user_id);
-        console.log("Against sessionUser id:", sessionUser?.id);
+        // console.log("Checking album with user_id:", album.user_id);
+        // console.log("Against sessionUser id:", sessionUser?.id);
         return album.user_id === sessionUser?.id;
     }) : [];
 
-    console.log("albumsByUser:", albumsByUser);
+    // console.log("albumsByUser:", albumsByUser);
 
     const hasAlbums = albumsByUser.length > 0;
 

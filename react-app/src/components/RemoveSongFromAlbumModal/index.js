@@ -18,7 +18,7 @@ const RemoveSongFromAlbumModal = ({song}) => {
         }
       });
 
-    console.log('albums', albums);
+    // console.log('albums', albums);
     const [isLoading, setIsLoading] = useState(true);
     const [errors, setErrors] = useState({});
     const {closeModal} = useModal();

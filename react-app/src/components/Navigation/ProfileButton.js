@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useDispatch } from 'react-redux';
-import { logout } from "../../store/session";
 import { Link } from 'react-router-dom';
 import * as sessionActions from '../../store/session';
 import OpenModalMenuItem from './OpenModalMenuItem';

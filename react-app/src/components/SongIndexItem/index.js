@@ -1,18 +1,15 @@
 import './SongIndexItem.css';
 import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import OpenModalMenuItem from '../Navigation/OpenModalMenuItem';
-import DeleteSongModal from '../DeleteSongModal/index';
+import { useSelector } from 'react-redux';
 
 const SongIndexItem = ({ song }) => {
   console.log("Song in SongIndexItem:", song);
   // console.log("Title:", song.title);
   // console.log("User ID:", song.user_id);
-  const dispatch = useDispatch();
   const sessionUser = useSelector(state => state.session.user);
-  const {id, title, url, user_id} = song;
+  const {id, title, url} = song;
   const sessionUserId = sessionUser ? sessionUser.id : null;
-  const checkUserVSOwner = sessionUserId === user_id ? true : false;
+  // const checkUserVSOwner = sessionUserId === user_id ? true : false;
   return (
     <div className='songTile'>
       <Link id="songlinkwithtext" to={`/songs/${song.id}`}  key={`${id}`}>
