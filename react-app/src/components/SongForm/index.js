@@ -17,6 +17,7 @@ const SongForm = ({ song, formType }) => {
   const [duration, setDuration] = useState(song?.duration || '');
   const [release_date, setReleaseDate] = useState(song?.release_date || '');
   const [song_file, setSongFile] = useState(song?.song_file);
+  console.log("This is song_file:", song_file)
   const [songLoading, setSongLoading] = useState(false);
   const [errors, setErrors] = useState({});
   const formTitle = formType === 'Create Song' ? 'Create a New Song' : 'Update Your Song';
