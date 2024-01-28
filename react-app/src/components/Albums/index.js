@@ -26,7 +26,7 @@ function Albums({num}) {
       </div>}
       <div className='albumitem-2'>
         { num !== 4 && <h2>{" "} All Albums:</h2>}
-        <ul class="viewalbums">
+        <ul className="viewalbums">
               { num !== 4 && Object.values(albums).map((album, index) => (
                     <AlbumIndexItem album={album} key={index}/>
               ))}
