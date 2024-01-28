@@ -32,22 +32,22 @@ const SongForm = ({ song, formType }) => {
 
   const validateForm = () => {
     const newErrors = {};
-    if (!artistName || artistName.trim() === '') {
+    if (!artistName || String(artistName).trim() === '') {
       newErrors.artistName = 'Artist Name is required';
     }
-    if (!title || title.trim() === '') {
+    if (!title || String(title).trim() === '') {
       newErrors.title = 'Title is required';
     }
-    if (!lyrics || lyrics.trim() === '') {
+    if (!lyrics || String(lyrics).trim() === '') {
       newErrors.lyrics = 'Lyrics is required';
     }
     if (!isValidUrl(url)) {
       newErrors.url = 'Invalid URL format';
     }
-    if (!duration) {
+    if (!duration || String(duration).trim() === '') {
       newErrors.duration = 'Duration is required';
     }
-    if (!release_date || release_date.trim() === '') {
+    if (!release_date || String(release_date).trim() === '') {
       newErrors.release_date = 'Release Date is required';
     }
     if (!song_file) {
@@ -81,7 +81,7 @@ const SongForm = ({ song, formType }) => {
         }
         history.push('/songs');
       } catch (error) {
-        console.error("Error:", error);
+        console.error("Error:", error.message);
         if (error instanceof TypeError) {
           console.error("Error: res.json is not a function");
         }
