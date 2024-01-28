@@ -14,6 +14,7 @@ import LikeSong from '../LikeSong';
 import { getMyAlbums, deleteAlbumSong } from '../../store/albums';
 import { getMyPlaylists, removeSongFromPlaylistThunk } from '../../store/playlists';
 import MenuLibrary from '../MenuLibrary';
+import { fetchAllArtists } from '../../store/artists';
 
 
 
@@ -28,19 +29,23 @@ const SongDetails = () => {
   console.log("this is like:", like)
   const [isLoading, setIsLoading] = useState(true);
   const [showMenu, setShowMenu] = useState(false);
+  const allArtists = useSelector(state => state.artistsReducer);
   const ulRef = useRef();
   const albums = useSelector(state => state.albumsReducer);
   const playlists = useSelector(state => state.playlistsReducer.playlists);
   const hasAlbums = Object.keys(albums).length > 0;
   const hasPlaylists = Object.keys(playlists).length > 0;
 
-
   useEffect(() => {
-    dispatch(getSongDetails(songId)).then(()=>dispatch(getAllLikes())).then(()=>dispatch(getSongLikes(songId))).then(() => setIsLoading(false));
+    dispatch(getSongDetails(songId)).then(()=>dispatch(getAllLikes()))
+    .then(()=>dispatch(getSongLikes(songId))).then(()=>dispatch(fetchAllArtists())).then(() => setIsLoading(false));
   }, [dispatch, songId]);
   if (isLoading || !song) return (<>Loading...</>);
   const { user_id, artist_id, title, lyrics, url, duration, release_date } = song;
 
+
+  const song_curr_artist = (Object.values(Object.values(allArtists)[0])).filter((curr)=>(curr.id==artist_id))[0].name;
+    // console.log(curr_artist)
   const sessionUserId = sessionUser ? sessionUser.id : null;
   //check Delete Song auth
   const checkUserVSOwner = sessionUserId === user_id ? true : false;
@@ -65,6 +70,7 @@ const SongDetails = () => {
       <div className='songDetailitem-2'>
         <img id ="songdetialimage" src={url} alt="songdetailimage"/>
         <p className='title'>{title}</p>
+        <p >{song_curr_artist}</p>
         <p className='lyrics'>{lyrics}</p>
         <p className='duration'>{duration}</p>
         <p className='release_date'>{release_date}</p>
