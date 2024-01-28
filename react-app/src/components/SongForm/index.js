@@ -44,8 +44,8 @@ const SongForm = ({ song, formType }) => {
     if (!isValidUrl(url)) {
       newErrors.url = 'Invalid URL format';
     }
-    if (!duration || String(duration).trim() === ''|| isNaN(Number(duration))) {
-      newErrors.duration = 'Duration is required and must be a number';
+    if (!duration || String(duration).trim() === ''|| isNaN(Number(duration) || duration < 0)) {
+      newErrors.duration = 'Duration is required and must be a positive number';
     }
     if (!release_date || String(release_date).trim() === '') {
       newErrors.release_date = 'Release Date is required';
@@ -138,7 +138,7 @@ const SongForm = ({ song, formType }) => {
             </label>
             <label>
               Song Duration<br />
-              <input type="text" value={duration} placeholder="Song Duration" onChange={(e) => setDuration(e.target.value)} />
+              <input type="text" value={duration} placeholder="Song Duration" onChange={(e) => setDuration(e.target.value)} /><br />
             </label>
             <label>
               Release Date<br />
