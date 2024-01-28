@@ -46,7 +46,7 @@ const AlbumForm = ({ album, formType }) => {
   const titleError = errors.title ? 'Title: ' + errors.title : null;
   const urlError = errors.url ? 'URL: ' + errors.url : null;
   const durationError = errors.duration ? 'Duration: ' + errors.duration : null;
-  const releaseDateError = errors.releaseDate ? 'Release Date: ' + errors.releaseDate : null;
+  const releaseDateError = errors.release_date ? 'Release Date: ' + errors.release_date : null;
   const copyrightError = errors.copyright ? 'Copyright: ' + errors.copyright : null;
 
   return (
