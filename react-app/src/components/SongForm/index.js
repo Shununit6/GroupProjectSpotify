@@ -139,7 +139,7 @@ const SongForm = ({ song, formType }) => {
             </label>
             <label>
               Song Duration<br />
-              <input type="text" value={duration} placeholder="Song Duration" onChange={(e) => setDuration(e.target.value)} />
+              <input type="text" value={duration} placeholder="Song Duration" onChange={(e) => setDuration(e.target.value)} /><br />
             </label>
             <label>
               Release Date<br />

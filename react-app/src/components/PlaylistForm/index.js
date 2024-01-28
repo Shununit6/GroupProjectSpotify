@@ -114,7 +114,7 @@ const PlaylistForm = ({ playlist, formType }) => {
               <input type="text" value={url} placeholder="Playlist Image URL" onChange={(e) => setUrl(e.target.value)} /><br />
             </label>
             <label>
-              Playlist Description<br />
+              Playlist Description(Optional)<br />
               <input type="text" value={description} placeholder="Playlist Description" onChange={(e) => setDescription(e.target.value)} />
             </label>
           </div>
