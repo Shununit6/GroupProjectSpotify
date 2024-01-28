@@ -21,11 +21,11 @@ const PlaylistIndex = ({num}) => {
       <div className='playlistIndexitem-2'>
         { num !== 4 && <h2>{" "} All Playlists:</h2>}
         <ul className='landingPlaylistIndex'>
-          {num !== 4 && playlists.map((playlist) => (
-            <PlaylistIndexItem playlist={playlist} />
+          {num !== 4 && playlists.map((playlist, index) => (
+            <PlaylistIndexItem playlist={playlist} key={index}/>
           ))}
-          {num === 4 && playlists.slice(0,4).map((playlist) => (
-            <PlaylistIndexItem playlist={playlist} />
+          {num === 4 && playlists.slice(0,4).map((playlist, index) => (
+            <PlaylistIndexItem playlist={playlist} key={index}/>
           ))}
         </ul>
       </div>

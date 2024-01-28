@@ -59,7 +59,7 @@ const SongForm = ({ song, formType }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Song prop in SongForm:", song);
+    // console.log("Song prop in SongForm:", song);
     setErrors({});
     const isFormValid = validateForm();
     if (isFormValid) {

@@ -9,7 +9,7 @@ const AddSongToPlaylistModal = ({song}) => {
     const dispatch = useDispatch();
     const playlists = useSelector(state => state.playlistsReducer.playlists);
     // const playlists = useSelector(state => state.playlistsReducer);
-    console.log('playlists', playlists);
+    // console.log('playlists', playlists);
     const [isLoading, setIsLoading] = useState(true);
     const [errors, setErrors] = useState({});
     const {closeModal} = useModal();

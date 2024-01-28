@@ -58,16 +58,16 @@ export const getAllAlbums = () => async (dispatch) => {
 };
 
 export const getAlbumDetails = (albumId) => async dispatch => {
-    console.log("Fetching album details for albumId:", albumId);
+    // console.log("Fetching album details for albumId:", albumId);
     const res = await fetch(`/api/albums/${albumId}`);
 
     if (res.ok) {
         const data = await res.json();
-        console.log("Received data:", data);
+        // console.log("Received data:", data);
         dispatch(loadAlbumDetails(data));
         return data;
     }
-    console.log("Error fetching album details:", res.statusText);
+    // console.log("Error fetching album details:", res.statusText);
     return res;
 };
 
@@ -82,15 +82,15 @@ export const getMyAlbums = () => async (dispatch) => {
 };
 
 export const createAlbum = (payload) => async (dispatch) => {
-    console.log("We are here")
-    console.log("this is the payload:", payload)
+    // console.log("We are here")
+    // console.log("this is the payload:", payload)
     const res = await fetch("/api/albums/", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
     });
-    console.log("We are here 2")
-    console.log("This is the res", res)
+    // console.log("We are here 2")
+    // console.log("This is the res", res)
     if (res.ok) {
         const data = await res.json();
         dispatch(receiveAlbum(data));

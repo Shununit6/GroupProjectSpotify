@@ -73,8 +73,8 @@ export const getMyPlaylists = () => async (dispatch) => {
 };
 
 export const createNewPlaylist = (payload) => async (dispatch) => {
-  console.log("We are here");
-  console.log("this is the payload:", payload);
+  // console.log("We are here");
+  // console.log("this is the payload:", payload);
 
   try {
     const res = await fetch("/api/playlists/", {
@@ -83,8 +83,8 @@ export const createNewPlaylist = (payload) => async (dispatch) => {
       body: JSON.stringify(payload),
     });
 
-    console.log("We are here 2");
-    console.log("This is the res", res);
+    // console.log("We are here 2");
+    // console.log("This is the res", res);
 
     if (res.ok) {
       // Assuming the response is in JSON format

@@ -15,7 +15,7 @@ const UpdateSong = () => {
   }, [dispatch, songId]);
   let curr_artist;
   if(song){
-    curr_artist = (Object.values(Object.values(allArtists)[0])).filter((curr)=>(curr.id==song.artist_id))[0].name;
+    curr_artist = (Object.values(Object.values(allArtists)[0])).filter((curr)=>(curr.id===song.artist_id))[0].name;
     // console.log(curr_artist)
     song["artist_name"] = curr_artist;
   }

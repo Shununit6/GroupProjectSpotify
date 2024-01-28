@@ -31,7 +31,7 @@ export const getAllLikes = () => async (dispatch) => {
 
     if (res.ok) {
         const data = await res.json();
-        console.log("data", data);
+        // console.log("data", data);
         dispatch(loadLikes(data));
         return data;
     }
@@ -43,7 +43,7 @@ export const getSongLikes = (songId) => async (dispatch) => {
 
     if (res.ok) {
         const data = await res.json();
-        console.log("likedata", data);
+        // console.log("likedata", data);
         dispatch(loadSongLikes(data));
         return data;
     }
@@ -72,7 +72,7 @@ export const deleteLike = (likeId, songId) => async (dispatch) => {
 
     if (res.ok) {
         const data = await res.json();
-        console.log("likeIddletelike", data);
+        // console.log("likeIddletelike", data);
         dispatch(removeLike(data.id));
         return data;
     }
@@ -83,7 +83,7 @@ const likesReducer = (state = { }, action) => {
     switch (action.type) {
         case LOAD_LIKES:
             const likesState = {...state};
-            console.log(action)
+            // console.log(action)
             action.likes.likes.forEach((like) => {
                 if(!likesState[like.id]) {likesState[like.id] = like;}
             });

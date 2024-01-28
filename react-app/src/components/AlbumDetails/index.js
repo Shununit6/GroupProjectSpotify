@@ -11,10 +11,10 @@ const AlbumDetails = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const { albumId } = useParams();
-  console.log("This is albumId:", albumId)
+  // console.log("This is albumId:", albumId)
   const sessionUser = useSelector(state => state.session.user);
   const album = useSelector(state => state.albumsReducer[albumId]);
-  console.log("this is album:", album)
+  // console.log("this is album:", album)
   const [isLoading, setIsLoading] = useState(true);
   const [showMenu, setShowMenu] = useState(false);
   const ulRef = useRef();

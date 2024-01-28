@@ -25,8 +25,8 @@ const SongDetails = () => {
   const sessionUser = useSelector(state => state.session.user);
   const song = useSelector(state => state.songsReducer[songId]);
   const like = useSelector(state => state.likesReducer.likes);
-  console.log("this is song:", song)
-  console.log("this is like:", like)
+  // console.log("this is song:", song)
+  // console.log("this is like:", like)
   const [isLoading, setIsLoading] = useState(true);
   const [showMenu, setShowMenu] = useState(false);
   const allArtists = useSelector(state => state.artistsReducer);
