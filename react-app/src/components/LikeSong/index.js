@@ -20,7 +20,7 @@ function LikeSong({songId, userId}) {
 
     useEffect(() => {
       dispatch(getSongDetails(songId)).then(()=>dispatch(getSongLikes(songId))).then(() => setIsLoading(false));
-    }, [dispatch, songId]);
+    }, [dispatch, songId, numofl]);
 
   if (isLoading) return (<>Loading...</>);
 
