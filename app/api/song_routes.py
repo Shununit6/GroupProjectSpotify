@@ -7,6 +7,7 @@ from flask_migrate import Migrate
 from datetime import datetime
 
 from ..forms.song_submission_form import SongForm
+from ..forms.song_edit_form import SongEditForm
 from .aws_helpers import get_unique_filename, upload_file_to_s3, remove_file_from_s3
 
 song_routes = Blueprint("songs", __name__)
@@ -98,7 +99,8 @@ def create_song():
 @song_routes.route("/<int:song_id>/edit", methods=["PUT"])
 @login_required
 def update_song(song_id):
-    form = SongForm()
+    current_song = Song.query.filter_by(id=song_id).first()
+    form = SongEditForm()
     form['csrf_token'].data = request.cookies['csrf_token']
 
     if not form.validate_on_submit():
@@ -138,8 +140,10 @@ def update_song(song_id):
     song.release_date = release_date
 
     # Check if a new song file is provided
-    if 'song_file' in data:
+    if data['song_file'] != None:
         new_song_file = data['song_file']
+        print("-------------------This is new_song_file:",new_song_file)
+        print("-------------------This is data:", data)
         new_song_file.filename = get_unique_filename(new_song_file.filename)
         upload = upload_file_to_s3(new_song_file)
 
