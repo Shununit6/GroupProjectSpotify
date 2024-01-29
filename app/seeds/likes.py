@@ -5,22 +5,22 @@ from sqlalchemy.sql import text
 # Adds a demo artist, you can add other albums here if you want
 def seed_likes():
     firstlike = Like(
-        user_id = 1,
-        song_id = 2)
-    secondlike = Like(
-        user_id = 1,
-        song_id = 3)
-    thirdlike = Like(
         user_id = 2,
         song_id = 1)
+    secondlike = Like(
+        user_id = 2,
+        song_id = 2)
+    thirdlike = Like(
+        user_id = 2,
+        song_id = 3)
     fourthlike = Like(
         user_id = 3,
-        song_id = 2)
+        song_id = 4)
     fifthlike = Like(
         user_id = 3,
-        song_id = 3)
+        song_id = 5)
     sixthlike = Like(
-        user_id = 1,
+        user_id = 3,
         song_id = 6)
     db.session.add(firstlike)
     db.session.add(secondlike)
