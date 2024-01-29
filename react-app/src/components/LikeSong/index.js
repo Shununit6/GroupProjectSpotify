@@ -47,17 +47,17 @@ function LikeSong({songId, userId}) {
   };
 
 
-  if(!isliked)
-
+  if(!isliked){
     return (
-    <>
-      <button onClick={handleClick}>like</button>
-      <div>{numofl} liked this song</div>
-    </>
-      )
+      <>
+        <button onClick={handleClick}>like</button>
+        <div>{numofl} liked this song</div>
+      </>
+        )
+  }
   return (
     <>
-      <button onClick={handleClick}>like</button>
+      <button onClick={handleClick}>unlike</button>
       <div>{numofl} liked this song</div>
     </>
   )
