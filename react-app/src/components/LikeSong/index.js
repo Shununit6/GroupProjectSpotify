@@ -26,7 +26,7 @@ function LikeSong({songId, userId}) {
 
 
   const handleClick = () => {
-      if(isliked === 1 ){
+      if(isliked == 1 ){
       let likeId;
       if(currLike.length){
         likeId = currLike[0].id;
@@ -35,7 +35,7 @@ function LikeSong({songId, userId}) {
       dispatch(deleteLike(likeId, songId))
 
     }
-    if(isliked === 0)
+    if(isliked == 0)
     {
 
     const addlike = {"user_id" : userId,
