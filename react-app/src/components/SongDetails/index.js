@@ -81,7 +81,7 @@ const SongDetails = () => {
         <p >Artist: {song_curr_artist}</p>
         <p className='lyrics'>Lyrics: {lyrics}</p>
         <p className='duration'>Duration: {formattedDuration}</p>
-        <p className='release_date'>Relase Date: {release_date}</p>
+        <p className='release_date'>Release Date: {release_date}</p>
       {sessionUser && <LikeSong userId={user_id} songId={songId}/>}
       {checkUserVSOwner &&
       <button onClick={closeMenu}>
