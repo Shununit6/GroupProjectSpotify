@@ -18,3 +18,19 @@
   background-color: #212121;
   border-radius: 6px;
 }
+
+.songbuttons{
+  /* color: #181818;
+  background-color: white;
+  padding: 0.005rem 1.2rem;
+  border-radius: 6px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  color:black; */
+  font-size: 1.2rem;
+  padding: 0.005rem 1.2rem;
+  background-color: white;
+  border-radius: 60px;
+  margin-left: 27px;
+  margin-top: 1.5vh;
+}
