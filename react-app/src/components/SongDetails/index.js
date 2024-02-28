@@ -82,9 +82,10 @@ const SongDetails = () => {
         <p className='lyrics'>Lyrics: {lyrics}</p>
         <p className='duration'>Duration: {formattedDuration}</p>
         <p className='release_date'>Release Date: {release_date}</p>
+      <div>
       {sessionUser && <LikeSong userId={user_id} songId={songId}/>}
       {checkUserVSOwner &&
-      <button onClick={closeMenu}>
+      <button className="songbuttons" onClick={closeMenu}>
         <OpenModalMenuItem
           itemText="Delete Song"
           onItemClick={closeMenu}
@@ -92,12 +93,13 @@ const SongDetails = () => {
         />
       </button>}
       {checkUserVSOwner &&(
-      <button onClick={handleEditClick}>Edit</button>
+      <button className="songbuttons" onClick={handleEditClick}><p>Edit Song</p></button>
       )}
-      {sessionUserId && <button onClick={closeMenu}> <OpenModalMenuItem itemText="Add Song to Album" onItemClick={closeMenu} modalComponent={<AddSongToAlbumModal song = {song}/>}/> </button>}
-      {sessionUserId && <button onClick={closeMenu}> <OpenModalMenuItem itemText="Add Song to Playlist" onItemClick={closeMenu} modalComponent={<AddSongToPlaylistModal song = {song}/>}/> </button>}
-      {sessionUserId && <button onClick={closeMenu}> <OpenModalMenuItem itemText="Remove Song from Album" onItemClick={closeMenu} modalComponent={<RemoveSongFromAlbumModal song = {song}/>}/> </button>}
-      {sessionUserId && <button onClick={closeMenu}> <OpenModalMenuItem itemText="Remove Song from Playlist" onItemClick={closeMenu} modalComponent={<RemoveSongFromPlaylistModal song = {song}/>}/> </button>}
+      </div>
+      {sessionUserId && <button className="songbuttons" onClick={closeMenu}> <OpenModalMenuItem itemText="Add Song to Album" onItemClick={closeMenu} modalComponent={<AddSongToAlbumModal song = {song}/>}/> </button>}
+      {sessionUserId && <button className="songbuttons" onClick={closeMenu}> <OpenModalMenuItem itemText="Add Song to Playlist" onItemClick={closeMenu} modalComponent={<AddSongToPlaylistModal song = {song}/>}/> </button>}
+      {sessionUserId && <button className="songbuttons" onClick={closeMenu}> <OpenModalMenuItem itemText="Remove Song from Album" onItemClick={closeMenu} modalComponent={<RemoveSongFromAlbumModal song = {song}/>}/> </button>}
+      {sessionUserId && <button className="songbuttons" onClick={closeMenu}> <OpenModalMenuItem itemText="Remove Song from Playlist" onItemClick={closeMenu} modalComponent={<RemoveSongFromPlaylistModal song = {song}/>}/> </button>}
       {/* {sessionUserId && hasAlbums && <button> <OpenModalMenuItem itemText="Remove Song from Album" onItemClick={closeMenu} modalComponent={<RemoveSongFromAlbumModal song = {song}/>}/> </button>}
       {sessionUserId && hasPlaylists && <button> <OpenModalMenuItem itemText="Remove Song from Playlist" onItemClick={closeMenu} modalComponent={<RemoveSongFromPlaylistModal song = {song}/>}/> </button>} */}
       </div>
