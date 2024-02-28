@@ -14,7 +14,7 @@ function MenuLibrary({ isLoaded }){
 				{" "} Spotify
             </div> */}
             <div>
-                <Link exact to="/">
+                <Link exact to="/" className='home'>
 					<i id="fa-house" className="fa-solid fa-house"></i>
 					{" "} Home
 				</Link>
