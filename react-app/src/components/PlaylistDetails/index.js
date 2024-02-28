@@ -45,10 +45,10 @@ const PlaylistDetails = () => {
          <MenuLibrary />
       </div>
       <div className='playlistDetailitem-2'>
-        <p className='title'>{title}</p>
+        <p className='title'>Title: {title}</p>
         <img id ="playlistdetailimage" src={url} alt="playlistdetailimage"/>
         {description !== null && (
-          <p className='description'> {description}</p>
+          <p className='description'>Description: {description}</p>
         )}
         {songs && songs.length > 0 && (
           <div>

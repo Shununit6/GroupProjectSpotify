@@ -61,6 +61,14 @@ const SongDetails = () => {
     history.push(`/songs/${songId}/edit`);
   };
 
+  const convertDuration = (totalSec) => {
+    const min = Math.floor(totalSec / 60);
+    const sec = totalSec % 60;
+    const newStr = `${min}:${sec}`;
+    return newStr;
+  };
+  const formattedDuration = convertDuration(duration);
+
   return (
     <>
       <div className='songDetailwrapper'>
@@ -69,11 +77,11 @@ const SongDetails = () => {
       </div>
       <div className='songDetailitem-2'>
         <img id ="songdetialimage" src={url} alt="songdetailimage"/>
-        <p className='title'>{title}</p>
-        <p >{song_curr_artist}</p>
-        <p className='lyrics'>{lyrics}</p>
-        <p className='duration'>{duration}</p>
-        <p className='release_date'>{release_date}</p>
+        <p className='title'> Title: {title}</p>
+        <p >Artist: {song_curr_artist}</p>
+        <p className='lyrics'>Lyrics: {lyrics}</p>
+        <p className='duration'>Duration: {formattedDuration}</p>
+        <p className='release_date'>Release Date: {release_date}</p>
       {sessionUser && <LikeSong userId={user_id} songId={songId}/>}
       {checkUserVSOwner &&
       <button onClick={closeMenu}>
