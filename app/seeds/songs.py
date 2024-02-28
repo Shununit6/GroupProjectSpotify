@@ -87,7 +87,7 @@ def seed_songs():
         user_id= 1,
         artist_id = 1,
         title = 'One Call Away',
-        lyrics = "Hmm. We don't know the lyrics for this one.",
+        lyrics = "Looks like we don't have the lyrics for this song.",
         url = 'https://is1-ssl.mzstatic.com/image/thumb/Music114/v4/7e/05/fd/7e05fd3e-597b-db52-5d87-3ed146d2e2bb/mzm.omtrmqdi.jpg/600x600bf-60.jpg',
         song_file = 'https://commondatastorage.googleapis.com/codeskulptor-demos/DDR_assets/Kangaroo_MusiQue_-_The_Neverwritten_Role_Playing_Game.mp3',
         duration = 194,
@@ -147,48 +147,220 @@ def seed_songs():
     sixthsong = Song(
         user_id= 2,
         artist_id = 5,
-        title = 'Just the Way You Are',
-        lyrics = "Hmm. We don't know the lyrics for this one.",
-        url = 'https://i.pinimg.com/736x/29/1d/7d/291d7da2542699b4fe0b8b02ff688b76.jpg',
+        title = 'Perfect',
+        lyrics = "You'll have to guess the lyrics for this one.",
+        url = 'https://i.scdn.co/image/ab67616d0000b273ba5db46f4b838ef6027e6f96',
         song_file = 'https://commondatastorage.googleapis.com/codeskulptor-demos/DDR_assets/Kangaroo_MusiQue_-_The_Neverwritten_Role_Playing_Game.mp3',
-        duration = 230,
-        release_date = 'November 13, 2015')
+        duration = 263,
+        release_date = 'March 3, 2017')
     seventhsong = Song(
         user_id= 1,
-        artist_id = 5,
-        title = 'Just the Way You Are',
+        artist_id = 10,
+        title = 'In My Feelings',
         lyrics = "Hmm. We don't know the lyrics for this one.",
-        url = 'https://i.pinimg.com/736x/29/1d/7d/291d7da2542699b4fe0b8b02ff688b76.jpg',
+        url = 'https://i.scdn.co/image/ab67616d0000b273c185e37be2a06b5c6f2dc704',
         song_file = 'https://commondatastorage.googleapis.com/codeskulptor-demos/DDR_assets/Kangaroo_MusiQue_-_The_Neverwritten_Role_Playing_Game.mp3',
-        duration = 230,
-        release_date = 'November 13, 2015')
+        duration = 217,
+        release_date = 'June 29, 2018')
     eighthsong = Song(
         user_id= 2,
-        artist_id = 5,
-        title = 'Just the Way You Are',
-        lyrics = "Hmm. We don't know the lyrics for this one.",
-        url = 'https://i.pinimg.com/736x/29/1d/7d/291d7da2542699b4fe0b8b02ff688b76.jpg',
+        artist_id = 7,
+        title = 'Starboy',
+        lyrics = """I'm tryna put you in the worst mood, ah
+        P1 cleaner than your church shoes, ah
+        Milli' point two just to hurt you, ah
+        All red Lamb' just to tease you, ah
+        None of these toys on lease too, ah
+        Made your whole year in a week too, yeah
+        Main bitch outta your league too, ah
+        Side bitch out of your league too, ah
+        House so empty, need a centerpiece
+        20 racks a table, cut from ebony
+        Cut that ivory into skinny pieces
+        Then she clean it with her face, man, I love my baby, ah
+        You talking money, need a hearing aid
+        You talking 'bout me, I don't see the shade
+        Switch up my style, I take any lane
+        I switch up my cup, I kill any pain
+        Look what you've done
+        I'm a motherfucking starboy
+        Look what you've done
+        I'm a motherfucking starboy
+        Every day a nigga try to test me, ah
+        Every day a nigga try to end me, ah
+        Pull off in that Roadster SV, ah
+        Pockets overweight, getting hefty, ah
+        Coming for the king, that's a far cry, I
+        I come alive in the fall time, I
+        The competition, I don't really listen
+        I'm in the blue Mulsanne bumping New Edition
+        House so empty, need a centerpiece
+        20 racks a table, cut from ebony
+        Cut that ivory into skinny pieces
+        Then she clean it with her face, man, I love my baby, ah
+        You talking money, need a hearing aid
+        You talking 'bout me, I don't see the shade
+        Switch up my style, I take any lane
+        I switch up my cup, I kill any pain
+        Look what you've done
+        ♪
+        I'm a motherfucking starboy
+        Look what you've done
+        I'm a motherfucking starboy
+        Let a nigga brag Pitt
+        Legend of the fall, took the year like a bandit
+        Bought mama a crib and a brand-new wagon
+        Now she hit the grocery shop looking lavish
+        Star Trek roof in that Wraith of Khan
+        Girls get loose when they hear this song
+        A hundred on the dash, get me close to God
+        We don't pray for love, we just pray for cars
+        House so empty, need a centerpiece
+        20 racks a table, cut from ebony
+        Cut that ivory into skinny pieces
+        Then she clean it with her face, man, I love my baby, ah
+        You talking money, need a hearing aid
+        You talking 'bout me, I don't see the shade
+        Switch up my style, I take any lane
+        I switch up my cup, I kill any pain
+        ♪
+        Look what you've done
+        I'm a motherfucking starboy
+        Look what you've done
+        I'm a motherfucking starboy
+        Look what you've done
+        I'm a motherfucking starboy
+        Look what you've done
+        I'm a motherfucking starboy""",
+        url = 'https://i.scdn.co/image/ab67616d0000b2734718e2b124f79258be7bc452',
         song_file = 'https://commondatastorage.googleapis.com/codeskulptor-demos/DDR_assets/Kangaroo_MusiQue_-_The_Neverwritten_Role_Playing_Game.mp3',
         duration = 230,
-        release_date = 'November 13, 2015')
+        release_date = 'November 25, 2016')
     ninthsong = Song(
         user_id= 3,
-        artist_id = 5,
-        title = 'Just the Way You Are',
-        lyrics = "Hmm. We don't know the lyrics for this one.",
-        url = 'https://i.pinimg.com/736x/29/1d/7d/291d7da2542699b4fe0b8b02ff688b76.jpg',
+        artist_id = 8,
+        title = '7 Rings',
+        lyrics = "You'll have to guess the lyrics for this one.",
+        url = 'https://i.scdn.co/image/ab67616d0000b27356ac7b86e090f307e218e9c8',
         song_file = 'https://commondatastorage.googleapis.com/codeskulptor-demos/DDR_assets/Kangaroo_MusiQue_-_The_Neverwritten_Role_Playing_Game.mp3',
-        duration = 230,
-        release_date = 'November 13, 2015')
+        duration = 178,
+        release_date = 'Febuary 8, 2019')
     tenthsong = Song(
         user_id= 2,
-        artist_id = 5,
-        title = 'Just the Way You Are',
-        lyrics = "Hmm. We don't know the lyrics for this one.",
-        url = 'https://i.pinimg.com/736x/29/1d/7d/291d7da2542699b4fe0b8b02ff688b76.jpg',
+        artist_id = 9,
+        title = "Don't Start Now",
+        lyrics = """If you don't wanna see me
+        Did a full 180, crazy
+        Thinking 'bout the way I was
+        Did the heartbreak change me? Maybe
+        But look at where I ended up
+        I'm all good, already
+        So moved on, it's scary
+        I'm not where you left me at all, so
+        If you don't wanna see me dancing with somebody
+        If you wanna believe that anything could stop me
+        Don't show up, don't come out
+        Don't start caring about me now
+        Walk away, you know how
+        Don't start caring about me now
+        Aren't you the guy who tried to
+        Hurt me with the word "goodbye"?
+        Though it took some time to survive you
+        I'm better on the other side
+        I'm all good already
+        So moved on, it's scary
+        I'm not where you left me at all, so
+        If you don't wanna see me dancing with somebody
+        If you wanna believe that anything could stop me
+        (Don't, don't, don't)
+        Don't show up, don't come out
+        Don't start caring about me now
+        Walk away, you know how
+        Don't start caring about me now ('bout me now, 'bout me)
+        Up, up
+        Don't come out, out, out
+        Don't show up, up, up
+        Don't start now (oh)
+        Up, up
+        Don't come out, out
+        I'm not where you left me at all, so
+        If you don't wanna see me dancing with somebody
+        If you wanna believe that anything could stop me
+        Don't show up (don't show up)
+        Don't come out (don't come out)
+        Don't start caring about me now ('bout me now)
+        Walk away (walk away)
+        You know how (you know how)
+        Don't start caring about me now (so)
+        Up, up
+        Don't come out, out, out
+        Don't show up, up, up
+        Walk away, walk away (so)
+        Up, up
+        Don't come out, out, out
+        Don't show up, up, up
+        Walk away, walk away, oh""",
+        url = 'https://i.scdn.co/image/ab67616d0000b2734bc66095f8a70bc4e6593f4f',
         song_file = 'https://commondatastorage.googleapis.com/codeskulptor-demos/DDR_assets/Kangaroo_MusiQue_-_The_Neverwritten_Role_Playing_Game.mp3',
-        duration = 230,
-        release_date = 'November 13, 2015')
+        duration = 183,
+        release_date = 'March 27, 2020')
+    eleventhsong = Song(
+        user_id= 3,
+        artist_id = 11,
+        title = 'How You Like That',
+        lyrics = """BLACKPINK in your area
+        보란 듯이 무너졌어
+        바닥을 뚫고 저 지하까지
+        옷 끝자락 잡겠다고
+        저 높이 두 손을 뻗어 봐도
+        다시 캄캄한 이곳에 light up the sky
+        네 두 눈을 보며, I'll kiss you goodbye
+        실컷 비웃어라 꼴 좋으니까
+        이제 너희, 하나, 둘, 셋
+        Ha, how you like that?
+        You gon' like that, that-that-that-that, that-that-that-that
+        How you like that? (Bada-bing, bada-boom-boom-boom)
+        How you like that, that-that-that-that, that-that-that-that?
+        Now look at you, now look at me, look at you, now look at me
+        Look at you, now look at me, how you like that?
+        Now look at you, now look at me, look at you, now look at me
+        Look at you, now look at me, how you like that?
+        Your girl need it all and that's a hunnid
+        백 개 중에 백, 내 몫을 원해
+        Karma come and get some
+        딱하지만 어쩔 수 없잖아
+        What's up? I'm right back (right back)
+        방아쇠를 cock back (cock back)
+        Plain Jane get hijacked, don't like me?
+        Then tell me how you like that, like that
+        더 캄캄한 이곳에 shine like the stars
+        그 미소를 띠며, I'll kiss you goodbye
+        실컷 비웃어라 꼴 좋으니까
+        이제 너희, 하나, 둘, 셋
+        Ha, how you like that?
+        You gon' like that, that-that-that-that, that-that-that-that
+        How you like that? (Bada-bing, bada-boom-boom-boom)
+        How you like that, that-that-that-that, that-that-that-that?
+        Now look at you, now look at me, look at you, now look at me
+        Look at you, now look at me, how you like that?
+        Now look at you, now look at me, look at you, now look at me
+        Look at you, now look at me, how you like that?
+        날개 잃은 채로 추락했던 날
+        어두운 나날 속에 갇혀 있던 날
+        그때쯤에 넌 날 끝내야 했어
+        Look up in the sky, it's a bird, it's a plane
+        Yeah-eh-eh-eh
+        Bring out your boss, bitch
+        Yeah-eh-eh-eh
+        BLACKPINK!
+        뚜뚜뚜뚜두두, 뚜뚜뚜뚜두두 (how you like that?)
+        뚜뚜뚜뚜두두, 뚜뚜뚜뚜두두두 (you gon' like that)
+        뚜뚜뚜뚜두두, 뚜뚜뚜뚜두두 (how you like that?)
+        뚜뚜뚜뚜두두, 뚜뚜뚜뚜두두두""",
+        url = 'https://i.scdn.co/image/ab67616d0000b2737dd8f95320e8ef08aa121dfe',
+        song_file = 'https://commondatastorage.googleapis.com/codeskulptor-demos/DDR_assets/Kangaroo_MusiQue_-_The_Neverwritten_Role_Playing_Game.mp3',
+        duration = 182,
+        release_date = 'October 2, 2020')
     db.session.add(firstsong)
     db.session.add(secondsong)
     db.session.add(thirdsong)
@@ -199,6 +371,7 @@ def seed_songs():
     db.session.add(eighthsong)
     db.session.add(ninthsong)
     db.session.add(tenthsong)
+    db.session.add(eleventhsong)
     db.session.commit()
 
 

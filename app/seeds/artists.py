@@ -16,12 +16,28 @@ def seed_artists():
         name='Ed Sheeran')
     sixthartist = Artist(
         name='Bruno Mars')
+    seventhartist = Artist(
+        name='The Weeknd')
+    eighthartist = Artist(
+        name='Ariana Grande')
+    ninthartist = Artist(
+        name='Dua Lipa')
+    tenthartist = Artist(
+        name="Drake")
+    eleventhartist = Artist(
+        name="BLACKPINK")
+
     db.session.add(firstartist)
     db.session.add(secondartist)
     db.session.add(thirdartist)
     db.session.add(fourthartist)
     db.session.add(fifthartist)
     db.session.add(sixthartist)
+    db.session.add(seventhartist)
+    db.session.add(eighthartist)
+    db.session.add(ninthartist)
+    db.session.add(tenthartist)
+    db.session.add(eleventhartist)
     db.session.commit()
 
 
