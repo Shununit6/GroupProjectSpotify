@@ -15,7 +15,7 @@ function MenuLibrary({ isLoaded }){
             </div> */}
             <div>
                 <Link exact to="/">
-					<i id="fa-house" className="fa-solid fa-house"></i>
+					<i id="fa-houseicon" className="fa-solid fa-house"></i>
 					{" "} Home
 				</Link>
             </div>

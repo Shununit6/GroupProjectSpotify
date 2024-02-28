@@ -9,15 +9,12 @@ function LikeSong({songId, userId}) {
     const [isLoading, setIsLoading] = useState(true);
     const sessionUser = useSelector(state => state.session.user);
     songId = parseInt(songId);
-    // const likes = useSelector(state => state.likesReducer.likes);
     const alllikes = useSelector(state => state.likesReducer);
-    const numofl=  Object.values(alllikes).filter((curr)=> (curr.song_id == songId)).length;
+    const numofl=  Object.values(alllikes).filter((curr)=> (!(curr.song_id - songId))).length;
 
-    let currLike = Object.values(alllikes).filter((curr)=> (curr.song_id == songId && curr.user_id == sessionUser.id));
-    // console.log("currLike", currLike);
-    // .filter((curr)=> (curr.song_id == songId));
+    let currLike = Object.values(alllikes).filter((curr)=> (!(curr.song_id - songId) && !(curr.user_id - sessionUser.id)));
 
-    const[isliked, setIsLiked] = useState(currLike.length==true);
+    const[isliked, setIsLiked] = useState(!currLike.length);
 
     useEffect(() => {
       dispatch(getSongDetails(songId)).then(()=>dispatch(getAllLikes())).then(()=>dispatch(getSongLikes(songId))).then(() => setIsLoading(false));
@@ -27,7 +24,7 @@ function LikeSong({songId, userId}) {
 
 
   const handleClick = () => {
-      if(isliked == 1 ){
+    if(!(isliked - 1)){
       let likeId;
       if(currLike.length){
         likeId = currLike[0].id;
@@ -36,9 +33,8 @@ function LikeSong({songId, userId}) {
       dispatch(deleteLike(likeId, songId))
 
     }
-    if(isliked == 0)
+    if(!isliked)
     {
-
     const addlike = {"user_id" : userId,
       "song_id" : songId };
     dispatch(createLike(addlike, songId))
@@ -51,14 +47,14 @@ function LikeSong({songId, userId}) {
   if(!isliked){
     return (
       <>
-        <button onClick={handleClick}>like</button>
+        <div className="likediv" onClick={handleClick}><i id="regularheart" className="fa-regular fa-heart"></i></div>
         <div>{numofl} liked this song</div>
       </>
         )
   }else{
     return (
       <>
-        <button onClick={handleClick}>unlike</button>
+        <div className="likediv" onClick={handleClick}><i id="solidheart" className="fa-solid fa-heart"></i></div>
         <div>{numofl} liked this song</div>
       </>
     )
