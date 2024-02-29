@@ -10,11 +10,10 @@ function LikeSong({songId, userId}) {
     const sessionUser = useSelector(state => state.session.user);
     songId = parseInt(songId);
     const alllikes = useSelector(state => state.likesReducer);
-    const numofl=  Object.values(alllikes).filter((curr)=> (!(curr.song_id - songId))).length;
+    const numofl=  Object.values(alllikes).filter((curr)=> (!(curr.song_id - songId))).length - 1;
 
     let currLike = Object.values(alllikes).filter((curr)=> (!(curr.song_id - songId) && !(curr.user_id - sessionUser.id)));
-
-    const[isliked, setIsLiked] = useState(!currLike.length);
+    const[isliked, setIsLiked] = useState(!currLike[0].length);
 
     useEffect(() => {
       dispatch(getSongDetails(songId)).then(()=>dispatch(getAllLikes())).then(()=>dispatch(getSongLikes(songId))).then(() => setIsLoading(false));
@@ -40,6 +39,7 @@ function LikeSong({songId, userId}) {
     dispatch(createLike(addlike, songId))
 
     }
+    console.log("islikedhere", isliked)
     setIsLiked(!isliked);
   };
 
