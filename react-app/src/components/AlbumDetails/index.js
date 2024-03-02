@@ -6,6 +6,7 @@ import { getAlbumDetails } from '../../store/albums';
 import DeleteAlbumModal from '../DeleteAlbumModal';
 import OpenModalMenuItem from '../Navigation/OpenModalMenuItem';
 import MenuLibrary from '../MenuLibrary';
+import { fetchAllArtists } from '../../store/artists';
 
 const AlbumDetails = () => {
   const dispatch = useDispatch();
@@ -14,13 +15,15 @@ const AlbumDetails = () => {
   // console.log("This is albumId:", albumId)
   const sessionUser = useSelector(state => state.session.user);
   const album = useSelector(state => state.albumsReducer[albumId]);
+  const artists = useSelector(state => state.artistsReducer);
   // console.log("this is album:", album)
+  console.log("this is artists:", artists, Object.values(Object.values(artists)[0]).filter((artist=>(artist.id==6)))[0].name)
   const [isLoading, setIsLoading] = useState(true);
   const [showMenu, setShowMenu] = useState(false);
   const ulRef = useRef();
 
   useEffect(() => {
-    dispatch(getAlbumDetails(albumId)).then(() => setIsLoading(false));
+    dispatch(getAlbumDetails(albumId)).then(()=>{dispatch(fetchAllArtists())}).then(() => setIsLoading(false));
   }, [dispatch, albumId]);
   if (isLoading || !album) return (<>Loading...</>);
   const { user_id, title, url, release_date, songs, copyright } = album;
@@ -37,6 +40,12 @@ const AlbumDetails = () => {
 
   const ownsAlbum = sessionUser && sessionUser.id === user_id;
 
+  const convertDuration = (totalSec) => {
+    const min = Math.floor(totalSec / 60);
+    const sec = totalSec % 60;
+    const newStr = `${min}:${sec}`;
+    return newStr;
+  };
   return (
     <>
       <div className='albumDetailwrapper'>
@@ -56,6 +65,13 @@ const AlbumDetails = () => {
               <ul>
                 {songs.map((song, index) => (
                   <li key={index}>{song.title}</li>
+                ))}
+                <div> # Title Artist <i class="fa-regular fa-clock"></i> </div>
+
+                {songs.map((song, index) => (
+                  <div key={index}> {index+1} <img id="playlistsongimage" src={song.url}></img> {song.title}
+                  {Object.values(Object.values(artists)[0]).filter((artist=>(artist.id==song.artist_id)))[0].name}
+                  {convertDuration(song.duration)}</div>
                 ))}
               </ul>
             </div>
