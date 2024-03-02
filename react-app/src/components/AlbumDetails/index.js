@@ -17,7 +17,7 @@ const AlbumDetails = () => {
   const album = useSelector(state => state.albumsReducer[albumId]);
   const artists = useSelector(state => state.artistsReducer);
   // console.log("this is album:", album)
-  console.log("this is artists:", artists, Object.values(Object.values(artists)[0]).filter((artist=>(artist.id==6)))[0].name)
+  // console.log("this is artists:", artists, Object.values(Object.values(artists)[0]).filter((artist=>(artist.id==6)))[0].name)
   const [isLoading, setIsLoading] = useState(true);
   const [showMenu, setShowMenu] = useState(false);
   const ulRef = useRef();
