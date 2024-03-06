@@ -63,7 +63,10 @@ const SongDetails = () => {
 
   const convertDuration = (totalSec) => {
     const min = Math.floor(totalSec / 60);
-    const sec = totalSec % 60;
+    let sec = totalSec % 60;
+    if(sec<10 && sec>=0){
+      sec="0"+sec
+    }
     const newStr = `${min}:${sec}`;
     return newStr;
   };

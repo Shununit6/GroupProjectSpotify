@@ -34,3 +34,9 @@
   margin-left: 27px;
   margin-top: 1.5vh;
 }
+
+#songdetialimage{
+  height:200px;
+  width:200px;
+  border-radius: 6px;
+}
