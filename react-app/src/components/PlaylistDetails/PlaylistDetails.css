@@ -28,3 +28,57 @@
   height:51px;
   width:51px;
 }
+
+.songgrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  /* gap: 5px; */
+  grid-auto-rows: minmax(100px, auto);
+}
+.songgridindex {
+  grid-column: 1 / 1;
+  grid-row: 1;
+}
+.songgridtitle {
+  grid-column: 2 / 2;
+  grid-row: 1;
+}
+.songgridartist {
+  grid-column: 3 / 3;
+  grid-row: 1;
+}
+.songgridclock {
+  grid-column: 4 / 4;
+  grid-row: 1;
+}
+
+.songgridone {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  /* gap: 5px; */
+  grid-auto-rows: minmax(100px, auto);
+}
+.songgridindexone {
+  grid-column: 1 / 1;
+  grid-row: 1;
+}
+.songgridimageone {
+  grid-column: 2 / 2;
+  grid-row: 1;
+}
+.songgridtitleone {
+  grid-column: 3 / 3;
+  grid-row: 1;
+}
+.songgridone > p {
+  grid-column: 3 / 3;
+  grid-row: 1;
+}
+/* .songgridartist {
+  grid-column: 3 / 3;
+  grid-row: 1;
+} */
+.songgridclockone {
+  grid-column: 4 / 4;
+  grid-row: 1;
+}

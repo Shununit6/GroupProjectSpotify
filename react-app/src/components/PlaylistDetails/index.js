@@ -50,7 +50,6 @@ const PlaylistDetails = () => {
     return newStr;
   };
   // const formattedDuration = convertDuration(duration);
-
   return (
     <>
     <div className='playlistDetailwrapper'>
@@ -67,13 +66,23 @@ const PlaylistDetails = () => {
           <div>
             <p className='songs'>Songs:</p>
             <ul>
-
-              <div> # Title Artist <i class="fa-regular fa-clock"></i> </div>
+              <div className='songgrid'>
+              <div className='songgridindex'>#</div>
+              <div className='songgridtitle'>Title</div>
+              <div className='songgridartist'>Artist</div>
+              <div className='songgridclock'><i className="fa-regular fa-clock"></i></div>
+              </div>
+              {/* <div> # Title Artist <i className="fa-regular fa-clock"></i> </div> */}
 
               {songs.map((song, index) => (
-                <div key={index}> {index+1} <img id="playlistsongimage" src={song.url}></img> {song.title}
-                {Object.values((Object.values(artists)[0])).filter((artist=>(artist.id==song.artist_id)))[0].name}
-                {convertDuration(song.duration)}</div>
+                <div className='songgridone'>
+                <div className='songgridindexone'>{index+1}</div>
+                <div className='songgridimageone'><img id="playlistsongimage" src={song.url}></img>{song.title}</div>
+                <div className='songgridtitleone'>{song.title}</div>
+                <p>{(Object.values((Object.values(artists)[0])).filter(((artist)=>(artist.id==song.artist_id)))[0].name)}</p>
+                {/* {(Object.values((Object.values(artists)[0])).filter(((artist)=>(artist.id==song.artist_id)))[0].name)} */}
+                <div className='songgridclockone'>{convertDuration(song.duration)}</div>
+                </div>
               ))}
             </ul>
           </div>
