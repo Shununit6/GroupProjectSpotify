@@ -1,4 +1,4 @@
-import { React } from 'react';
+import React  from 'react';
 import './MainPageContent.css';
 import SongIndex from '../../components/SongIndex';
 import Albums from '../Albums';
@@ -18,7 +18,7 @@ function MainPageContent(){
                 <div>
                     <p>Spotify Albums</p>
                     <ul className='MainPageFourAlbum'>
-                            <Albums num={num}/>
+                        <Albums num={num}/>
                     </ul>
                 </div>
                 <div>

@@ -1,5 +1,5 @@
 import AlbumForm from '../AlbumForm/index';
-
+import React  from 'react';
 const CreateAlbum = () => {
   const album = {
     title: '',
