@@ -1,13 +1,12 @@
 import './PlaylistDetails.css';
 import React, { useState, useEffect, useRef } from 'react';
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams, useHistory, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchPlaylistById } from '../../store/playlists';
 import DeletePlaylistModal from '../DeletePlaylistModal';
 import OpenModalMenuItem from '../Navigation/OpenModalMenuItem';
 import MenuLibrary from '../MenuLibrary';
 import { fetchAllArtists } from '../../store/artists';
-
 
 const PlaylistDetails = () => {
   const dispatch = useDispatch();
@@ -61,8 +60,6 @@ const PlaylistDetails = () => {
       arr.push(Object.values((Object.values(artists)[0])).filter(((artist)=>(artist.id==song.artist_id)))[0].name);
     })
     return arr;
-    // arr.push()
-    // return Object.values((Object.values(artists)[0])).filter(((artist)=>(artist.id==song.artist_id)))[0].name;
   };
 
   return (
@@ -84,16 +81,16 @@ const PlaylistDetails = () => {
             <p key={playlist.songs.id} className='songs'>Songs:</p>
             <ul>
               <div key={playlist.songs.id+"o"} className='songgrid'>
-              <div key={playlist.songs.id+"t"} className='songgridindex'>#</div>
-              <div key={playlist.songs.id+"th"} className='songgridtitle'>Title</div>
+              <div key={playlist.songs.id+"t"} className='songgridindex'>#{" "}Title</div>
+              {/* <div key={playlist.songs.id+"th"} className='songgridtitle'>Update At</div> */}
               <div key={playlist.songs.id+"f"} className='songgridartist'>Artist</div>
-              <div key={playlist.songs.id+"fi"} className='songgridclock'><i className="fa-regular fa-clock"></i></div>
+              <div key={playlist.songs.id+"fi"} className='songgridclock'><i id="faregularfaclock" className="fa-regular fa-clock"></i></div>
               </div>
-
+              {/* <img id="playlistsongimage" src={song.url}></img> */}
               {playlist.songs.map((song, index) => (
                 <div key={index+"one"} className='songgridone'>
-                <div key={index+"two"} className='songgridindexone'>{index+1}</div>
-                <div key={index+"three"} className='songgridimageone'><img id="playlistsongimage" src={song.url}></img>{song.title}</div>
+                <div key={index+"two"} className='songgridindexone'>{index+1}{". "}<Link id="songlinkwithtext" to={`/songs/${song.id}`}  key={`${song.id}`}>{song.title}</Link></div>
+                {/* <div key={index+"three"} className='songgridimageone'>{song.updated_at.slice(7,12)}{song.updated_at.slice(4,8)}{song.updated_at.slice(11,16)}</div> */}
                 <div key={index+"four"} className='songgridtitleone'>{getArtistName(playlist, artists)[index]}</div>
                 <div key={index+"five"} className='songgridclockone'>{convertDuration(song.duration)}</div>
                 </div>

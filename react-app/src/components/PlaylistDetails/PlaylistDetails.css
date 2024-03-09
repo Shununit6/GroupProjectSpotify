@@ -24,61 +24,63 @@
   border-radius: 6px;
 }
 
-#playlistsongimage{
-  height:51px;
-  width:51px;
-}
-
 .songgrid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  /* gap: 5px; */
-  grid-auto-rows: minmax(100px, auto);
+  grid-auto-rows: minmax(50px, auto);
 }
 .songgridindex {
   grid-column: 1 / 1;
   grid-row: 1;
+  color:grey;
 }
 .songgridtitle {
   grid-column: 2 / 2;
   grid-row: 1;
+  color:grey;
 }
 .songgridartist {
-  grid-column: 3 / 3;
+  grid-column: 2 / 2;
   grid-row: 1;
+  color:grey;
 }
 .songgridclock {
   grid-column: 4 / 4;
   grid-row: 1;
+  color:grey;
+  margin-bottom: 1.2rem;
 }
 
 .songgridone {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  /* gap: 5px; */
-  grid-auto-rows: minmax(100px, auto);
+  grid-auto-rows: minmax(50px, auto);
 }
 .songgridindexone {
   grid-column: 1 / 1;
   grid-row: 1;
+  color:grey;
 }
-.songgridimageone {
+
+.songgridtitleone {
   grid-column: 2 / 2;
   grid-row: 1;
-}
-.songgridtitleone {
-  grid-column: 3 / 3;
-  grid-row: 1;
+  color:grey;
 }
 .songgridone > p {
   grid-column: 3 / 3;
   grid-row: 1;
+  color:grey;
 }
-/* .songgridartist {
-  grid-column: 3 / 3;
-  grid-row: 1;
-} */
+
 .songgridclockone {
   grid-column: 4 / 4;
   grid-row: 1;
+  /* margin-left: 0.1rem; */
+  color:grey;
+}
+
+#faregularfaclock{
+  margin-left: 0.2rem;
+  margin-top: 0;
 }
