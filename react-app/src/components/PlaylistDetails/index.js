@@ -21,7 +21,7 @@ const PlaylistDetails = () => {
   const ulRef = useRef();
 
   useEffect(() => {
-    dispatch(fetchPlaylistById(playlistId)).then(()=>{dispatch(fetchAllArtists())}).then(() => setIsLoading(false));
+    dispatch(fetchAllArtists()).then(()=>{dispatch(fetchPlaylistById(playlistId))}).then(() => setIsLoading(false));
   }, [dispatch, playlistId]);
 
   const closeMenu = (e) => {
@@ -34,9 +34,14 @@ const PlaylistDetails = () => {
     history.push(`/playlists/${playlistId}/edit`);
   };
 
-  if (isLoading || !playlist) return <>Loading...</>;
+  if (isLoading || !playlist || !artists) return <>Loading...</>;
 
-  const { user_id, title, url, description, songs } = playlist;
+  const { user_id, title, url, description} = playlist;
+  console.log("playlist.songs", playlist.songs);
+
+  // playlist.songs.forEach((song) => {
+  //   return Object.values((Object.values(artists)[0])).filter(((artist)=>(artist.id==song.artist_id)))[0].name;
+  // })
 
   const ownsPlaylist = sessionUser && sessionUser.id === user_id;
 
@@ -50,6 +55,16 @@ const PlaylistDetails = () => {
     return newStr;
   };
   // const formattedDuration = convertDuration(duration);
+  const getArtistName = (playlist, artists) =>{
+    const arr = []
+    playlist.songs.forEach((song) => {
+      arr.push(Object.values((Object.values(artists)[0])).filter(((artist)=>(artist.id==song.artist_id)))[0].name);
+    })
+    return arr;
+    // arr.push()
+    // return Object.values((Object.values(artists)[0])).filter(((artist)=>(artist.id==song.artist_id)))[0].name;
+  };
+
   return (
     <>
     <div className='playlistDetailwrapper'>
@@ -62,26 +77,25 @@ const PlaylistDetails = () => {
         {description !== null && (
           <p className='description'>Description: {description}</p>
         )}
-        {songs && songs.length > 0 && (
-          <div>
-            <p className='songs'>Songs:</p>
-            <ul>
-              <div className='songgrid'>
-              <div className='songgridindex'>#</div>
-              <div className='songgridtitle'>Title</div>
-              <div className='songgridartist'>Artist</div>
-              <div className='songgridclock'><i className="fa-regular fa-clock"></i></div>
-              </div>
-              {/* <div> # Title Artist <i className="fa-regular fa-clock"></i> </div> */}
+        {/* <p>{getArtistName(playlist, artists)}</p> */}
 
-              {songs.map((song, index) => (
-                <div className='songgridone'>
-                <div className='songgridindexone'>{index+1}</div>
-                <div className='songgridimageone'><img id="playlistsongimage" src={song.url}></img>{song.title}</div>
-                <div className='songgridtitleone'>{song.title}</div>
-                <p>{(Object.values((Object.values(artists)[0])).filter(((artist)=>(artist.id==song.artist_id)))[0].name)}</p>
-                {/* {(Object.values((Object.values(artists)[0])).filter(((artist)=>(artist.id==song.artist_id)))[0].name)} */}
-                <div className='songgridclockone'>{convertDuration(song.duration)}</div>
+        {playlist.songs && playlist.songs.length > 0 && (
+          <div>
+            <p key={playlist.songs.id} className='songs'>Songs:</p>
+            <ul>
+              <div key={playlist.songs.id+"o"} className='songgrid'>
+              <div key={playlist.songs.id+"t"} className='songgridindex'>#</div>
+              <div key={playlist.songs.id+"th"} className='songgridtitle'>Title</div>
+              <div key={playlist.songs.id+"f"} className='songgridartist'>Artist</div>
+              <div key={playlist.songs.id+"fi"} className='songgridclock'><i className="fa-regular fa-clock"></i></div>
+              </div>
+
+              {playlist.songs.map((song, index) => (
+                <div key={index+"one"} className='songgridone'>
+                <div key={index+"two"} className='songgridindexone'>{index+1}</div>
+                <div key={index+"three"} className='songgridimageone'><img id="playlistsongimage" src={song.url}></img>{song.title}</div>
+                <div key={index+"four"} className='songgridtitleone'>{getArtistName(playlist, artists)[index]}</div>
+                <div key={index+"five"} className='songgridclockone'>{convertDuration(song.duration)}</div>
                 </div>
               ))}
             </ul>

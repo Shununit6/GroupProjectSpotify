@@ -69,7 +69,7 @@ const AlbumDetails = () => {
                 {songs.map((song, index) => (
                   <li key={index}>{song.title}</li>
                 ))}
-                <div> # Title Artist <i class="fa-regular fa-clock"></i> </div>
+                <div> # Title Artist <i className="fa-regular fa-clock"></i> </div>
 
                 {songs.map((song, index) => (
                   <div key={index}> {index+1} <img id="playlistsongimage" src={song.url}></img> {song.title}
