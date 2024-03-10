@@ -34,13 +34,13 @@
   grid-row: 1;
   color:grey;
 }
-.songgridtitle {
+.songgridartist {
   grid-column: 2 / 2;
   grid-row: 1;
   color:grey;
 }
-.songgridartist {
-  grid-column: 2 / 2;
+.songgridupdate {
+  grid-column: 3 / 3;
   grid-row: 1;
   color:grey;
 }
@@ -50,7 +50,6 @@
   color:grey;
   margin-bottom: 1.2rem;
 }
-
 .songgridone {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -62,17 +61,16 @@
   color:grey;
 }
 
-.songgridtitleone {
+.songgridartistone {
   grid-column: 2 / 2;
   grid-row: 1;
   color:grey;
 }
-.songgridone > p {
+.songgridupdateone {
   grid-column: 3 / 3;
   grid-row: 1;
   color:grey;
 }
-
 .songgridclockone {
   grid-column: 4 / 4;
   grid-row: 1;
