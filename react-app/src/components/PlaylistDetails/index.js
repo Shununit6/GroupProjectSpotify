@@ -78,15 +78,15 @@ const PlaylistDetails = () => {
               <div key={playlist.songs.id+"o"} className='songgrid'>
               <div key={playlist.songs.id+"t"} className='songgridindex'>#{" "}Title</div>
               <div key={playlist.songs.id+"th"} className='songgridartist'>Artist</div>
-              <div key={playlist.songs.id+"f"} className='songgridupdate'>Song Info Modified</div>
+              <div key={playlist.songs.id+"f"} className='songgridupdate'>Song Modified</div>
               <div key={playlist.songs.id+"fi"} className='songgridclock'><i id="faregularfaclock" className="fa-regular fa-clock"></i></div>
               </div>
-              {/* <img id="playlistsongimage" src={song.url}></img> */}
+
               {playlist.songs.map((song, index) => (
                 <div key={index+"one"} className='songgridone'>
-                <div key={index+"two"} className='songgridindexone'>{index+1}{". "}<Link id="songlinkwithtext" to={`/songs/${song.id}`}  key={`${song.id}`}>{song.title}</Link></div>
+                <div key={index+"two"} className='songgridindexone'>{index+1}{". "}<Link id="songlinkwithtext" to={`/songs/${song.id}`}  key={`${song.id}`}><img id="playlistsongimage" src={song.url}></img>{song.title}</Link></div>
                 <div key={index+"three"} className='songgridartistone'>{getArtistName(playlist, artists)[index]}</div>
-                <div key={index+"four"} className='songgridupdateone'>{song.updated_at.slice(7,12)}{song.updated_at.slice(4,8)}{song.updated_at.slice(11,16)}</div>
+                <div key={index+"four"} className='songgridupdateone'>{song.updated_at.slice(7,12)}{song.updated_at.slice(4,7)},{song.updated_at.slice(11,16)}</div>
                 <div key={index+"five"} className='songgridclockone'>{convertDuration(song.duration)}</div>
                 </div>
               ))}

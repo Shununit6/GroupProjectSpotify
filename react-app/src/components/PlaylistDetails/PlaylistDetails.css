@@ -65,20 +65,30 @@
   grid-column: 2 / 2;
   grid-row: 1;
   color:grey;
+  margin-top: 0.5rem;
 }
 .songgridupdateone {
   grid-column: 3 / 3;
   grid-row: 1;
   color:grey;
+  margin-top: 0.5rem;
 }
 .songgridclockone {
   grid-column: 4 / 4;
   grid-row: 1;
   /* margin-left: 0.1rem; */
   color:grey;
+  margin-top: 0.5rem;
 }
 
 #faregularfaclock{
   margin-left: 0.2rem;
   margin-top: 0;
+}
+
+#playlistsongimage{
+  width:1.5rem;
+  height:auto;
+  margin-left: 0.1rem;
+  border-radius: 3px;
 }
