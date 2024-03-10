@@ -1,6 +1,5 @@
-from app.models import db, Song, Album, album_songs, environment, SCHEMA
+from app.models import db, Song, Album, environment, SCHEMA
 from sqlalchemy.sql import text
-from sqlalchemy import insert
 
 
 # Adds a demo album_song, you can add other album_songs here if you want
@@ -24,7 +23,7 @@ def seed_album_songs():
     db.session.commit()
 
 
-# Uses a raw SQL query to TRUNCATE or DELETE the user_families table. SQLAlchemy doesn't
+# Uses a raw SQL query to TRUNCATE or DELETE the album_songs table. SQLAlchemy doesn't
 # have a built in function to do this. With postgres in production TRUNCATE
 # removes all the data from the table, and RESET IDENTITY resets the auto
 # incrementing primary key, CASCADE deletes any dependent entities.  With

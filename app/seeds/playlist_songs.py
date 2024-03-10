@@ -1,0 +1,38 @@
+from app.models import db, Song, Playlist, environment, SCHEMA
+from sqlalchemy.sql import text
+
+
+# Adds a demo playlist_song, you can add other playlist_songs here if you want
+def seed_playlist_songs():
+
+    songone = Song.query.get(1)
+    songtwo = Song.query.get(2)
+    songthree = Song.query.get(3)
+
+    playlistone = Playlist.query.get(1)
+    playlisttwo = Playlist.query.get(2)
+    playlistthree = Playlist.query.get(3)
+
+    playlistone.songs.append(songone)
+    playlisttwo.songs.append(songtwo)
+    playlistthree.songs.append(songthree)
+
+    db.session.add(playlistone)
+    db.session.add(playlisttwo)
+    db.session.add(playlistthree)
+    db.session.commit()
+
+
+# Uses a raw SQL query to TRUNCATE or DELETE the playlist_songs table. SQLAlchemy doesn't
+# have a built in function to do this. With postgres in production TRUNCATE
+# removes all the data from the table, and RESET IDENTITY resets the auto
+# incrementing primary key, CASCADE deletes any dependent entities.  With
+# sqlite3 in development you need to instead use DELETE to remove all data and
+# it will reset the primary keys for you as well.
+def undo_playlist_songs():
+    if environment == "production":
+        db.session.execute(f"TRUNCATE table {SCHEMA}.playlist_songs RESTART IDENTITY CASCADE;")
+    else:
+        db.session.execute(text("DELETE FROM playlist_songs"))
+
+    db.session.commit()
