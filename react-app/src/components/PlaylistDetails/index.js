@@ -73,7 +73,7 @@ const PlaylistDetails = () => {
 
         {playlist.songs && playlist.songs.length > 0 && (
           <div>
-            <p key={playlist.songs.id} className='songs'>Songs:</p>
+            <p className='songs'>Songs:</p>
             <ul>
               <div key={playlist.songs.id+"o"} className='songgrid'>
               <div key={playlist.songs.id+"t"} className='songgridindex'>#{" "}Title</div>

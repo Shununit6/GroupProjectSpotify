@@ -1,6 +1,6 @@
 import './AlbumDetails.css';
 import React, { useState, useEffect, useRef } from 'react';
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams, useHistory, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAlbumDetails } from '../../store/albums';
 import DeleteAlbumModal from '../DeleteAlbumModal';
@@ -23,10 +23,10 @@ const AlbumDetails = () => {
   const ulRef = useRef();
 
   useEffect(() => {
-    dispatch(getAlbumDetails(albumId)).then(()=>{dispatch(fetchAllArtists())}).then(() => setIsLoading(false));
+    dispatch(fetchAllArtists()).then(()=>{dispatch(getAlbumDetails(albumId))}).then(() => setIsLoading(false));
   }, [dispatch, albumId]);
-  if (isLoading || !album) return (<>Loading...</>);
-  const { user_id, title, url, release_date, songs, copyright } = album;
+  if (isLoading || !album || !artists) return (<>Loading...</>);
+  const { user_id, title, url, release_date, copyright } = album;
 
   const closeMenu = (e) => {
     if (!ulRef.current?.contains(e.target)) {
@@ -49,6 +49,15 @@ const AlbumDetails = () => {
     const newStr = `${min}:${sec}`;
     return newStr;
   };
+
+  const getArtistName = (album, artists) =>{
+    const arr = [];
+    album.songs.forEach((song) => {
+      arr.push(Object.values((Object.values(artists)[0])).filter(((artist)=>(artist.id==song.artist_id)))[0].name);
+    })
+    return arr;
+  };
+
   return (
     <>
       <div className='albumDetailwrapper'>
@@ -62,19 +71,24 @@ const AlbumDetails = () => {
           {copyright !== null && (
             <p className='copyright'>{copyright}</p>
           )}
-          {songs && songs.length > 0 && (
+          {album.songs && album.songs.length > 0 && (
             <div>
               <p className='songs'>Songs:</p>
               <ul>
-                {songs.map((song, index) => (
-                  <li key={index}>{song.title}</li>
-                ))}
-                <div> # Title Artist <i className="fa-regular fa-clock"></i> </div>
+                <div key={album.songs.id+"grid"} className='songgrid'>
+                <div key={album.songs.id+"index"} className='songgridindex'>#{" "}Title</div>
+                <div key={album.songs.id+"artist"} className='songgridartist'>Artist</div>
+                <div key={album.songs.id+"update"} className='songgridupdate'>Song Modified</div>
+                <div key={album.songs.id+"clock"} className='songgridclock'><i id="faregularfaclock" className="fa-regular fa-clock"></i></div>
+                </div>
 
-                {songs.map((song, index) => (
-                  <div key={index}> {index+1} <img id="playlistsongimage" src={song.url}></img> {song.title}
-                  {Object.values(Object.values(artists)[0]).filter((artist=>(artist.id==song.artist_id)))[0].name}
-                  {convertDuration(song.duration)}</div>
+                {album.songs.map((song, index) => (
+                  <div key={index+"gridone"} className='songgridone'>
+                  <div key={index+"indexone"} className='songgridindexone'>{index+1}{". "}<Link id="songlinkwithtext" to={`/songs/${song.id}`}  key={`${song.id}`}><img id="playlistsongimage" src={song.url}></img>{song.title}</Link></div>
+                  <div key={index+"artistone"} className='songgridartistone'>{getArtistName(album, artists)[index]}</div>
+                  <div key={index+"updateone"} className='songgridupdateone'>{song.updated_at.slice(7,12)}{song.updated_at.slice(4,7)},{song.updated_at.slice(11,16)}</div>
+                  <div key={index+"clockone"} className='songgridclockone'>{convertDuration(song.duration)}</div>
+                  </div>
                 ))}
               </ul>
             </div>

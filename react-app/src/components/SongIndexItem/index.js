@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import React  from 'react';
 
 const SongIndexItem = ({ song }) => {
-  console.log("Song in SongIndexItem:", song);
+  // console.log("Song in SongIndexItem:", song);
   // console.log("Title:", song.title);
   // console.log("User ID:", song.user_id);
   const sessionUser = useSelector(state => state.session.user);
