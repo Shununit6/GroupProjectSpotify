@@ -38,7 +38,6 @@ const AlbumForm = ({ album, formType }) => {
     let errorCount = validationErrors.title.length + validationErrors.release_date.length
     + validationErrors.url.length + validationErrors.copyright.length;
     if (errorCount > 0){
-      // console.log("has errors");
     }else{
         if (formType === 'Update Album') {
           if(sessionUser && albumuserId !== sessionUser.id){
@@ -50,7 +49,6 @@ const AlbumForm = ({ album, formType }) => {
           newAlbum = await dispatch(createAlbum(album));
         }
         if (newAlbum.id) {
-          // console.log("newAlbum.id", newAlbum.id);
           history.push(`/albums/${newAlbum.id}`);
         } else {
             const { validationErrors } = await newAlbum.json();

@@ -9,7 +9,6 @@ function Albums({num}) {
     const dispatch = useDispatch();
     const [isLoaded, setIsLoaded] = useState(false);
     const albums = useSelector((state) => state.albumsReducer);
-    // console.log("this is albums:", albums)
     useEffect(()=>{
       dispatch(getAllAlbums()).then(()=>setIsLoaded(true))
     }, [dispatch]);

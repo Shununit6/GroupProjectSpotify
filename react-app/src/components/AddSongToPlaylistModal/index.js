@@ -10,8 +10,6 @@ const AddSongToPlaylistModal = ({ song }) => {
     const dispatch = useDispatch();
     const history = useHistory();
     const playlists = useSelector(state => Object.values(state.playlistsReducer.playlists.playlists || {}));
-    // const playlists = useSelector(state => state.playlistsReducer);
-    // console.log('playlists', playlists);
     const sessionUser = useSelector(state => state.session.user);
     const [isLoading, setIsLoading] = useState(true);
     const [errors, setErrors] = useState({});

@@ -17,7 +17,6 @@ const SongForm = ({ song, formType }) => {
   const [duration, setDuration] = useState(song?.duration || '');
   const [release_date, setReleaseDate] = useState(song?.release_date || '');
   const [song_file, setSongFile] = useState(song?.song_file);
-  console.log("This is song_file:", song_file)
   const [songLoading, setSongLoading] = useState(false);
   const [errors, setErrors] = useState({});
   const formTitle = formType === 'Create Song' ? 'Create a New Song' : 'Update Your Song';
@@ -60,7 +59,6 @@ const SongForm = ({ song, formType }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // console.log("Song prop in SongForm:", song);
     setErrors({});
     const isFormValid = validateForm();
     if (isFormValid) {
@@ -72,7 +70,6 @@ const SongForm = ({ song, formType }) => {
     formData.append("url", url);
     formData.append("duration", duration);
     formData.append("release_date", release_date);
-    console.log("This is formdata after appending everything", formData)
     setSongLoading(true);
       try {
         if (formType === 'Update Song') {

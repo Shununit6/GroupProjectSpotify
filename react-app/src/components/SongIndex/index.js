@@ -8,7 +8,6 @@ import MenuLibrary from '../MenuLibrary';
 const SongIndex = ({num}) => {
   const dispatch = useDispatch();
   const songs = useSelector(state => state.songsReducer?.songs);
-  // console.log("This is songs:", songs);
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     dispatch(getAllSongs()).then(() => setIsLoading(false));
