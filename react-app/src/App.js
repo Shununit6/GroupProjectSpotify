@@ -21,6 +21,7 @@ import PlaylistDetails from './components/PlaylistDetails';
 import Home from './components/Home';
 import UpdatePlaylist from "./components/UpdatePlaylist";
 import CreatePlaylist from "./components/CreatePlaylist";
+import AboutUsPage from "./components/AboutUsPage";
 // import LikeSong from "./components/LikeSong";
 
 function App() {
@@ -63,6 +64,7 @@ function App() {
           <Route exact path="/playlists" component={PlaylistIndex}/>
           {/* <Route path="/login" ><LoginFormPage /></Route>
           <Route path="/signup"><SignupFormPage /></Route> */}
+          <Route exact path='/about' component={AboutUsPage}/>
         </Switch>
       )}
     </>

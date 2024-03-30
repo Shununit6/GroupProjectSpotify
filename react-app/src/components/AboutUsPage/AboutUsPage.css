@@ -1,0 +1,71 @@
+.about-us {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.programmers {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 30px;
+}
+
+.programmer {
+  position: relative;
+  width: 200px;
+  margin-bottom: 30px;
+}
+
+.programmer img {
+  width: 100%;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.programmer:hover .bio {
+  opacity: 1;
+  visibility: visible;
+}
+
+.programmer img:hover {
+  transform: scale(1.1);
+}
+
+.bio {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  border-radius: 10px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.bio h2 {
+  margin-top: 0;
+}
+
+.bio p {
+  display: none;
+}
+
+.programmer:hover .bio p {
+  display: block;
+}
+
+.bio a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.bio a:hover {
+  text-decoration: underline;
+}
+
+h1 {
+  color: #fff; 
+}
