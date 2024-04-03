@@ -1,99 +1,117 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { signUp } from "../../store/session";
 import "./SignupForm.css";
 
 function SignupFormModal() {
-	const dispatch = useDispatch();
-	const [email, setEmail] = useState("");
-	const [username, setUsername] = useState("");
-	const [password, setPassword] = useState("");
-	const [confirmPassword, setConfirmPassword] = useState("");
-	const [errors, setErrors] = useState([]);
-	const { closeModal } = useModal();
+    const dispatch = useDispatch();
+    const [email, setEmail] = useState("");
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
+    const [errors, setErrors] = useState({});
+    const [submitting, setSubmitting] = useState(false);
+    const { closeModal } = useModal();
 
-	const handleSubmit = async (e) => {
-		e.preventDefault();
-		if (password === confirmPassword) {
-			const data = await dispatch(signUp(username, email, password));
-			if (data) {
-				setErrors(data);
-			} else {
-				closeModal();
-			}
-		} else {
-			setErrors([
-				"Confirm Password field must be the same as the Password field",
-			]);
-		}
-	};
+    useEffect(() => {
+        if (submitting) {
+            const emailValid = email.length >= 4 && validateEmail(email);
+            const usernameValid = username.length >= 4;
+            const passwordValid = password.length >= 6;
+            const confirmPasswordValid = confirmPassword === password;
+            setErrors({
+                email: emailValid ? null : "Email must have at least 4 characters and be valid",
+                username: usernameValid ? null : "Username must have at least 4 characters",
+                password: passwordValid ? null : "Password must have at least 6 characters",
+                confirmPassword: confirmPasswordValid ? null : "Confirm Password must match Password",
+            });
+        }
+    }, [email, username, password, confirmPassword, submitting]);
 
-	let disabled = true;
-    if(email.length > 0 && confirmPassword.length > 0 && username.length >=4 && password.length >= 6){
-            disabled = false;
-    }
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setSubmitting(true);
+        if (email.length >= 4 && username.length >= 4 && password.length >= 6 && confirmPassword === password) {
+            const data = await dispatch(signUp(username, email, password));
+            if (data) {
+                setErrors(data);
+            } else {
+                closeModal();
+            }
+        }
+    };
 
-	return (
-		<>
-		<div id="signupmodal">
-			<h1>Sign Up</h1>
-			<form id="signupform" onSubmit={handleSubmit}>
-				<ul>
-					{errors.map((error, idx) => (
-						<li key={idx}>{error}</li>
-					))}
-				</ul>
-				<label>
-					Email <br></br>
-					<input
-						className="signupinput"
-						type="text"
-						value={email}
-						onChange={(e) => setEmail(e.target.value)}
-						minLength={4}
-						required
-					/>
-				</label>
-				{(email.length<4) && <p>Email has at least 4 characters</p>}
-				<label>
-					Username <br></br>
-					<input
-						className="signupinput"
-						type="text"
-						value={username}
-						onChange={(e) => setUsername(e.target.value)}
-						required
-					/>
-				</label>
-				<label>
-					Password <br></br>
-					<input
-						className="signupinput"
-						type="password"
-						value={password}
-						onChange={(e) => setPassword(e.target.value)}
-						minLength = {6}
-						required
-					/>
-				</label>
-				{(password.length<6) && <p>Password has at least 6 characters</p>}
-				<label>
-					Confirm Password
-					<input
-						className="signupinput"
-						type="password"
-						value={confirmPassword}
-						onChange={(e) => setConfirmPassword(e.target.value)}
-						required
-					/>
-				</label>
-                {disabled && <button id="disabledsignup">Sign Up</button>}
-                {!disabled && <button id="regularsignup" type="submit">Sign Up</button>}
-			</form>
-			</div>
-		</>
-	);
+    const validateEmail = (email) => {
+        const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return regex.test(email);
+    };
+
+    const isDisabled = submitting || !!(errors.email || errors.username || errors.password || errors.confirmPassword);
+
+    return (
+        <>
+            <div id="signupmodal">
+                <h1>Sign Up</h1>
+                <form id="signupform" onSubmit={handleSubmit}>
+                    <div className="input-group">
+                        <label htmlFor="email">Email</label>
+                        <input
+                            id="email"
+                            className="signupinput"
+                            type="text"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            minLength={4}
+                            required
+                        />
+                        {errors.email && <p className="input-error">{errors.email}</p>}
+                    </div>
+                    <div className="input-group">
+                        <label htmlFor="username">Username</label>
+                        <input
+                            id="username"
+                            className="signupinput"
+                            type="text"
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
+                            minLength={4}
+                            required
+                        />
+                        {errors.username && <p className="input-error">{errors.username}</p>}
+                    </div>
+                    <div className="input-group">
+                        <label htmlFor="password">Password</label>
+                        <input
+                            id="password"
+                            className="signupinput"
+                            type="password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            minLength={6}
+                            required
+                        />
+                        {errors.password && <p className="input-error">{errors.password}</p>}
+                    </div>
+                    <div className="input-group">
+                        <label htmlFor="confirmPassword">Confirm Password</label>
+                        <input
+                            id="confirmPassword"
+                            className="signupinput"
+                            type="password"
+                            value={confirmPassword}
+                            onChange={(e) => setConfirmPassword(e.target.value)}
+                            required
+                        />
+                        {errors.confirmPassword && <p className="input-error">{errors.confirmPassword}</p>}
+                    </div>
+                    <button id="signupsubmitbutton" type="submit" disabled={isDisabled}>
+                        Sign Up
+                    </button>
+                </form>
+            </div>
+        </>
+    );
 }
 
 export default SignupFormModal;

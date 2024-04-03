@@ -1,7 +1,6 @@
-#signupform {
+#signupmodal {
   display: grid;
-  width:300px;
-  grid-gap: 1em;
+  width: 300px;
   justify-content: center;
   font-family: Georgia, serif, cursive;
 }
@@ -10,23 +9,44 @@
   text-align: center;
 }
 
+#signupform {
+  display: grid;
+  grid-gap: 15px;
+  justify-content: center;
+}
+
 .signupinput {
   width: 260px;
   padding: 6px 6px;
-  display: inline-block;
 }
 
-#disabledsignup {
-  font-size: 1em;
-  padding: 6px 6px;
-  color:white;
-  background-color: darkgray;
+.input-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-#regularsignup {
+.input-group label {
+  margin-bottom: 5px;
+}
+
+.input-error {
+  color: red;
+}
+
+#signupsubmitbutton {
+  width: 260px;
   font-size: 1em;
   padding: 6px 6px;
-  color:white;
+  color: white;
   background-color: red;
+  border: 1px solid red;
   cursor: pointer;
+  margin: 0 auto;
+}
+
+#signupsubmitbutton:disabled {
+  background-color: darkgray;
+  border: 1px solid darkgray;
+  cursor: not-allowed;
 }

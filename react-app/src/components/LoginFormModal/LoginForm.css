@@ -23,7 +23,7 @@
 
 #loginsubmitbutton,
 #logindemobutton {
-  width: 400px;
+  width: 300px;
   margin: 0 auto;
   cursor: pointer;
   padding: 8px 6px;
@@ -31,7 +31,7 @@
 }
 
 #loginsubmitbutton:disabled {
-  background-color: gray; 
+  background-color: gray;
   border: 1px solid gray;
 }
 
