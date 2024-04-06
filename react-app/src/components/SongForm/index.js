@@ -140,7 +140,7 @@ const SongForm = ({ song, formType }) => {
             </label>
             <label>
               Release Date<br />
-              <input type="text" value={release_date} placeholder="Release Date" onChange={(e) => setReleaseDate(e.target.value)} /><br />
+              <input type="date" value={release_date} placeholder="Release Date" onChange={(e) => setReleaseDate(e.target.value)} /><br />
             </label>
             <label>
               Upload Song File<br />
