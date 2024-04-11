@@ -17,18 +17,18 @@ const PlaylistDetails = () => {
   const playlist = useSelector(state => state.playlistsReducer.currentPlaylist);
   const artists = useSelector(state => state.artistsReducer);
   const [isLoading, setIsLoading] = useState(true);
-  // const [showMenu, setShowMenu] = useState(false);
-  // const ulRef = useRef();
+  const [showMenu, setShowMenu] = useState(false);
+  const ulRef = useRef();
 
   useEffect(() => {
     dispatch(fetchAllArtists()).then(()=>{dispatch(fetchPlaylistById(playlistId))}).then(() => setIsLoading(false));
   }, [dispatch, playlistId]);
 
-  // const closeMenu = (e) => {
-  //   if (!ulRef.current?.contains(e.target)) {
-  //     setShowMenu(false);
-  //   }
-  // };
+  const closeMenu = (e) => {
+    if (!ulRef.current?.contains(e.target)) {
+      setShowMenu(false);
+    }
+  };
   const handleEditClick = () => {
     // Navigate to the edit page for the current playlist
     history.push(`/playlists/${playlistId}/edit`);
@@ -94,17 +94,17 @@ const PlaylistDetails = () => {
           </div>
         )}
 
-      {/* {ownsPlaylist && (
-        <button>
+      {ownsPlaylist && (
+        <button className="button">
           <OpenModalMenuItem
             itemText="Delete"
             onItemClick={closeMenu}
             modalComponent={<DeletePlaylistModal playlist={playlist} />}
           />
         </button>
-      )} */}
+      )}
       {ownsPlaylist &&(
-      <button onClick={handleEditClick}>Edit</button>
+      <button className="button" onClick={handleEditClick}>Edit</button>
       )}
       </div>
       </div>

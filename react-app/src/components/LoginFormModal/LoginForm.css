@@ -8,12 +8,13 @@
 
 #loginmodal > h1 {
   text-align: center;
-  color: black;
+  color: white;
 }
 
 #loginmodal {
-  background-color: green;
+  background-color: rgb(21,21,21);
   border-radius: 10px;
+  color: white;
 }
 
 .loginput {
@@ -31,7 +32,7 @@
 }
 
 #loginsubmitbutton:disabled {
-  background-color: gray;
+  background-color: rgb(21,21,21);
   border: 1px solid gray;
 }
 
@@ -51,7 +52,7 @@
 }
 
 #modal-content {
-  background-color: green;
+  background-color: rgb(21,21,21);
 }
 
 .input-group {
