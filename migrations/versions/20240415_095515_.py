@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 30df32002b3e
+Revision ID: 6ee4d14a6f74
 Revises: 
-Create Date: 2024-04-15 09:23:20.941829
+Create Date: 2024-04-15 09:55:15.153750
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '30df32002b3e'
+revision = '6ee4d14a6f74'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -29,7 +29,7 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('firstname', sa.String(length=40), nullable=True),
     sa.Column('lastname', sa.String(length=40), nullable=True),
-    sa.Column('url', sa.String(length=255), nullable=False),
+    sa.Column('url', sa.String(length=2000), nullable=False),
     sa.Column('username', sa.String(length=40), nullable=False),
     sa.Column('email', sa.String(length=255), nullable=False),
     sa.Column('hashed_password', sa.String(length=255), nullable=False),
@@ -67,8 +67,8 @@ def upgrade():
     sa.Column('user_id', sa.Integer(), nullable=False),
     sa.Column('artist_id', sa.Integer(), nullable=False),
     sa.Column('title', sa.String(length=255), nullable=False),
-    sa.Column('lyrics', sa.String(length=2000), nullable=False),
-    sa.Column('url', sa.String(length=255), nullable=False),
+    sa.Column('lyrics', sa.String(length=20000), nullable=False),
+    sa.Column('url', sa.String(length=2000), nullable=False),
     sa.Column('song_file', sa.String(length=2000), nullable=False),
     sa.Column('duration', sa.Integer(), nullable=False),
     sa.Column('release_date', sa.String(length=255), nullable=False),
