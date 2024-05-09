@@ -23,7 +23,7 @@ const programmers = [
     name: 'Tiffany Liu',
     bio: 'Tiffany is a Senior Electrical Engineer (PE) at HDR',
     linkedin: 'https://www.linkedin.com/in/tiffanyliu2008/',
-    imageUrl: 'https://media.licdn.com/dms/image/C5603AQGnd_VL01tBLQ/profile-displayphoto-shrink_200_200/0/1642576210337?e=1717027200&v=beta&t=cHhZCNmWhukoTAB5ckhfx0Ieh209Wiqr7nQQUmwat4o'
+    imageUrl: 'https://avatars.githubusercontent.com/u/126553760?v=4'
   }
 ];
 
