@@ -1,7 +1,13 @@
-/* .openModalButton{
+.openModalButton{
     color:black;
     background-color: white;
     border-radius: 60px;
+    padding: 3px;
     margin-left: 27px;
     margin-top: 1.5vh;
-} */
+    font-family: "Arial";
+    font-weight: normal;
+    font-size: 13.3333px;
+    line-height: 1;
+    cursor: pointer;
+}

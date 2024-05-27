@@ -35,6 +35,7 @@ button{
     border-radius: 60px;
     margin-left: 27px;
     margin-top: 1.5vh;
+    cursor: pointer;
 }
 
 #fa-houseicon,.fa-brands, #homemenulibrary{

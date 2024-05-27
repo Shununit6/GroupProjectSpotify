@@ -16,12 +16,12 @@ const programmers = [
     name: 'Devin Richards',
     bio: 'Devin is a Full Stack Developer',
     linkedin: 'https://www.linkedin.com/in/devin-richards-74ba3222a/',
-    imageUrl: 'https://media.licdn.com/dms/image/D4E35AQHcwj3hMNsaVA/profile-framedphoto-shrink_200_200/0/1676350517008?e=1712430000&v=beta&t=ej5L6d4RrLOv4BNz3EUvc8atBuiLj4r69zEVDNZ2Yjg'
+    imageUrl: 'https://avatars.githubusercontent.com/u/116513656?v=4'
   },
   {
     id: 3,
     name: 'Tiffany Liu',
-    bio: 'Tiffany is a Senior Electrical Engineer (PE) at HDR',
+    bio: 'Tiffany is a Software Engineer',
     linkedin: 'https://www.linkedin.com/in/tiffanyliu2008/',
     imageUrl: 'https://avatars.githubusercontent.com/u/126553760?v=4'
   }
