@@ -45,30 +45,31 @@ function MenuLibrary({ isLoaded }) {
 				<div className="leftmenulibrarycreate">
 					<div className="leftmenulibrarycreate-1">
 						<div id="leftmenulibrarytext1">Let's dive into music</div>
-						<NavLink to="/songs"><button>View all the songs</button></NavLink>
-						<NavLink to="/playlists"><button>View all the playlists</button></NavLink>
-						<NavLink to="/albums"><button>View all the albums</button></NavLink>
+						<NavLink className="leftmenulibrarybutton" to="/songs"><button>View all the songs</button></NavLink>
+						<NavLink className="leftmenulibrarybutton" to="/playlists"><button>View all the playlists</button></NavLink>
+						<NavLink className="leftmenulibrarybutton" to="/albums"><button>View all the albums</button></NavLink>
 					</div>
 					{sessionUser &&
 						<div className="leftmenulibrarycreate-2">
 							<div id="leftmenulibrarytext2">Create a new album here. It's easy, we'll help you</div>
-							<NavLink to="/albums/new"><button>Create Album</button></NavLink>
+							<NavLink className="leftmenulibrarybutton" to="/albums/new"><button>Create Album</button></NavLink>
 						</div>
 					}
 					{sessionUser &&
 						<div className="leftmenulibrarycreate-4">
 							<div id="leftmenulibrarytext4">Create a new playlist here. It's easy, we'll help you</div>
-							<NavLink to="/playlists/new"><button>Create Playlist</button></NavLink>
+							<NavLink className="leftmenulibrarybutton" to="/playlists/new"><button>Create Playlist</button></NavLink>
 						</div>
 					}
 					{sessionUser &&
 						<div className="leftmenulibrarycreate-3">
 							<div id="leftmenulibrarytext3">Create a new song here. It's easy, we'll help you</div>
-							<NavLink to="/songs/new"><button>Create Song</button></NavLink>
+							<NavLink className="leftmenulibrarybutton" to="/songs/new"><button>Create Song</button></NavLink>
 						</div>
 					}
-					<div>
-						<NavLink to="/about"><button>About Us</button></NavLink>
+					<div className="leftmenulibrarycreate-5">
+						<div id="leftmenulibrarytext5">Get to know this website's developers here.</div>
+						<NavLink className="leftmenulibrarybutton" to="/about"><button>About Us</button></NavLink>
 					</div>
 				</div>
 			</div>

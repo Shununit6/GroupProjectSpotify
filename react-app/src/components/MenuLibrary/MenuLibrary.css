@@ -47,13 +47,15 @@ button{
     margin-right: 15px;
 }
 
-.leftmenulibrarycreate-1,.leftmenulibrarycreate-2,.leftmenulibrarycreate-3, .leftmenulibrarycreate-4{
+.leftmenulibrarycreate-1,.leftmenulibrarycreate-2,.leftmenulibrarycreate-3, .leftmenulibrarycreate-4, .leftmenulibrarycreate-5{
     background-color: #212121;
     border-radius: 6px;
     margin: 3vh 0.5vw;
+    padding-bottom: 12px;
 }
 
-#leftmenulibrarytext1,#leftmenulibrarytext2,#leftmenulibrarytext3, #leftmenulibrarytext4{
+#leftmenulibrarytext1,#leftmenulibrarytext2,#leftmenulibrarytext3, #leftmenulibrarytext4, #leftmenulibrarytext5{
     margin-left: 27px;
     margin-top: 27px;
+    padding-top: 12px;
 }
