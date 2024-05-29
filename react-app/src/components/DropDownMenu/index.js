@@ -37,7 +37,7 @@ const DropDownMenu = ({ yourSongObject, checkUserVSOwner, handleEditClick }) => 
           <button onClick={() => handleAddComponent(<RemoveSongFromPlaylistModal song={yourSongObject} />)}>Remove Song from Playlist</button>
           <button onClick={() => handleAddComponent(<DeleteSongModal song={yourSongObject} />)}>Delete Song</button>
           {checkUserVSOwner && (
-            <button className="songbuttons" onClick={handleEditClick}><p>Edit Song</p></button>
+            <button onClick={handleEditClick}>Edit Song</button>
           )}
         </div>
       )}
