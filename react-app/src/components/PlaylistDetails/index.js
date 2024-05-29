@@ -4,7 +4,7 @@ import { useParams, useHistory, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchPlaylistById } from '../../store/playlists';
 import DeletePlaylistModal from '../DeletePlaylistModal';
-import OpenModalMenuItem from '../Navigation/OpenModalMenuItem';
+import DeleteModalMenuItem from '../Navigation/DeleteModalMenuItem';
 import MenuLibrary from '../MenuLibrary';
 import { fetchAllArtists } from '../../store/artists';
 
@@ -96,7 +96,7 @@ const PlaylistDetails = () => {
 
       {ownsPlaylist && (
         <button className="button">
-          <OpenModalMenuItem
+          <DeleteModalMenuItem
             itemText="Delete"
             onItemClick={closeMenu}
             modalComponent={<DeletePlaylistModal playlist={playlist} />}

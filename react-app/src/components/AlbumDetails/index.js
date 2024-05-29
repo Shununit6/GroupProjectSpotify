@@ -4,7 +4,7 @@ import { useParams, useHistory, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAlbumDetails } from '../../store/albums';
 import DeleteAlbumModal from '../DeleteAlbumModal';
-import OpenModalMenuItem from '../Navigation/OpenModalMenuItem';
+import DeleteModalMenuItem from '../Navigation/DeleteModalMenuItem';
 import MenuLibrary from '../MenuLibrary';
 import { fetchAllArtists } from '../../store/artists';
 
@@ -92,7 +92,7 @@ const AlbumDetails = () => {
           )}
           {ownsAlbum && (
             <button>
-              <OpenModalMenuItem
+              <DeleteModalMenuItem
                 itemText="Delete"
                 onItemClick={closeMenu}
                 modalComponent={<DeleteAlbumModal album={album} />}
