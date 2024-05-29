@@ -2,12 +2,12 @@
     color:black;
     background-color: white;
     border-radius: 60px;
-    padding: 3px;
+    padding: 18px 36px;
     margin-left: 27px;
     margin-top: 1.5vh;
     font-family: "Arial";
-    font-weight: normal;
-    font-size: 13.3333px;
+    font-weight: bold;
+    font-size: 0.9rem;
     line-height: 1;
     cursor: pointer;
 }
