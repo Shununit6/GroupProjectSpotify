@@ -9,7 +9,7 @@ const programmers = [
     name: 'Shun Xu',
     bio: 'Shun is a Software Engineer',
     linkedin: 'https://www.linkedin.com/in/shun-xu-a0895918b/',
-    imageUrl: 'https://media.licdn.com/dms/image/D5603AQF7GKevJBFihA/profile-displayphoto-shrink_200_200/0/1668450099793?e=1717027200&v=beta&t=iSfZVSEEYr-_vZiz6J1IVBPGnjPIDXvzg3bQBSzSTBk' // Add path to the image file
+    imageUrl: 'https://avatars.githubusercontent.com/u/29720392?v=4' // Add path to the image file
   },
   {
     id: 2,

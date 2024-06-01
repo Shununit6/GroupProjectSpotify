@@ -97,7 +97,7 @@ const AlbumForm = ({ album, formType }) => {
             </label>
             <label>
               Release Date<br />
-              <input type="text" value={release_date} placeholder="Release Date" onChange={(e) => setReleaseDate(e.target.value)} /><br />
+              <input type="date" value={release_date} placeholder="Release Date" onChange={(e) => setReleaseDate(e.target.value)} /><br />
               {hasSubmitted && validationErrors.release_date.length > 0
                             && validationErrors.release_date.map((error, idx) => (
                               <div key={idx}>
