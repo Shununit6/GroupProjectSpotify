@@ -3,16 +3,21 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { deletePlaylistThunk } from '../../store/playlists';
+import { useHistory } from 'react-router-dom';
 
 const DeletePlaylistModal = ({playlist}) => {
     const playlistId = playlist.id;
     const dispatch = useDispatch();
     const [errors, setErrors] = useState({});
     const {closeModal} = useModal();
+    const history = useHistory();
+
     const handleDelete = async (e) => {
         e.preventDefault();
         dispatch(deletePlaylistThunk(playlistId))
-        .then(closeModal)
+        .then(() => closeModal())
+        .then(() => history.push('/playlists'))
+        // .then(closeModal)
         .catch(async (res) => {
             const data = await res.json();
             if (data && data.errors) {

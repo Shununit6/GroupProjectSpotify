@@ -20,7 +20,6 @@ const DeleteAlbumModal = ({album}) => {
             await history.push('/albums');
         } catch (error) {
             console.error('Error deleting album:', error);
-
             try {
                 const data = await error.json();
                 if (data && data.errors) {
