@@ -35,6 +35,7 @@ function App() {
     <>
       <Navigation isLoaded={isLoaded} />
       {isLoaded && (
+        //add music play func component
         <Switch>
           <Route exact={true} path="/">
             <Home />
