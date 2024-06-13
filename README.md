@@ -28,7 +28,7 @@ Spotify Clone, a Spotify clone, is a website for users to share brief thoughts, 
 
 ## Likes
 
-* Users should be able to view the likes on a song.
+* Users should be able to view the likes of a song.
 * Users should be able to like a song.
 * Users should be able to unlike a song.
 
